@@ -1,5 +1,6 @@
-let timeLeft = 25 * 60; // 1 minute for testing 
-// default will be  25 minutes
+let focusTime = 25 * 60; // Default 25 minutes
+let breakTime = 5 * 60; // Default 5 minutes
+let timeLeft = focusTime;
 let timer;
 let running = false;
 
@@ -7,6 +8,28 @@ function updateDisplay() {
     let minutes = Math.floor(timeLeft / 60);
     let seconds = timeLeft % 60;
     document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+function setCustomTime() {
+    const focusInput = document.getElementById("focusTime").value;
+    const breakInput = document.getElementById("breakTime").value;
+    
+    if (!focusInput || !breakInput || isNaN(focusInput) || isNaN(breakInput)) {
+        alert("Please enter valid numbers for both focus and break time");
+        return;
+    }
+    
+    const newFocusTime = parseInt(focusInput);
+    const newBreakTime = parseInt(breakInput);
+    
+    if (newFocusTime < 1 || newBreakTime < 1 || newFocusTime > 120 || newBreakTime > 60) {
+        alert("Focus time should be between 1-120 minutes and break time between 1-60 minutes");
+        return;
+    }
+    
+    focusTime = newFocusTime * 60;
+    breakTime = newBreakTime * 60;
+    resetTimer();
 }
 
 function startTimer() {
@@ -37,7 +60,7 @@ function pauseTimer() {
 function resetTimer() {
     clearInterval(timer);
     running = false;
-    timeLeft = 25 * 60;
+    timeLeft = focusTime;
     updateDisplay();
     document.getElementById('notification').style.display = 'none';
 }
