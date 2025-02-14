@@ -1,5 +1,6 @@
-let timeLeft = 25 * 60; // 1 minute for testing 
-// default will be  25 minutes
+let focusTime = 25 * 60; // Default 25 minutes
+let breakTime = 5 * 60; // Default 5 minutes
+let timeLeft = focusTime;
 let timer;
 let running = false;
 
@@ -7,6 +8,12 @@ function updateDisplay() {
     let minutes = Math.floor(timeLeft / 60);
     let seconds = timeLeft % 60;
     document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+}
+
+function setCustomTime() {
+    focusTime = parseInt(document.getElementById("focusTime").value) * 60;
+    breakTime = parseInt(document.getElementById("breakTime").value) * 60;
+    resetTimer();
 }
 
 function startTimer() {
@@ -37,7 +44,7 @@ function pauseTimer() {
 function resetTimer() {
     clearInterval(timer);
     running = false;
-    timeLeft = 25 * 60;
+    timeLeft = focusTime;
     updateDisplay();
     document.getElementById('notification').style.display = 'none';
 }

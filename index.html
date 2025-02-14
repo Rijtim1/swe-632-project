@@ -9,6 +9,13 @@
 </head>
 <body>
     <h1>Pomodoro Timer</h1>
+    <div class="time-settings">
+    <label for="focusTime">Focus Time (minutes):</label>
+    <input type="number" id="focusTime" value="25" min="1">
+    <label for="breakTime">Break Time (minutes):</label>
+    <input type="number" id="breakTime" value="5" min="1">
+    <button onclick="setCustomTime()">Set Time</button>
+</div>
     <div id="timer">25:00</div>
     <button onclick="startTimer()">Start</button>
     <button onclick="pauseTimer()">Pause</button>
