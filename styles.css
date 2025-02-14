@@ -1,15 +1,22 @@
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 50px;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  margin: 50px;
 }
 #timer {
-    font-size: 48px;
-    margin: 20px;
+  font-size: 48px;
+  margin: 20px;
 }
 button {
-    font-size: 18px;
-    padding: 10px 20px;
-    margin: 10px;
-    cursor: pointer;
+  font-size: 18px;
+  padding: 10px 20px;
+  margin: 10px;
+  cursor: pointer;
+}
+#notification {
+  margin-top: 20px;
+  font-size: 24px;
+  color: red;
+  font-weight: bold;
+  display: none;
 }
