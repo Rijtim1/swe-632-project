@@ -1,33 +1,123 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro Timer</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <h1>Pomodoro Timer</h1>
-    <div class="time-settings">
-        <div class="input-group">
-            <label for="focusTime">Focus Time (minutes):</label>
-            <input type="number" id="focusTime" value="25" min="1" max="120" aria-label="Focus time in minutes">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="w3-container">
+      <h1 class="w3-center w3-text-white">Pomodoro Timer</h1>
+      <div class="w3-card w3-padding w3-center">
+        <div class="w3-section">
+          <label class="w3-text-black"
+            >Focus Time: <span id="focusTimeDisplay">25</span> min</label
+          >
+          <input
+            type="range"
+            id="focusTime"
+            class="w3-input w3-border"
+            min="1"
+            max="120"
+            value="25"
+            oninput="updateTimeDisplay('focus')"
+          />
+          <button
+            class="w3-button w3-small w3-gray"
+            onclick="adjustTime('focus', -5)"
+            title="Decrease focus time by 5 minutes"
+          >
+            -
+          </button>
+          <button
+            class="w3-button w3-small w3-gray"
+            onclick="adjustTime('focus', 5)"
+            title="Increase focus time by 5 minutes"
+          >
+            +
+          </button>
         </div>
-        <div class="input-group">
-            <label for="breakTime">Break Time (minutes):</label>
-            <input type="number" id="breakTime" value="5" min="1" max="60" aria-label="Break time in minutes">
+
+        <div class="w3-section">
+          <label class="w3-text-black"
+            >Break Time: <span id="breakTimeDisplay">5</span> min</label
+          >
+          <input
+            type="range"
+            id="breakTime"
+            class="w3-input w3-border"
+            min="1"
+            max="60"
+            value="5"
+            oninput="updateTimeDisplay('break')"
+            title="Adjust break time"
+          />
+          <button
+            class="w3-button w3-small w3-gray"
+            onclick="adjustTime('break', -1)"
+            title="Decrease break time by 1 minute"
+          >
+            -
+          </button>
+          <button
+            class="w3-button w3-small w3-gray"
+            onclick="adjustTime('break', 1)"
+            title="Increase break time by 1 minute"
+          >
+            +
+          </button>
         </div>
-        <button onclick="setCustomTime()" aria-label="Apply custom time settings">Set Time</button>
+
+        <div class="w3-section">
+          <button
+            class="w3-button w3-light-gray"
+            onclick="setPreset(25, 5)"
+            title="Set timer to 25 min focus / 5 min break"
+          >
+            25/5
+          </button>
+          <button
+            class="w3-button w3-light-gray"
+            onclick="setPreset(50, 10)"
+            title="Set timer to 50 min focus / 10 min break"
+          >
+            50/10
+          </button>
+          <button
+            class="w3-button w3-light-gray"
+            onclick="setPreset(90, 15)"
+            title="Set timer to 90 min focus / 15 min break"
+          >
+            90/15
+          </button>
+        </div>
+
+        <div id="timer">25:00</div>
+        <button
+          id="startPauseButton"
+          onclick="toggleTimer()"
+          class="w3-button w3-green w3-margin"
+          title="Start or Pause the timer"
+        >
+          Start
+        </button>
+        <button
+          onclick="resetTimer()"
+          class="w3-button w3-gray w3-margin"
+          title="Reset the timer to initial settings"
+        >
+          Reset
+        </button>
+        <div
+          id="notification"
+          class="w3-padding w3-round w3-red w3-text-white w3-margin"
+        >
+          Time's Up! Take a break!
+        </div>
+      </div>
     </div>
-    <div id="timer">25:00</div>
-    <button onclick="startTimer()">Start</button>
-    <button onclick="pauseTimer()">Pause</button>
-    <button onclick="resetTimer()">Reset</button>
-    <audio id="alarm" src="ding.mp3"></audio>
-    <div id="notification" class="hidden">Time's Up! Take a break!</div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
-
-

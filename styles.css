@@ -1,22 +1,56 @@
+/* Updated styles.css with W3.CSS enhancements */
+@import url("https://www.w3schools.com/w3css/4/w3.css");
+
 body {
   font-family: Arial, sans-serif;
   text-align: center;
   margin: 50px;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
 }
+
+.w3-card {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
 #timer {
-  font-size: 48px;
-  margin: 20px;
+  font-size: 64px;
+  font-weight: bold;
+  color: #333;
+  margin: 20px 0;
+  font-family: "Courier New", Courier, monospace;
 }
+
 button {
   font-size: 18px;
-  padding: 10px 20px;
+  padding: 12px 24px;
   margin: 10px;
   cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: 0.3s;
 }
+
+.w3-green:hover {
+  background: #2e8b57;
+}
+.w3-red:hover {
+  background: #b22222;
+}
+.w3-blue:hover {
+  background: #1e90ff;
+}
+
 #notification {
   margin-top: 20px;
-  font-size: 24px;
-  color: red;
-  font-weight: bold;
+  font-size: 20px;
+  color: white;
+  background: red;
+  padding: 10px;
+  border-radius: 5px;
   display: none;
 }

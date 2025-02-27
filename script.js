@@ -1,5 +1,5 @@
-let focusTime = 25 * 60; // Default 25 minutes
-let breakTime = 5 * 60; // Default 5 minutes
+let focusTime = 25 * 60;
+let breakTime = 5 * 60;
 let timeLeft = focusTime;
 let timer;
 let running = false;
@@ -10,63 +10,91 @@ function updateDisplay() {
     document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
-function setCustomTime() {
-    const focusInput = document.getElementById("focusTime").value;
-    const breakInput = document.getElementById("breakTime").value;
-    
-    if (!focusInput || !breakInput || isNaN(focusInput) || isNaN(breakInput)) {
-        alert("Please enter valid numbers for both focus and break time");
-        return;
+function updateTimeDisplay(type) {
+    const value = document.getElementById(type + 'Time').value;
+    document.getElementById(type + 'TimeDisplay').textContent = value;
+
+    // Only update values if the timer is NOT running
+    if (!running) {
+        if (type === 'focus') {
+            focusTime = parseInt(value) * 60;
+            timeLeft = focusTime;
+        } else {
+            breakTime = parseInt(value) * 60;
+        }
+        updateDisplay();
     }
-    
-    const newFocusTime = parseInt(focusInput);
-    const newBreakTime = parseInt(breakInput);
-    
-    if (newFocusTime < 1 || newBreakTime < 1 || newFocusTime > 120 || newBreakTime > 60) {
-        alert("Focus time should be between 1-120 minutes and break time between 1-60 minutes");
-        return;
-    }
-    
-    focusTime = newFocusTime * 60;
-    breakTime = newBreakTime * 60;
-    resetTimer();
 }
 
-function startTimer() {
+function adjustTime(type, amount) {
+    let input = document.getElementById(type + 'Time');
+    let newValue = parseInt(input.value) + amount;
+    if (newValue >= parseInt(input.min) && newValue <= parseInt(input.max)) {
+        input.value = newValue;
+        updateTimeDisplay(type);
+    }
+}
+
+function setPreset(focus, breakT) {
+    if (!running) {
+        focusTime = focus * 60;
+        breakTime = breakT * 60;
+        timeLeft = focusTime;
+
+        document.getElementById('focusTime').value = focus;
+        document.getElementById('breakTime').value = breakT;
+        updateTimeDisplay('focus');
+        updateTimeDisplay('break');
+        updateDisplay();
+    }
+}
+
+function toggleTimer() {
+    const button = document.getElementById("startPauseButton");
     if (!running) {
         running = true;
+        button.textContent = "Pause";
+        button.classList.replace("w3-green", "w3-red");
         timer = setInterval(() => {
             if (timeLeft > 0) {
                 timeLeft--;
                 updateDisplay();
             } else {
-                document.getElementById('alarm').play();
                 document.getElementById('notification').style.display = 'block';
-                if (Notification.permission === "granted") {
-                    new Notification("Pomodoro Timer", { body: "Time's Up! Take a break!" });
-                }
                 clearInterval(timer);
                 running = false;
+                button.textContent = "Start";
+                button.classList.replace("w3-red", "w3-green");
             }
         }, 1000);
+    } else {
+        clearInterval(timer);
+        running = false;
+        button.textContent = "Start";
+        button.classList.replace("w3-red", "w3-green");
     }
-}
-
-function pauseTimer() {
-    clearInterval(timer);
-    running = false;
 }
 
 function resetTimer() {
     clearInterval(timer);
     running = false;
-    timeLeft = focusTime;
-    updateDisplay();
-    document.getElementById('notification').style.display = 'none';
-}
 
-if ("Notification" in window) {
-    Notification.requestPermission();
+    // Reset to default 25/5 minutes
+    focusTime = 25 * 60;
+    breakTime = 5 * 60;
+    timeLeft = focusTime;
+
+    // Update UI elements
+    document.getElementById('focusTime').value = 25;
+    document.getElementById('breakTime').value = 5;
+    updateTimeDisplay('focus');
+    updateTimeDisplay('break');
+    updateDisplay();
+
+    document.getElementById('notification').style.display = 'none';
+    const button = document.getElementById("startPauseButton");
+    button.textContent = "Start";
+    button.classList.replace("w3-red", "w3-green");
 }
 
 updateDisplay();
