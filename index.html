@@ -27,12 +27,14 @@
           <button
             class="w3-button w3-small w3-gray"
             onclick="adjustTime('focus', -5)"
+            title="Decrease focus time by 5 minutes"
           >
             -
           </button>
           <button
             class="w3-button w3-small w3-gray"
             onclick="adjustTime('focus', 5)"
+            title="Increase focus time by 5 minutes"
           >
             +
           </button>
@@ -50,29 +52,44 @@
             max="60"
             value="5"
             oninput="updateTimeDisplay('break')"
+            title="Adjust break time"
           />
           <button
             class="w3-button w3-small w3-gray"
             onclick="adjustTime('break', -1)"
+            title="Decrease break time by 1 minute"
           >
             -
           </button>
           <button
             class="w3-button w3-small w3-gray"
             onclick="adjustTime('break', 1)"
+            title="Increase break time by 1 minute"
           >
             +
           </button>
         </div>
 
         <div class="w3-section">
-          <button class="w3-button w3-light-gray" onclick="setPreset(25, 5)">
+          <button
+            class="w3-button w3-light-gray"
+            onclick="setPreset(25, 5)"
+            title="Set timer to 25 min focus / 5 min break"
+          >
             25/5
           </button>
-          <button class="w3-button w3-light-gray" onclick="setPreset(50, 10)">
+          <button
+            class="w3-button w3-light-gray"
+            onclick="setPreset(50, 10)"
+            title="Set timer to 50 min focus / 10 min break"
+          >
             50/10
           </button>
-          <button class="w3-button w3-light-gray" onclick="setPreset(90, 15)">
+          <button
+            class="w3-button w3-light-gray"
+            onclick="setPreset(90, 15)"
+            title="Set timer to 90 min focus / 15 min break"
+          >
             90/15
           </button>
         </div>
