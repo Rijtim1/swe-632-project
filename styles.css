@@ -37,17 +37,16 @@ body {
   width: 100%;
 }
 
-/* Default focus mode (green) */
 .focus-mode {
   color: green;
   background: rgba(46, 139, 87, 0.2);
 }
 
-/* Break mode (blue) */
 .break-mode {
   color: blue;
   background: rgba(30, 144, 255, 0.2);
 }
+
 
 button {
   font-size: 18px;
