@@ -13,6 +13,17 @@ function updateDisplay() {
 function updateTimeDisplay(type) {
     const value = document.getElementById(type + 'Time').value;
     document.getElementById(type + 'TimeDisplay').textContent = value;
+    
+    // Only update values if the timer is NOT running
+    if (!running) {
+        if (type === 'focus') {
+            focusTime = parseInt(value) * 60;
+            timeLeft = focusTime;
+        } else {
+            breakTime = parseInt(value) * 60;
+        }
+        updateDisplay();
+    }
 }
 
 function adjustTime(type, amount) {
@@ -25,16 +36,17 @@ function adjustTime(type, amount) {
 }
 
 function setPreset(focus, breakT) {
-    document.getElementById('focusTime').value = focus;
-    document.getElementById('breakTime').value = breakT;
-    updateTimeDisplay('focus');
-    updateTimeDisplay('break');
-}
+    if (!running) {
+        focusTime = focus * 60;
+        breakTime = breakT * 60;
+        timeLeft = focusTime;
 
-function setCustomTime() {
-    focusTime = parseInt(document.getElementById("focusTime").value) * 60;
-    breakTime = parseInt(document.getElementById("breakTime").value) * 60;
-    resetTimer();
+        document.getElementById('focusTime').value = focus;
+        document.getElementById('breakTime').value = breakT;
+        updateTimeDisplay('focus');
+        updateTimeDisplay('break');
+        updateDisplay();
+    }
 }
 
 function toggleTimer() {
@@ -66,8 +78,19 @@ function toggleTimer() {
 function resetTimer() {
     clearInterval(timer);
     running = false;
+
+    // Reset to default 25/5 minutes
+    focusTime = 25 * 60;
+    breakTime = 5 * 60;
     timeLeft = focusTime;
+
+    // Update UI elements
+    document.getElementById('focusTime').value = 25;
+    document.getElementById('breakTime').value = 5;
+    updateTimeDisplay('focus');
+    updateTimeDisplay('break');
     updateDisplay();
+
     document.getElementById('notification').style.display = 'none';
     const button = document.getElementById("startPauseButton");
     button.textContent = "Start";
