@@ -11,14 +11,27 @@
     <div class="w3-container">
         <h1 class="w3-center w3-text-white">Pomodoro Timer</h1>
         <div class="w3-card w3-padding w3-center">
+            
             <div class="w3-section">
-                <label for="focusTime" class="w3-text-black">Focus Time (minutes):</label>
-                <input type="number" id="focusTime" class="w3-input w3-border w3-center" value="25" min="1" max="120">
+                <label class="w3-text-black">Focus Time: <span id="focusTimeDisplay">25</span> min</label>
+                <input type="range" id="focusTime" class="w3-input w3-border" min="1" max="120" value="25" oninput="updateTimeDisplay('focus')">
+                <button class="w3-button w3-small w3-gray" onclick="adjustTime('focus', -5)">-</button>
+                <button class="w3-button w3-small w3-gray" onclick="adjustTime('focus', 5)">+</button>
             </div>
+            
             <div class="w3-section">
-                <label for="breakTime" class="w3-text-black">Break Time (minutes):</label>
-                <input type="number" id="breakTime" class="w3-input w3-border w3-center" value="5" min="1" max="60">
+                <label class="w3-text-black">Break Time: <span id="breakTimeDisplay">5</span> min</label>
+                <input type="range" id="breakTime" class="w3-input w3-border" min="1" max="60" value="5" oninput="updateTimeDisplay('break')">
+                <button class="w3-button w3-small w3-gray" onclick="adjustTime('break', -1)">-</button>
+                <button class="w3-button w3-small w3-gray" onclick="adjustTime('break', 1)">+</button>
             </div>
+            
+            <div class="w3-section">
+                <button class="w3-button w3-light-gray" onclick="setPreset(25, 5)">25/5</button>
+                <button class="w3-button w3-light-gray" onclick="setPreset(50, 10)">50/10</button>
+                <button class="w3-button w3-light-gray" onclick="setPreset(90, 15)">90/15</button>
+            </div>
+            
             <button onclick="setCustomTime()" class="w3-button w3-blue w3-margin" title="Set custom focus and break time">Set Time</button>
             <div id="timer">25:00</div>
             <button id="startPauseButton" onclick="toggleTimer()" class="w3-button w3-green w3-margin" title="Start or Pause the timer">Start</button>

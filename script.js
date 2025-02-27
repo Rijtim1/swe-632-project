@@ -1,5 +1,5 @@
-let focusTime = 25 * 60; // Default 25 minutes
-let breakTime = 5 * 60; // Default 5 minutes
+let focusTime = 25 * 60;
+let breakTime = 5 * 60;
 let timeLeft = focusTime;
 let timer;
 let running = false;
@@ -10,31 +10,35 @@ function updateDisplay() {
     document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
+function updateTimeDisplay(type) {
+    const value = document.getElementById(type + 'Time').value;
+    document.getElementById(type + 'TimeDisplay').textContent = value;
+}
+
+function adjustTime(type, amount) {
+    let input = document.getElementById(type + 'Time');
+    let newValue = parseInt(input.value) + amount;
+    if (newValue >= parseInt(input.min) && newValue <= parseInt(input.max)) {
+        input.value = newValue;
+        updateTimeDisplay(type);
+    }
+}
+
+function setPreset(focus, breakT) {
+    document.getElementById('focusTime').value = focus;
+    document.getElementById('breakTime').value = breakT;
+    updateTimeDisplay('focus');
+    updateTimeDisplay('break');
+}
+
 function setCustomTime() {
-    const focusInput = document.getElementById("focusTime").value;
-    const breakInput = document.getElementById("breakTime").value;
-    
-    if (!focusInput || !breakInput || isNaN(focusInput) || isNaN(breakInput)) {
-        alert("Please enter valid numbers for both focus and break time");
-        return;
-    }
-    
-    const newFocusTime = parseInt(focusInput);
-    const newBreakTime = parseInt(breakInput);
-    
-    if (newFocusTime < 1 || newBreakTime < 1 || newFocusTime > 120 || newBreakTime > 60) {
-        alert("Focus time should be between 1-120 minutes and break time between 1-60 minutes");
-        return;
-    }
-    
-    focusTime = newFocusTime * 60;
-    breakTime = newBreakTime * 60;
+    focusTime = parseInt(document.getElementById("focusTime").value) * 60;
+    breakTime = parseInt(document.getElementById("breakTime").value) * 60;
     resetTimer();
 }
 
 function toggleTimer() {
     const button = document.getElementById("startPauseButton");
-    
     if (!running) {
         running = true;
         button.textContent = "Pause";
@@ -44,7 +48,6 @@ function toggleTimer() {
                 timeLeft--;
                 updateDisplay();
             } else {
-                document.getElementById('alarm').play();
                 document.getElementById('notification').style.display = 'block';
                 clearInterval(timer);
                 running = false;
@@ -69,10 +72,6 @@ function resetTimer() {
     const button = document.getElementById("startPauseButton");
     button.textContent = "Start";
     button.classList.replace("w3-red", "w3-green");
-}
-
-if ("Notification" in window) {
-    Notification.requestPermission();
 }
 
 updateDisplay();
