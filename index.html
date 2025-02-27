@@ -10,6 +10,13 @@
   <body>
     <div class="w3-container">
       <h1 class="w3-center w3-text-white">Pomodoro Timer</h1>
+
+      <!-- Clear Instructions -->
+      <p id="instructions" class="w3-text-white w3-padding">
+        The timer will automatically transition between focus and break time.
+        You will hear a sound when switching. Stay productive!
+      </p>
+
       <div class="w3-card w3-padding w3-center">
         <div class="w3-section">
           <label class="w3-text-black"
@@ -27,14 +34,12 @@
           <button
             class="w3-button w3-small w3-gray"
             onclick="adjustTime('focus', -5)"
-            title="Decrease focus time by 5 minutes"
           >
             -
           </button>
           <button
             class="w3-button w3-small w3-gray"
             onclick="adjustTime('focus', 5)"
-            title="Increase focus time by 5 minutes"
           >
             +
           </button>
@@ -52,72 +57,56 @@
             max="60"
             value="5"
             oninput="updateTimeDisplay('break')"
-            title="Adjust break time"
           />
           <button
             class="w3-button w3-small w3-gray"
             onclick="adjustTime('break', -1)"
-            title="Decrease break time by 1 minute"
           >
             -
           </button>
           <button
             class="w3-button w3-small w3-gray"
             onclick="adjustTime('break', 1)"
-            title="Increase break time by 1 minute"
           >
             +
           </button>
         </div>
 
         <div class="w3-section">
-          <button
-            class="w3-button w3-light-gray"
-            onclick="setPreset(25, 5)"
-            title="Set timer to 25 min focus / 5 min break"
-          >
+          <button class="w3-button w3-light-gray" onclick="setPreset(25, 5)">
             25/5
           </button>
-          <button
-            class="w3-button w3-light-gray"
-            onclick="setPreset(50, 10)"
-            title="Set timer to 50 min focus / 10 min break"
-          >
+          <button class="w3-button w3-light-gray" onclick="setPreset(50, 10)">
             50/10
           </button>
-          <button
-            class="w3-button w3-light-gray"
-            onclick="setPreset(90, 15)"
-            title="Set timer to 90 min focus / 15 min break"
-          >
+          <button class="w3-button w3-light-gray" onclick="setPreset(90, 15)">
             90/15
           </button>
         </div>
 
+        <!-- Timer Display -->
+        <div id="statusMessage" class="status-message">
+          Focus Time! Stay Productive!
+        </div>
         <div id="timer">25:00</div>
+
         <button
           id="startPauseButton"
           onclick="toggleTimer()"
           class="w3-button w3-green w3-margin"
-          title="Start or Pause the timer"
         >
           Start
         </button>
-        <button
-          onclick="resetTimer()"
-          class="w3-button w3-gray w3-margin"
-          title="Reset the timer to initial settings"
-        >
+        <button onclick="resetTimer()" class="w3-button w3-gray w3-margin">
           Reset
         </button>
-        <div
-          id="notification"
-          class="w3-padding w3-round w3-red w3-text-white w3-margin"
-        >
-          Time's Up! Take a break!
-        </div>
       </div>
     </div>
+
+    <audio id="transitionSound">
+      <source src="ding.mp3" type="audio/mpeg" />
+    </audio>
+
     <script src="script.js"></script>
   </body>
 </html>
