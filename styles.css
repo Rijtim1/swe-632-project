@@ -7,7 +7,7 @@ body {
   margin: 0;
   padding: 0;
   /* Prevents scrolling */
-  overflow: hidden;
+  /* overflow: hidden; */
   height: 100vh; /* Ensures full height usage */
   display: flex;
   justify-content: center;
