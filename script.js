@@ -9,13 +9,7 @@ function updateDisplay() {
     let minutes = Math.floor(timeLeft / 60);
     let seconds = timeLeft % 60;
     document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
-
-    // Ensure the correct status message and color is set when the page loads
-    const statusMessage = document.getElementById('statusMessage');
-    statusMessage.textContent = "Focus Time! Stay Productive!";
-    statusMessage.classList.add("focus-mode");
 }
-
 
 function updateTimeDisplay(type) {
     const value = document.getElementById(type + 'Time').value;
@@ -58,10 +52,26 @@ function setPreset(focus, breakT) {
 
 function toggleTimer() {
     const button = document.getElementById("startPauseButton");
+    const statusMessage = document.getElementById("statusMessage");
+    const timerDisplay = document.getElementById("timer");
+
     if (!running) {
         running = true;
         button.textContent = "Pause";
         button.classList.replace("w3-green", "w3-red");
+
+        // Ensure the correct colors are set when first starting
+        if (!onBreak) {
+            statusMessage.textContent = "Focus Time! Stay Productive!";
+            statusMessage.classList.remove("break-mode");
+            statusMessage.classList.add("focus-mode");
+            timerDisplay.style.color = "green";
+        } else {
+            statusMessage.textContent = "Break Time! Relax!";
+            statusMessage.classList.remove("focus-mode");
+            statusMessage.classList.add("break-mode");
+            timerDisplay.style.color = "blue";
+        }
 
         timer = setInterval(() => {
             if (timeLeft > 0) {
@@ -89,31 +99,25 @@ function handleTimerEnd() {
     audio.play(); // Play transition sound
 
     if (!onBreak) {
-        // Switch to break time
+        // Transition to break time
+        onBreak = true;
+        timeLeft = breakTime;
         statusMessage.textContent = "Break Time! Relax!";
         statusMessage.classList.remove("focus-mode");
         statusMessage.classList.add("break-mode");
         timerDisplay.style.color = "blue";
-        timeLeft = breakTime;
-        onBreak = true; // Stay in break mode
-
-        // Delay restarting the timer to prevent flickering
-        setTimeout(() => toggleTimer(), 1000);
     } else {
-        // Switch back to focus time
+        // Transition back to focus time
+        onBreak = false;
+        timeLeft = focusTime;
         statusMessage.textContent = "Focus Time! Stay Productive!";
         statusMessage.classList.remove("break-mode");
         statusMessage.classList.add("focus-mode");
         timerDisplay.style.color = "green";
-        timeLeft = focusTime;
-        onBreak = false; // Reset break mode
-
-        // Restart the focus timer without flickering
-        setTimeout(() => toggleTimer(), 1000);
     }
+
+    toggleTimer(); // Automatically restart the timer
 }
-
-
 
 function resetTimer() {
     clearInterval(timer);
@@ -131,7 +135,10 @@ function resetTimer() {
     updateDisplay();
 
     document.getElementById('statusMessage').textContent = "Focus Time! Stay Productive!";
-    document.getElementById('statusMessage').style.color = "green";
+    document.getElementById('statusMessage').classList.remove("break-mode");
+    document.getElementById('statusMessage').classList.add("focus-mode");
+
+    document.getElementById('timer').style.color = "green";
 
     const button = document.getElementById("startPauseButton");
     button.textContent = "Start";
