@@ -6,7 +6,8 @@ html,
 body {
   margin: 0;
   padding: 0;
-  /* overflow: hidden; Prevents scrolling */
+  /* Prevents scrolling */
+  overflow: hidden; 
   height: 100vh; /* Ensures full height usage */
   display: flex;
   justify-content: center;
@@ -95,4 +96,14 @@ button {
   padding: 10px;
   border-radius: 5px;
   display: none;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Adds spacing between buttons and slider */
+}
+
+.slider-container input {
+  flex-grow: 1; /* Ensures the slider expands to fit the available space */
 }

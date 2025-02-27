@@ -33,57 +33,66 @@
 
       <div class="w3-card w3-padding w3-center">
         <div class="w3-section">
-          <label class="w3-text-black"
-            >Focus Time (1-120 minutes): <span id="focusTimeDisplay">25</span> min</label
-          >
-          <input
-            type="range"
-            id="focusTime"
-            class="w3-input w3-border"
-            min="1"
-            max="120"
-            value="25"
-            oninput="updateTimeDisplay('focus')"
-          />
-          <button
-            class="w3-button w3-small w3-gray"
-            onclick="adjustTime('focus', -5)"
-          >
-            -
-          </button>
-          <button
-            class="w3-button w3-small w3-gray"
-            onclick="adjustTime('focus', 5)"
-          >
-            +
-          </button>
+          <label class="w3-text-black">
+            Focus Time (1-120 minutes):
+            <span id="focusTimeDisplay">25</span> min
+          </label>
+          <div class="slider-container">
+            <button
+              class="w3-button w3-small w3-gray"
+              onclick="adjustTime('focus', -5)"
+              title="Decrease focus time by 5 minutes"
+            >
+              -
+            </button>
+            <input
+              type="range"
+              id="focusTime"
+              class="w3-input w3-border"
+              min="1"
+              max="120"
+              value="25"
+              oninput="updateTimeDisplay('focus')"
+            />
+            <button
+              class="w3-button w3-small w3-gray"
+              onclick="adjustTime('focus', 5)"
+              title="Increase focus time by 5 minutes"
+            >
+              +
+            </button>
+          </div>
         </div>
 
         <div class="w3-section">
-          <label class="w3-text-black"
-            >Break Time (1-60 minutes): <span id="breakTimeDisplay">5</span> min</label
-          >
-          <input
-            type="range"
-            id="breakTime"
-            class="w3-input w3-border"
-            min="1"
-            max="60"
-            value="5"
-            oninput="updateTimeDisplay('break')"
-          />
-          <button
-            class="w3-button w3-small w3-gray"
-            onclick="adjustTime('break', -1)"
-          >
-            -
-          </button>
-          <button
-            class="w3-button w3-small w3-gray"
-            onclick="adjustTime('break', 1)"
-          >
-            +
-          </button>
+          <label class="w3-text-black">
+            Break Time (1-60 minutes): <span id="breakTimeDisplay">5</span> min
+          </label>
+          <div class="slider-container">
+            <button
+              class="w3-button w3-small w3-gray"
+              onclick="adjustTime('break', -1)"
+              title="Decrease break time by 1 minute"
+            >
+              -
+            </button>
+            <input
+              type="range"
+              id="breakTime"
+              class="w3-input w3-border"
+              min="1"
+              max="60"
+              value="5"
+              oninput="updateTimeDisplay('break')"
+            />
+            <button
+              class="w3-button w3-small w3-gray"
+              onclick="adjustTime('break', 1)"
+              title="Increase break time by 1 minute"
+            >
+              +
+            </button>
+          </div>
         </div>
 
         <div class="w3-section w3-center">

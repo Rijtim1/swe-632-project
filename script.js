@@ -96,7 +96,11 @@ function handleTimerEnd() {
     const timerDisplay = document.getElementById('timer');
     const audio = document.getElementById('transitionSound');
 
-    audio.play(); // Play transition sound
+    // Play transition sound with error handling
+    audio.play().catch(error => {
+      console.error("Error playing sound:", error);
+      // Continue with timer transition even if sound fails
+    });
 
     if (!onBreak) {
         // Transition to break time
