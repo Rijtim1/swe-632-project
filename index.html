@@ -56,7 +56,12 @@
           <label class="w3-text-black">
             Enable Audio Notification:
             <label class="switch">
-              <input type="checkbox" id="audioToggle" onchange="toggleAudioSetting()" title="Toggle audio notification on or off" />
+              <input
+                type="checkbox"
+                id="audioToggle"
+                onchange="toggleAudioSetting()"
+                title="Toggle audio notification on or off"
+              />
               <span class="slider round"></span>
             </label>
           </label>
@@ -64,93 +69,92 @@
       </div>
 
       <div class="w3-card w3-padding w3-center">
-
-
         <div class="w3-section w3-center">
-           <!-- Timer Display -->
-        <div id="statusMessage" class="status-message">
-          Press Start to begin your session.
-        </div>
-        <div id="timer">25:00</div>
-
-        <button
-          id="startPauseButton"
-          onclick="toggleTimer()"
-          class="w3-button w3-green w3-margin"
-          title="Start or Pause the Timer"
-        >
-          Start
-        </button>
-        <button
-          onclick="resetTimer()"
-          class="w3-button w3-gray w3-margin"
-          title="Reset the Timer to default settings"
-        >
-          Reset
-        </button>
-        
-        <div class="w3-section">
-          <label class="w3-text-black">
-            Focus Time (1-120 minutes):
-            <span id="focusTimeDisplay">25</span> min
-          </label>
-          <div class="slider-container">
-            <button
-              class="w3-button w3-small w3-gray"
-              onclick="adjustTime('focus', -5)"
-              title="Decrease focus time by 5 minutes"
-            >
-              -
-            </button>
-            <input
-              type="range"
-              id="focusTime"
-              class="w3-input w3-border"
-              min="1"
-              max="120"
-              value="25"
-              oninput="updateTimeDisplay('focus')"
-            />
-            <button
-              class="w3-button w3-small w3-gray"
-              onclick="adjustTime('focus', 5)"
-              title="Increase focus time by 5 minutes"
-            >
-              +
-            </button>
+          <!-- Timer Display -->
+          <div id="statusMessage" class="status-message">
+            Press Start to begin your session.
           </div>
-        </div>
+          <div id="timer">25:00</div>
 
-        <div class="w3-section">
-          <label class="w3-text-black">
-            Break Time (1-60 minutes): <span id="breakTimeDisplay">5</span> min
-          </label>
-          <div class="slider-container">
-            <button
-              class="w3-button w3-small w3-gray"
-              onclick="adjustTime('break', -1)"
-              title="Decrease break time by 1 minute"
-            >
-              -
-            </button>
-            <input
-              type="range"
-              id="breakTime"
-              class="w3-input w3-border"
-              min="1"
-              max="60"
-              value="5"
-              oninput="updateTimeDisplay('break')"
-            />
-            <button
-              class="w3-button w3-small w3-gray"
-              onclick="adjustTime('break', 1)"
-              title="Increase break time by 1 minute"
-            >
-              +
-            </button>
+          <button
+            id="startPauseButton"
+            onclick="toggleTimer()"
+            class="w3-button w3-green w3-margin"
+            title="Start or Pause the Timer"
+          >
+            Start
+          </button>
+          <button
+            onclick="resetTimer()"
+            class="w3-button w3-gray w3-margin"
+            title="Reset the Timer to default settings"
+          >
+            Reset
+          </button>
+
+          <div class="w3-section">
+            <label class="w3-text-black">
+              Focus Time (1-120 minutes):
+              <span id="focusTimeDisplay">25</span> min
+            </label>
+            <div class="slider-container">
+              <button
+                class="w3-button w3-small w3-gray"
+                onclick="adjustTime('focus', -5)"
+                title="Decrease focus time by 5 minutes"
+              >
+                -
+              </button>
+              <input
+                type="range"
+                id="focusTime"
+                class="w3-input w3-border"
+                min="1"
+                max="120"
+                value="25"
+                oninput="updateTimeDisplay('focus')"
+              />
+              <button
+                class="w3-button w3-small w3-gray"
+                onclick="adjustTime('focus', 5)"
+                title="Increase focus time by 5 minutes"
+              >
+                +
+              </button>
+            </div>
           </div>
-        </div>
+
+          <div class="w3-section">
+            <label class="w3-text-black">
+              Break Time (1-60 minutes):
+              <span id="breakTimeDisplay">5</span> min
+            </label>
+            <div class="slider-container">
+              <button
+                class="w3-button w3-small w3-gray"
+                onclick="adjustTime('break', -1)"
+                title="Decrease break time by 1 minute"
+              >
+                -
+              </button>
+              <input
+                type="range"
+                id="breakTime"
+                class="w3-input w3-border"
+                min="1"
+                max="60"
+                value="5"
+                oninput="updateTimeDisplay('break')"
+              />
+              <button
+                class="w3-button w3-small w3-gray"
+                onclick="adjustTime('break', 1)"
+                title="Increase break time by 1 minute"
+              >
+                +
+              </button>
+            </div>
+          </div>
           <label class="w3-text-black w3-large w3-block"
             >Presets (Focus/Break):</label
           >
@@ -186,14 +190,21 @@
           </div>
         </div>
 
-       
+        <p>
+          <a
+            href="https://en.wikipedia.org/wiki/Pomodoro_Technique"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Learn more about the Pomodoro Technique
+          </a>
+        </p>
       </div>
     </div>
 
     <audio id="transitionSound">
       <source src="ding.mp3" type="audio/mpeg" />
     </audio>
-
     <script src="script.js"></script>
   </body>
 </html>
