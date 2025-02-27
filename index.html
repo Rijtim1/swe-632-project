@@ -1,43 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro Timer</title>
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <div class="w3-container">
-        <h1 class="w3-center w3-text-white">Pomodoro Timer</h1>
-        <div class="w3-card w3-padding w3-center">
-            
-            <div class="w3-section">
-                <label class="w3-text-black">Focus Time: <span id="focusTimeDisplay">25</span> min</label>
-                <input type="range" id="focusTime" class="w3-input w3-border" min="1" max="120" value="25" oninput="updateTimeDisplay('focus')">
-                <button class="w3-button w3-small w3-gray" onclick="adjustTime('focus', -5)">-</button>
-                <button class="w3-button w3-small w3-gray" onclick="adjustTime('focus', 5)">+</button>
-            </div>
-            
-            <div class="w3-section">
-                <label class="w3-text-black">Break Time: <span id="breakTimeDisplay">5</span> min</label>
-                <input type="range" id="breakTime" class="w3-input w3-border" min="1" max="60" value="5" oninput="updateTimeDisplay('break')">
-                <button class="w3-button w3-small w3-gray" onclick="adjustTime('break', -1)">-</button>
-                <button class="w3-button w3-small w3-gray" onclick="adjustTime('break', 1)">+</button>
-            </div>
-            
-            <div class="w3-section">
-                <button class="w3-button w3-light-gray" onclick="setPreset(25, 5)">25/5</button>
-                <button class="w3-button w3-light-gray" onclick="setPreset(50, 10)">50/10</button>
-                <button class="w3-button w3-light-gray" onclick="setPreset(90, 15)">90/15</button>
-            </div>
-            
-            <div id="timer">25:00</div>
-            <button id="startPauseButton" onclick="toggleTimer()" class="w3-button w3-green w3-margin" title="Start or Pause the timer">Start</button>
-            <button onclick="resetTimer()" class="w3-button w3-gray w3-margin" title="Reset the timer to initial settings">Reset</button>
-            <div id="notification" class="w3-padding w3-round w3-red w3-text-white w3-margin">Time's Up! Take a break!</div>
+      <h1 class="w3-center w3-text-white">Pomodoro Timer</h1>
+      <div class="w3-card w3-padding w3-center">
+        <div class="w3-section">
+          <label class="w3-text-black"
+            >Focus Time: <span id="focusTimeDisplay">25</span> min</label
+          >
+          <input
+            type="range"
+            id="focusTime"
+            class="w3-input w3-border"
+            min="1"
+            max="120"
+            value="25"
+            oninput="updateTimeDisplay('focus')"
+          />
+          <button
+            class="w3-button w3-small w3-gray"
+            onclick="adjustTime('focus', -5)"
+          >
+            -
+          </button>
+          <button
+            class="w3-button w3-small w3-gray"
+            onclick="adjustTime('focus', 5)"
+          >
+            +
+          </button>
         </div>
+
+        <div class="w3-section">
+          <label class="w3-text-black"
+            >Break Time: <span id="breakTimeDisplay">5</span> min</label
+          >
+          <input
+            type="range"
+            id="breakTime"
+            class="w3-input w3-border"
+            min="1"
+            max="60"
+            value="5"
+            oninput="updateTimeDisplay('break')"
+          />
+          <button
+            class="w3-button w3-small w3-gray"
+            onclick="adjustTime('break', -1)"
+          >
+            -
+          </button>
+          <button
+            class="w3-button w3-small w3-gray"
+            onclick="adjustTime('break', 1)"
+          >
+            +
+          </button>
+        </div>
+
+        <div class="w3-section">
+          <button class="w3-button w3-light-gray" onclick="setPreset(25, 5)">
+            25/5
+          </button>
+          <button class="w3-button w3-light-gray" onclick="setPreset(50, 10)">
+            50/10
+          </button>
+          <button class="w3-button w3-light-gray" onclick="setPreset(90, 15)">
+            90/15
+          </button>
+        </div>
+
+        <div id="timer">25:00</div>
+        <button
+          id="startPauseButton"
+          onclick="toggleTimer()"
+          class="w3-button w3-green w3-margin"
+          title="Start or Pause the timer"
+        >
+          Start
+        </button>
+        <button
+          onclick="resetTimer()"
+          class="w3-button w3-gray w3-margin"
+          title="Reset the timer to initial settings"
+        >
+          Reset
+        </button>
+        <div
+          id="notification"
+          class="w3-padding w3-round w3-red w3-text-white w3-margin"
+        >
+          Time's Up! Take a break!
+        </div>
+      </div>
     </div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

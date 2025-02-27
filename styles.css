@@ -1,5 +1,5 @@
 /* Updated styles.css with W3.CSS enhancements */
-@import url('https://www.w3schools.com/w3css/4/w3.css');
+@import url("https://www.w3schools.com/w3css/4/w3.css");
 
 body {
   font-family: Arial, sans-serif;
@@ -22,7 +22,7 @@ body {
   font-weight: bold;
   color: #333;
   margin: 20px 0;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 
 button {

@@ -13,7 +13,7 @@ function updateDisplay() {
 function updateTimeDisplay(type) {
     const value = document.getElementById(type + 'Time').value;
     document.getElementById(type + 'TimeDisplay').textContent = value;
-    
+
     // Only update values if the timer is NOT running
     if (!running) {
         if (type === 'focus') {
