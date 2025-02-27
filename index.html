@@ -10,17 +10,31 @@
   <body>
     <div class="w3-container">
       <h1 class="w3-center w3-text-white">Pomodoro Timer</h1>
-
-      <!-- Clear Instructions -->
-      <p id="instructions" class="w3-text-white w3-padding">
-        The timer will automatically transition between focus and break time.
-        You will hear a sound when switching. Stay productive!
-      </p>
+      <button class="w3-button w3-blue w3-margin" onclick="openHelpModal()">
+        <i class="w3-margin-right">ℹ️</i>how it Works?
+      </button>
+      <div id="helpModal" class="w3-modal">
+        <div class="w3-modal-content w3-padding">
+          <span onclick="closeHelpModal()" class="w3-button w3-display-topright"
+            >&times;</span
+          >
+          <h2>How to Use the Pomodoro Timer</h2>
+          <p><strong>Focus Time:</strong> Work without distractions.</p>
+          <p>
+            <strong>Break Time:</strong> Take a short rest before resuming work.
+          </p>
+          <p>
+            Use the sliders to adjust focus and break durations. The timer will
+            transition automatically.
+          </p>
+          <p>Press "Start" to begin your session. Stay productive!</p>
+        </div>
+      </div>
 
       <div class="w3-card w3-padding w3-center">
         <div class="w3-section">
           <label class="w3-text-black"
-            >Focus Time: <span id="focusTimeDisplay">25</span> min</label
+            >Focus Time (1-120 minutes): <span id="focusTimeDisplay">25</span> min</label
           >
           <input
             type="range"
@@ -47,7 +61,7 @@
 
         <div class="w3-section">
           <label class="w3-text-black"
-            >Break Time: <span id="breakTimeDisplay">5</span> min</label
+            >Break Time (1-60 minutes): <span id="breakTimeDisplay">5</span> min</label
           >
           <input
             type="range"
