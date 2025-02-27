@@ -3,6 +3,7 @@ let breakTime = 5 * 60;
 let timeLeft = focusTime;
 let timer;
 let running = false;
+let onBreak = false;
 
 function updateDisplay() {
     let minutes = Math.floor(timeLeft / 60);
@@ -14,7 +15,6 @@ function updateTimeDisplay(type) {
     const value = document.getElementById(type + 'Time').value;
     document.getElementById(type + 'TimeDisplay').textContent = value;
 
-    // Only update values if the timer is NOT running
     if (!running) {
         if (type === 'focus') {
             focusTime = parseInt(value) * 60;
@@ -40,6 +40,7 @@ function setPreset(focus, breakT) {
         focusTime = focus * 60;
         breakTime = breakT * 60;
         timeLeft = focusTime;
+        onBreak = false;
 
         document.getElementById('focusTime').value = focus;
         document.getElementById('breakTime').value = breakT;
@@ -55,16 +56,15 @@ function toggleTimer() {
         running = true;
         button.textContent = "Pause";
         button.classList.replace("w3-green", "w3-red");
+
         timer = setInterval(() => {
             if (timeLeft > 0) {
                 timeLeft--;
                 updateDisplay();
             } else {
-                document.getElementById('notification').style.display = 'block';
                 clearInterval(timer);
                 running = false;
-                button.textContent = "Start";
-                button.classList.replace("w3-red", "w3-green");
+                handleTimerEnd();
             }
         }, 1000);
     } else {
@@ -75,23 +75,45 @@ function toggleTimer() {
     }
 }
 
+function handleTimerEnd() {
+    const statusMessage = document.getElementById('statusMessage');
+    const timerDisplay = document.getElementById('timer');
+    const audio = document.getElementById('transitionSound');
+
+    audio.play(); // Play sound
+
+    if (onBreak) {
+        statusMessage.textContent = "Focus Time! Stay Productive!";
+        statusMessage.style.color = "green";
+        timeLeft = focusTime;
+    } else {
+        statusMessage.textContent = "Break Time! Relax!";
+        statusMessage.style.color = "blue";
+        timeLeft = breakTime;
+    }
+
+    onBreak = !onBreak;
+    setTimeout(toggleTimer, 1000); // Auto-restart timer after transition
+}
+
 function resetTimer() {
     clearInterval(timer);
     running = false;
+    onBreak = false;
 
-    // Reset to default 25/5 minutes
     focusTime = 25 * 60;
     breakTime = 5 * 60;
     timeLeft = focusTime;
 
-    // Update UI elements
     document.getElementById('focusTime').value = 25;
     document.getElementById('breakTime').value = 5;
     updateTimeDisplay('focus');
     updateTimeDisplay('break');
     updateDisplay();
 
-    document.getElementById('notification').style.display = 'none';
+    document.getElementById('statusMessage').textContent = "Focus Time! Stay Productive!";
+    document.getElementById('statusMessage').style.color = "green";
+
     const button = document.getElementById("startPauseButton");
     button.textContent = "Start";
     button.classList.replace("w3-red", "w3-green");

@@ -25,6 +25,30 @@ body {
   font-family: "Courier New", Courier, monospace;
 }
 
+/* Status message for focus/break time transitions */
+#statusMessage {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 10px 0;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+  width: 100%;
+}
+
+/* Default focus mode (green) */
+.focus-mode {
+  color: green;
+  background: rgba(46, 139, 87, 0.2);
+}
+
+/* Break mode (blue) */
+.break-mode {
+  color: blue;
+  background: rgba(30, 144, 255, 0.2);
+}
+
 button {
   font-size: 18px;
   padding: 12px 24px;
@@ -45,6 +69,7 @@ button {
   background: #1e90ff;
 }
 
+/* Notification when time is up */
 #notification {
   margin-top: 20px;
   font-size: 20px;
