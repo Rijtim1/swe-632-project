@@ -32,9 +32,13 @@ function setCustomTime() {
     resetTimer();
 }
 
-function startTimer() {
+function toggleTimer() {
+    const button = document.getElementById("startPauseButton");
+    
     if (!running) {
         running = true;
+        button.textContent = "Pause";
+        button.classList.replace("w3-green", "w3-red");
         timer = setInterval(() => {
             if (timeLeft > 0) {
                 timeLeft--;
@@ -42,19 +46,18 @@ function startTimer() {
             } else {
                 document.getElementById('alarm').play();
                 document.getElementById('notification').style.display = 'block';
-                if (Notification.permission === "granted") {
-                    new Notification("Pomodoro Timer", { body: "Time's Up! Take a break!" });
-                }
                 clearInterval(timer);
                 running = false;
+                button.textContent = "Start";
+                button.classList.replace("w3-red", "w3-green");
             }
         }, 1000);
+    } else {
+        clearInterval(timer);
+        running = false;
+        button.textContent = "Start";
+        button.classList.replace("w3-red", "w3-green");
     }
-}
-
-function pauseTimer() {
-    clearInterval(timer);
-    running = false;
 }
 
 function resetTimer() {
@@ -63,6 +66,9 @@ function resetTimer() {
     timeLeft = focusTime;
     updateDisplay();
     document.getElementById('notification').style.display = 'none';
+    const button = document.getElementById("startPauseButton");
+    button.textContent = "Start";
+    button.classList.replace("w3-red", "w3-green");
 }
 
 if ("Notification" in window) {
