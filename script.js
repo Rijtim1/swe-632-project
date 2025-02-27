@@ -60,7 +60,6 @@ function toggleTimer() {
         button.textContent = "Pause";
         button.classList.replace("w3-green", "w3-red");
 
-        // Ensure the correct colors are set when first starting
         if (!onBreak) {
             statusMessage.textContent = "Focus Time! Stay Productive!";
             statusMessage.classList.remove("break-mode");
@@ -96,14 +95,12 @@ function handleTimerEnd() {
     const timerDisplay = document.getElementById('timer');
     const audio = document.getElementById('transitionSound');
 
-    // Play transition sound with error handling
-    audio.play().catch(error => {
-      console.error("Error playing sound:", error);
-      // Continue with timer transition even if sound fails
-    });
+    // Check if audio notification is enabled before playing the sound
+    if (localStorage.getItem("audioNotification") === "true") {
+        audio.play().catch(error => console.error("Error playing sound:", error));
+    }
 
     if (!onBreak) {
-        // Transition to break time
         onBreak = true;
         timeLeft = breakTime;
         statusMessage.textContent = "Break Time! Relax!";
@@ -111,7 +108,6 @@ function handleTimerEnd() {
         statusMessage.classList.add("break-mode");
         timerDisplay.style.color = "blue";
     } else {
-        // Transition back to focus time
         onBreak = false;
         timeLeft = focusTime;
         statusMessage.textContent = "Focus Time! Stay Productive!";
@@ -148,6 +144,8 @@ function resetTimer() {
     button.textContent = "Start";
     button.classList.replace("w3-red", "w3-green");
 }
+
+// Open and Close Modals
 function openHelpModal() {
     document.getElementById("helpModal").style.display = "block";
 }
@@ -156,6 +154,28 @@ function closeHelpModal() {
     document.getElementById("helpModal").style.display = "none";
 }
 
+function openSettingsModal() {
+    document.getElementById("settingsModal").style.display = "block";
+}
 
-updateDisplay();
+function closeSettingsModal() {
+    document.getElementById("settingsModal").style.display = "none";
+}
 
+// Toggle audio setting and save to localStorage
+function toggleAudioSetting() {
+    let audioEnabled = document.getElementById("audioToggle").checked;
+    localStorage.setItem("audioNotification", audioEnabled);
+}
+
+// Load settings on page load
+function loadSettings() {
+    let audioEnabled = localStorage.getItem("audioNotification") === "true";
+    document.getElementById("audioToggle").checked = audioEnabled;
+}
+
+// Run settings load on window load
+window.onload = function () {
+    loadSettings();
+    updateDisplay();
+};

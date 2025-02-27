@@ -31,6 +31,24 @@
         </div>
       </div>
 
+      <!-- Settings Button -->
+<button class="w3-button w3-blue w3-margin" onclick="openSettingsModal()">
+  <i class="w3-margin-right">⚙️</i>Settings
+</button>
+
+<!-- Settings Modal -->
+<div id="settingsModal" class="w3-modal">
+  <div class="w3-modal-content w3-padding">
+    <span onclick="closeSettingsModal()" class="w3-button w3-display-topright">&times;</span>
+    <h2>Settings</h2>
+    <label class="w3-text-black">
+      Enable Audio Notification:
+      <input type="checkbox" id="audioToggle" onchange="toggleAudioSetting()" />
+    </label>
+  </div>
+</div>
+
+
       <div class="w3-card w3-padding w3-center">
         <div class="w3-section">
           <label class="w3-text-black">
