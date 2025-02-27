@@ -158,3 +158,4 @@ function closeHelpModal() {
 
 
 updateDisplay();
+
