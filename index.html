@@ -11,11 +11,34 @@
     <div class="w3-container">
       <h1 class="w3-center w3-text-white">Pomodoro Timer</h1>
 
-      <!-- Clear Instructions -->
-      <p id="instructions" class="w3-text-white w3-padding">
-        The timer will automatically transition between focus and break time.
-        You will hear a sound when switching. Stay productive!
-      </p>
+      <!-- <p id="instructions" class="w3-text-white w3-padding">
+        This Pomodoro Timer helps you manage productivity using work and break
+        cycles.
+        <strong>Focus Time</strong> is when you concentrate on tasks without
+        distractions. <strong>Break Time</strong> is when you relax before the
+        next focus session. The timer automatically transitions between these
+        periods. Adjust the sliders to set your desired time.
+      </p> -->
+      <button class="w3-button w3-blue w3-margin" onclick="openHelpModal()">
+        How It Works
+      </button>
+      <div id="helpModal" class="w3-modal">
+        <div class="w3-modal-content w3-padding">
+          <span onclick="closeHelpModal()" class="w3-button w3-display-topright"
+            >&times;</span
+          >
+          <h2>How to Use the Pomodoro Timer</h2>
+          <p><strong>Focus Time:</strong> Work without distractions.</p>
+          <p>
+            <strong>Break Time:</strong> Take a short rest before resuming work.
+          </p>
+          <p>
+            Use the sliders to adjust focus and break durations. The timer will
+            transition automatically.
+          </p>
+          <p>Press "Start" to begin your session. Stay productive!</p>
+        </div>
+      </div>
 
       <div class="w3-card w3-padding w3-center">
         <div class="w3-section">

@@ -144,5 +144,13 @@ function resetTimer() {
     button.textContent = "Start";
     button.classList.replace("w3-red", "w3-green");
 }
+function openHelpModal() {
+    document.getElementById("helpModal").style.display = "block";
+}
+
+function closeHelpModal() {
+    document.getElementById("helpModal").style.display = "none";
+}
+
 
 updateDisplay();
