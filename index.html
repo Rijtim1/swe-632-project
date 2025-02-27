@@ -65,6 +65,31 @@
       </div>
 
       <div class="w3-card w3-padding w3-center">
+
+
+        <div class="w3-section w3-center">
+           <!-- Timer Display -->
+        <div id="statusMessage" class="status-message">
+          Press Start to begin your session.
+        </div>
+        <div id="timer">25:00</div>
+
+        <button
+          id="startPauseButton"
+          onclick="toggleTimer()"
+          class="w3-button w3-green w3-margin"
+          title="Start or Pause the Timer"
+        >
+          Start
+        </button>
+        <button
+          onclick="resetTimer()"
+          class="w3-button w3-gray w3-margin"
+          title="Reset the Timer to default settings"
+        >
+          Reset
+        </button>
+        
         <div class="w3-section">
           <label class="w3-text-black">
             Focus Time (1-120 minutes):
@@ -127,8 +152,6 @@
             </button>
           </div>
         </div>
-
-        <div class="w3-section w3-center">
           <label class="w3-text-black w3-large w3-block"
             >Presets (Focus/Break):</label
           >
@@ -164,27 +187,7 @@
           </div>
         </div>
 
-        <!-- Timer Display -->
-        <div id="statusMessage" class="status-message">
-          Press Start to begin your session.
-        </div>
-        <div id="timer">25:00</div>
-
-        <button
-          id="startPauseButton"
-          onclick="toggleTimer()"
-          class="w3-button w3-green w3-margin"
-          title="Start or Pause the Timer"
-        >
-          Start
-        </button>
-        <button
-          onclick="resetTimer()"
-          class="w3-button w3-gray w3-margin"
-          title="Reset the Timer to default settings"
-        >
-          Reset
-        </button>
+       
       </div>
     </div>
 
