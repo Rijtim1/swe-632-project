@@ -9,7 +9,13 @@ function updateDisplay() {
     let minutes = Math.floor(timeLeft / 60);
     let seconds = timeLeft % 60;
     document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+
+    // Ensure the correct status message and color is set when the page loads
+    const statusMessage = document.getElementById('statusMessage');
+    statusMessage.textContent = "Focus Time! Stay Productive!";
+    statusMessage.classList.add("focus-mode");
 }
+
 
 function updateTimeDisplay(type) {
     const value = document.getElementById(type + 'Time').value;
@@ -80,21 +86,34 @@ function handleTimerEnd() {
     const timerDisplay = document.getElementById('timer');
     const audio = document.getElementById('transitionSound');
 
-    audio.play(); // Play sound
+    audio.play(); // Play transition sound
 
-    if (onBreak) {
-        statusMessage.textContent = "Focus Time! Stay Productive!";
-        statusMessage.style.color = "green";
-        timeLeft = focusTime;
-    } else {
+    if (!onBreak) {
+        // Switch to break time
         statusMessage.textContent = "Break Time! Relax!";
-        statusMessage.style.color = "blue";
+        statusMessage.classList.remove("focus-mode");
+        statusMessage.classList.add("break-mode");
+        timerDisplay.style.color = "blue";
         timeLeft = breakTime;
-    }
+        onBreak = true; // Stay in break mode
 
-    onBreak = !onBreak;
-    setTimeout(toggleTimer, 1000); // Auto-restart timer after transition
+        // Delay restarting the timer to prevent flickering
+        setTimeout(() => toggleTimer(), 1000);
+    } else {
+        // Switch back to focus time
+        statusMessage.textContent = "Focus Time! Stay Productive!";
+        statusMessage.classList.remove("break-mode");
+        statusMessage.classList.add("focus-mode");
+        timerDisplay.style.color = "green";
+        timeLeft = focusTime;
+        onBreak = false; // Reset break mode
+
+        // Restart the focus timer without flickering
+        setTimeout(() => toggleTimer(), 1000);
+    }
 }
+
+
 
 function resetTimer() {
     clearInterval(timer);
