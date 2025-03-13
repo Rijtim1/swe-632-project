@@ -13,7 +13,7 @@
       <button
         class="w3-button w3-blue w3-margin"
         onclick="openHelpModal()"
-        title="Open Help Modal"
+        title="Open the help modal to learn how to use the Pomodoro Timer effectively"
       >
         <i class="w3-margin-right">ℹ️</i>How it Works?
       </button>
@@ -39,7 +39,7 @@
       <button
         class="w3-button w3-blue w3-margin"
         onclick="openSettingsModal()"
-        title="Open Settings Modal"
+        title="Open the settings modal to configure timer preferences, notifications, and presets"
       >
         <i class="w3-margin-right">⚙️</i>Settings
       </button>
@@ -65,33 +65,8 @@
               <span class="slider round"></span>
             </label>
           </label>
-        </div>
-      </div>
 
-      <div class="w3-card w3-padding w3-center">
-        <div class="w3-section w3-center">
-          <!-- Timer Display -->
-          <div id="statusMessage" class="status-message">
-            Press Start to begin your session.
-          </div>
-          <div id="timer">25:00</div>
-
-          <button
-            id="startPauseButton"
-            onclick="toggleTimer()"
-            class="w3-button w3-green w3-margin"
-            title="Start or Pause the Timer"
-          >
-            Start
-          </button>
-          <button
-            onclick="resetTimer()"
-            class="w3-button w3-gray w3-margin"
-            title="Reset the Timer to default settings"
-          >
-            Reset
-          </button>
-
+          <h3>Timer Settings</h3>
           <div class="w3-section">
             <label class="w3-text-black">
               Focus Time (1-120 minutes):
@@ -155,9 +130,8 @@
               </button>
             </div>
           </div>
-          <label class="w3-text-black w3-large w3-block"
-            >Presets (Focus/Break):</label
-          >
+
+          <h3>Presets (Focus/Break)</h3>
           <div class="w3-margin-top">
             <button
               class="w3-button w3-light-gray"
@@ -188,6 +162,31 @@
               90/15
             </button>
           </div>
+        </div>
+      </div>
+
+      <div class="w3-card w3-padding w3-center">
+        <div class="w3-section w3-center">
+          <div id="statusMessage" class="status-message">
+            Press Start to begin your session.
+          </div>
+          <div id="timer">25:00</div>
+
+          <button
+            id="startPauseButton"
+            onclick="toggleTimer()"
+            class="w3-button w3-green w3-margin"
+            title="Start the Pomodoro timer to begin a focus session or pause it to take a break"
+          >
+            Start
+          </button>
+          <button
+            onclick="resetTimer()"
+            class="w3-button w3-gray w3-margin"
+            title="Reset the Pomodoro timer to its default focus and break duration settings"
+          >
+            Reset
+          </button>
         </div>
 
         <p>
