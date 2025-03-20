@@ -179,7 +179,18 @@
           <div id="statusMessage" class="status-message">
             Press Start to begin your session.
           </div>
-          <div id="timer">25:00</div>
+          <div class="timer-container">
+            <svg class="progress-ring" width="300" height="300">
+              <circle
+                class="progress-ring__background"
+                cx="150"
+                cy="150"
+                r="120"
+              />
+              <circle class="progress-ring__circle" cx="150" cy="150" r="120" />
+            </svg>
+            <div id="timer">25:00</div>
+          </div>
 
           <button
             id="startPauseButton"
