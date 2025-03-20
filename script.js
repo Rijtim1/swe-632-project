@@ -5,10 +5,111 @@ let timer;
 let running = false;
 let onBreak = false;
 
+const progressRing = document.querySelector('.progress-ring__circle');
+const radius = progressRing.r.baseVal.value;
+const circumference = 2 * Math.PI * radius;
+progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
+progressRing.style.strokeDashoffset = circumference;
+
 function updateDisplay() {
     let minutes = Math.floor(timeLeft / 60);
     let seconds = timeLeft % 60;
     document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    updateProgressRing();
+}
+
+function updateProgressRing() {
+    const progress = (timeLeft / (onBreak ? breakTime : focusTime)) * circumference;
+    progressRing.style.strokeDashoffset = progress;
+}
+
+function updateUI() {
+    const statusMessage = document.getElementById("statusMessage");
+    const timerDisplay = document.getElementById("timer");
+    
+    if (!running) {
+        statusMessage.textContent = "Press Start to Begin";
+        timerDisplay.style.color = "gray";
+        progressRing.style.stroke = "gray";
+    } else if (onBreak) {
+        statusMessage.textContent = "Break Time! Relax!";
+        statusMessage.classList.remove("focus-mode");
+        statusMessage.classList.add("break-mode");
+        timerDisplay.style.color = "blue";
+        progressRing.style.stroke = "#2196F3"; // Blue for break
+    } else {
+        statusMessage.textContent = "Focus Time! Stay Productive!";
+        statusMessage.classList.remove("break-mode");
+        statusMessage.classList.add("focus-mode");
+        timerDisplay.style.color = "green";
+        progressRing.style.stroke = "#4CAF50"; // Green for focus
+    }
+}
+
+function toggleTimer() {
+    const button = document.getElementById("startPauseButton");
+
+    if (!running) {
+        running = true;
+        button.textContent = "Pause";
+        button.classList.replace("w3-green", "w3-red");
+        updateUI();
+
+        timer = setInterval(() => {
+            if (timeLeft > 0) {
+                timeLeft--;
+                updateDisplay();
+            } else {
+                clearInterval(timer);
+                running = false;
+                handleTimerEnd();
+            }
+        }, 1000);
+    } else {
+        clearInterval(timer);
+        running = false;
+        button.textContent = "Start";
+        button.classList.replace("w3-red", "w3-green");
+        updateUI();
+    }
+}
+
+function handleTimerEnd() {
+    const audio = document.getElementById('transitionSound');
+    if (localStorage.getItem("audioNotification") === "true") {
+        audio.play().catch(error => console.error("Error playing sound:", error));
+    }
+    onBreak = !onBreak;
+    timeLeft = onBreak ? breakTime : focusTime;
+    updateUI();
+    toggleTimer();
+}
+
+function resetTimer() {
+    clearInterval(timer);
+    running = false;
+    onBreak = false;
+    focusTime = 25 * 60;
+    breakTime = 5 * 60;
+    timeLeft = focusTime;
+    document.getElementById('focusTime').value = 25;
+    document.getElementById('breakTime').value = 5;
+    updateUI();
+    updateDisplay();
+    progressRing.style.strokeDashoffset = circumference;
+
+    const button = document.getElementById("startPauseButton");
+    button.textContent = "Start";
+    button.classList.replace("w3-red", "w3-green");
+}
+
+function adjustTime(type, amount) {
+    let input = document.getElementById(type + 'Time');
+    let newValue = parseInt(input.value) + amount;
+    if (newValue >= parseInt(input.min) && newValue <= parseInt(input.max)) {
+        input.value = newValue;
+        updateTimeDisplay(type);
+    }
 }
 
 function updateTimeDisplay(type) {
@@ -26,22 +127,12 @@ function updateTimeDisplay(type) {
     }
 }
 
-function adjustTime(type, amount) {
-    let input = document.getElementById(type + 'Time');
-    let newValue = parseInt(input.value) + amount;
-    if (newValue >= parseInt(input.min) && newValue <= parseInt(input.max)) {
-        input.value = newValue;
-        updateTimeDisplay(type);
-    }
-}
-
 function setPreset(focus, breakT) {
     if (!running) {
         focusTime = focus * 60;
         breakTime = breakT * 60;
         timeLeft = focusTime;
         onBreak = false;
-
         document.getElementById('focusTime').value = focus;
         document.getElementById('breakTime').value = breakT;
         updateTimeDisplay('focus');
@@ -50,102 +141,30 @@ function setPreset(focus, breakT) {
     }
 }
 
-function toggleTimer() {
-    const button = document.getElementById("startPauseButton");
-    const statusMessage = document.getElementById("statusMessage");
-    const timerDisplay = document.getElementById("timer");
-
-    if (!running) {
-        running = true;
-        button.textContent = "Pause";
-        button.classList.replace("w3-green", "w3-red");
-
-        if (!onBreak) {
-            statusMessage.textContent = "Focus Time! Stay Productive!";
-            statusMessage.classList.remove("break-mode");
-            statusMessage.classList.add("focus-mode");
-            timerDisplay.style.color = "green";
-        } else {
-            statusMessage.textContent = "Break Time! Relax!";
-            statusMessage.classList.remove("focus-mode");
-            statusMessage.classList.add("break-mode");
-            timerDisplay.style.color = "blue";
-        }
-
-        timer = setInterval(() => {
-            if (timeLeft > 0) {
-                timeLeft--;
-                updateDisplay();
-            } else {
-                clearInterval(timer);
-                running = false;
-                handleTimerEnd();
-            }
-        }, 1000);
-    } else {
-        clearInterval(timer);
-        running = false;
-        button.textContent = "Start";
-        button.classList.replace("w3-red", "w3-green");
-    }
+function openModal(id) {
+    document.getElementById(id).style.display = "block";
 }
 
-function handleTimerEnd() {
-    const statusMessage = document.getElementById('statusMessage');
-    const timerDisplay = document.getElementById('timer');
-    const audio = document.getElementById('transitionSound');
-
-    // Check if audio notification is enabled before playing the sound
-    if (localStorage.getItem("audioNotification") === "true") {
-        audio.play().catch(error => console.error("Error playing sound:", error));
-    }
-
-    if (!onBreak) {
-        onBreak = true;
-        timeLeft = breakTime;
-        statusMessage.textContent = "Break Time! Relax!";
-        statusMessage.classList.remove("focus-mode");
-        statusMessage.classList.add("break-mode");
-        timerDisplay.style.color = "blue";
-    } else {
-        onBreak = false;
-        timeLeft = focusTime;
-        statusMessage.textContent = "Focus Time! Stay Productive!";
-        statusMessage.classList.remove("break-mode");
-        statusMessage.classList.add("focus-mode");
-        timerDisplay.style.color = "green";
-    }
-
-    toggleTimer(); // Automatically restart the timer
+function closeModal(id) {
+    document.getElementById(id).style.display = "none";
 }
 
-function resetTimer() {
-    clearInterval(timer);
-    running = false;
-    onBreak = false;
+function toggleAudioSetting() {
+    let audioEnabled = document.getElementById("audioToggle").checked;
+    localStorage.setItem("audioNotification", audioEnabled);
+}
 
-    focusTime = 25 * 60;
-    breakTime = 5 * 60;
-    timeLeft = focusTime;
+function loadSettings() {
+    let audioEnabled = localStorage.getItem("audioNotification") === "true";
+    document.getElementById("audioToggle").checked = audioEnabled;
+}
 
-    document.getElementById('focusTime').value = 25;
-    document.getElementById('breakTime').value = 5;
-    updateTimeDisplay('focus');
-    updateTimeDisplay('break');
+function init() {
+    loadSettings();
     updateDisplay();
-
-    document.getElementById('statusMessage').textContent = "Focus Time! Stay Productive!";
-    document.getElementById('statusMessage').classList.remove("break-mode");
-    document.getElementById('statusMessage').classList.add("focus-mode");
-
-    document.getElementById('timer').style.color = "green";
-
-    const button = document.getElementById("startPauseButton");
-    button.textContent = "Start";
-    button.classList.replace("w3-red", "w3-green");
+    updateUI();
 }
 
-// Open and Close Modals
 function openHelpModal() {
     document.getElementById("helpModal").style.display = "block";
 }
@@ -162,20 +181,6 @@ function closeSettingsModal() {
     document.getElementById("settingsModal").style.display = "none";
 }
 
-// Toggle audio setting and save to localStorage
-function toggleAudioSetting() {
-    let audioEnabled = document.getElementById("audioToggle").checked;
-    localStorage.setItem("audioNotification", audioEnabled);
-}
 
-// Load settings on page load
-function loadSettings() {
-    let audioEnabled = localStorage.getItem("audioNotification") === "true";
-    document.getElementById("audioToggle").checked = audioEnabled;
-}
+window.onload = init;
 
-// Run settings load on window load
-window.onload = function () {
-    loadSettings();
-    updateDisplay();
-};
