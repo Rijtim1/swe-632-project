@@ -1,156 +1,22 @@
-/* Updated styles.css with W3.CSS enhancements */
-@import url("https://www.w3schools.com/w3css/4/w3.css");
-
-/* Prevent scrolling and center the content */
-html,
-body {
-  margin: 0;
-  padding: 0;
-  /* Prevents scrolling */
-  /* overflow: hidden; */
-  height: 100vh; /* Ensures full height usage */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Ensure the container doesn't overflow */
-.w3-container {
-  max-width: 100vw;
-  text-align: center;
-  padding: 20px;
-}
-
 body {
   font-family: Arial, sans-serif;
   text-align: center;
-  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  margin: 50px;
 }
-
-.w3-card {
-  max-width: 400px;
-  margin: auto;
-  padding: 20px;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Timer Display */
 #timer {
-  font-size: 64px;
-  font-weight: bold;
-  color: #333;
-  margin: 20px 0;
-  font-family: "Courier New", Courier, monospace;
+  font-size: 48px;
+  margin: 20px;
 }
-
-/* Status message for focus/break time transitions */
-#statusMessage {
-  font-size: 22px;
-  font-weight: bold;
-  margin: 10px 0;
-  text-align: center;
-  padding: 10px;
-  border-radius: 5px;
-  display: inline-block;
-  width: 100%;
-}
-
-.focus-mode {
-  color: green;
-  background: rgba(46, 139, 87, 0.2);
-}
-
-.break-mode {
-  color: blue;
-  background: rgba(30, 144, 255, 0.2);
-}
-
 button {
   font-size: 18px;
-  padding: 12px 24px;
+  padding: 10px 20px;
   margin: 10px;
   cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  transition: 0.3s;
 }
-
-.w3-green:hover {
-  background: #2e8b57;
-}
-.w3-red:hover {
-  background: #b22222;
-}
-.w3-blue:hover {
-  background: #1e90ff;
-}
-
-/* Notification when time is up */
 #notification {
   margin-top: 20px;
-  font-size: 20px;
-  color: white;
-  background: red;
-  padding: 10px;
-  border-radius: 5px;
+  font-size: 24px;
+  color: red;
+  font-weight: bold;
   display: none;
-}
-
-.slider-container {
-  display: flex;
-  align-items: center;
-  gap: 10px; /* Adds spacing between buttons and slider */
-}
-
-.slider-container input {
-  flex-grow: 1; /* Ensures the slider expands to fit the available space */
-}
-
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 34px;
-  height: 20px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.4s;
-  border-radius: 20px;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 14px;
-  width: 14px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.4s;
-  border-radius: 50%;
-}
-
-input:checked + .slider {
-  background-color: #2196f3;
-}
-
-input:checked + .slider:before {
-  transform: translateX(14px);
 }
