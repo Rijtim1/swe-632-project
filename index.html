@@ -1,24 +1,40 @@
 <!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro Timer</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
     <h1>Pomodoro Timer</h1>
     <div class="time-settings">
-        <div class="input-group">
-            <label for="focusTime">Focus Time (minutes):</label>
-            <input type="number" id="focusTime" value="25" min="1" max="120" aria-label="Focus time in minutes">
-        </div>
-        <div class="input-group">
-            <label for="breakTime">Break Time (minutes):</label>
-            <input type="number" id="breakTime" value="5" min="1" max="60" aria-label="Break time in minutes">
-        </div>
-        <button onclick="setCustomTime()" aria-label="Apply custom time settings">Set Time</button>
+      <div class="input-group">
+        <label for="focusTime">Focus Time (minutes):</label>
+        <input
+          type="number"
+          id="focusTime"
+          value="25"
+          min="1"
+          max="120"
+          aria-label="Focus time in minutes"
+        />
+      </div>
+      <div class="input-group">
+        <label for="breakTime">Break Time (minutes):</label>
+        <input
+          type="number"
+          id="breakTime"
+          value="5"
+          min="1"
+          max="60"
+          aria-label="Break time in minutes"
+        />
+      </div>
+      <button onclick="setCustomTime()" aria-label="Apply custom time settings">
+        Set Time
+      </button>
     </div>
     <div id="timer">25:00</div>
     <button onclick="startTimer()">Start</button>
@@ -27,7 +43,5 @@
     <audio id="alarm" src="ding.mp3"></audio>
     <div id="notification" class="hidden">Time's Up! Take a break!</div>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
-
-

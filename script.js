@@ -13,20 +13,20 @@ function updateDisplay() {
 function setCustomTime() {
     const focusInput = document.getElementById("focusTime").value;
     const breakInput = document.getElementById("breakTime").value;
-    
+
     if (!focusInput || !breakInput || isNaN(focusInput) || isNaN(breakInput)) {
         alert("Please enter valid numbers for both focus and break time");
         return;
     }
-    
+
     const newFocusTime = parseInt(focusInput);
     const newBreakTime = parseInt(breakInput);
-    
+
     if (newFocusTime < 1 || newBreakTime < 1 || newFocusTime > 120 || newBreakTime > 60) {
         alert("Focus time should be between 1-120 minutes and break time between 1-60 minutes");
         return;
     }
-    
+
     focusTime = newFocusTime * 60;
     breakTime = newBreakTime * 60;
     resetTimer();
