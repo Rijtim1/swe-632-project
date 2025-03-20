@@ -1,47 +1,219 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro Timer</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <h1>Pomodoro Timer</h1>
-    <div class="time-settings">
-      <div class="input-group">
-        <label for="focusTime">Focus Time (minutes):</label>
-        <input
-          type="number"
-          id="focusTime"
-          value="25"
-          min="1"
-          max="120"
-          aria-label="Focus time in minutes"
-        />
-      </div>
-      <div class="input-group">
-        <label for="breakTime">Break Time (minutes):</label>
-        <input
-          type="number"
-          id="breakTime"
-          value="5"
-          min="1"
-          max="60"
-          aria-label="Break time in minutes"
-        />
-      </div>
-      <button onclick="setCustomTime()" aria-label="Apply custom time settings">
-        Set Time
+    <div class="w3-container">
+      <h1 class="w3-center w3-text-white">Pomodoro Timer</h1>
+      <button
+        class="w3-button w3-blue w3-margin"
+        onclick="openHelpModal()"
+        title="Open the help modal to learn how to use the Pomodoro Timer effectively"
+      >
+        <i class="w3-margin-right">ℹ️</i>How it Works?
       </button>
+      <div id="helpModal" class="w3-modal">
+        <div class="w3-modal-content w3-padding">
+          <span onclick="closeHelpModal()" class="w3-button w3-display-topright"
+            >&times;</span
+          >
+          <h2>How to Use the Pomodoro Timer</h2>
+          <p><strong>Focus Time:</strong> Work without distractions.</p>
+          <p>
+            <strong>Break Time:</strong> Take a short rest before resuming work.
+          </p>
+          <p>
+            Use the sliders to adjust focus and break durations. The timer will
+            transition automatically.
+          </p>
+          <p>Press "Start" to begin your session. Stay productive!</p>
+        </div>
+      </div>
+
+      <!-- Settings Button -->
+      <button
+        class="w3-button w3-blue w3-margin"
+        onclick="openSettingsModal()"
+        title="Open the settings modal to configure timer preferences, notifications, and presets"
+      >
+        <i class="w3-margin-right">⚙️</i>Settings
+      </button>
+
+      <!-- Settings Modal -->
+      <div id="settingsModal" class="w3-modal">
+        <div class="w3-modal-content w3-padding">
+          <span
+            onclick="closeSettingsModal()"
+            class="w3-button w3-display-topright"
+            >&times;</span
+          >
+          <h2>Settings</h2>
+          <label class="w3-text-black">
+            Enable Audio Notification:
+            <label class="switch">
+              <input
+                type="checkbox"
+                id="audioToggle"
+                onchange="toggleAudioSetting()"
+                title="Toggle audio notification on or off"
+              />
+              <span class="slider round"></span>
+            </label>
+          </label>
+
+          <h3>Timer Settings</h3>
+          <div class="w3-section">
+            <label class="w3-text-black">
+              Focus Time (1-120 minutes):
+              <span id="focusTimeDisplay">25</span> min
+            </label>
+            <div class="slider-container">
+              <button
+                class="w3-button w3-small w3-gray"
+                onclick="adjustTime('focus', -5)"
+                title="Decrease focus time by 5 minutes"
+              >
+                -
+              </button>
+              <input
+                type="range"
+                id="focusTime"
+                class="w3-input w3-border"
+                min="1"
+                max="120"
+                value="25"
+                oninput="updateTimeDisplay('focus')"
+              />
+              <button
+                class="w3-button w3-small w3-gray"
+                onclick="adjustTime('focus', 5)"
+                title="Increase focus time by 5 minutes"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <div class="w3-section">
+            <label class="w3-text-black">
+              Break Time (1-60 minutes):
+              <span id="breakTimeDisplay">5</span> min
+            </label>
+            <div class="slider-container">
+              <button
+                class="w3-button w3-small w3-gray"
+                onclick="adjustTime('break', -1)"
+                title="Decrease break time by 1 minute"
+              >
+                -
+              </button>
+              <input
+                type="range"
+                id="breakTime"
+                class="w3-input w3-border"
+                min="1"
+                max="60"
+                value="5"
+                oninput="updateTimeDisplay('break')"
+              />
+              <button
+                class="w3-button w3-small w3-gray"
+                onclick="adjustTime('break', 1)"
+                title="Increase break time by 1 minute"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
+          <h3>Presets (Focus/Break)</h3>
+          <div class="w3-margin-top">
+            <button
+              class="w3-button w3-light-gray"
+              onclick="setPreset(5, 1)"
+              title="Set 5 minutes focus / 1 minute break"
+            >
+              5/1
+            </button>
+            <button
+              class="w3-button w3-light-gray"
+              onclick="setPreset(25, 5)"
+              title="Set 25 minutes focus / 5 minutes break"
+            >
+              25/5
+            </button>
+            <button
+              class="w3-button w3-light-gray"
+              onclick="setPreset(50, 10)"
+              title="Set 50 minutes focus / 10 minutes break"
+            >
+              50/10
+            </button>
+            <button
+              class="w3-button w3-light-gray"
+              onclick="setPreset(90, 15)"
+              title="Set 90 minutes focus / 15 minutes break"
+            >
+              90/15
+            </button>
+          </div>
+
+          <div class="w3-section w3-center">
+            <button
+              class="w3-button w3-red w3-margin-top"
+              onclick="closeSettingsModal()"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="w3-card w3-padding w3-center">
+        <div class="w3-section w3-center">
+          <div id="statusMessage" class="status-message">
+            Press Start to begin your session.
+          </div>
+          <div id="timer">25:00</div>
+
+          <button
+            id="startPauseButton"
+            onclick="toggleTimer()"
+            class="w3-button w3-green w3-margin"
+            title="Start the Pomodoro timer to begin a focus session or pause it to take a break"
+          >
+            Start
+          </button>
+          <button
+            onclick="resetTimer()"
+            class="w3-button w3-gray w3-margin"
+            title="Reset the Pomodoro timer to its default focus and break duration settings"
+          >
+            Reset
+          </button>
+        </div>
+
+        <p>
+          <a
+            href="https://en.wikipedia.org/wiki/Pomodoro_Technique"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Learn more about the Pomodoro Technique"
+          >
+            Learn more about the Pomodoro Technique
+          </a>
+        </p>
+      </div>
     </div>
-    <div id="timer">25:00</div>
-    <button onclick="startTimer()">Start</button>
-    <button onclick="pauseTimer()">Pause</button>
-    <button onclick="resetTimer()">Reset</button>
-    <audio id="alarm" src="ding.mp3"></audio>
-    <div id="notification" class="hidden">Time's Up! Take a break!</div>
+
+    <audio id="transitionSound">
+      <source src="ding.mp3" type="audio/mpeg" />
+    </audio>
     <script src="script.js"></script>
   </body>
 </html>
