@@ -149,6 +149,22 @@ function closeModal(id) {
     document.getElementById(id).style.display = "none";
 }
 
+function openHelpModal() {
+    openModal("helpModal");
+}
+
+function closeHelpModal() {
+    closeModal("helpModal");
+}
+
+function openSettingsModal() {
+    openModal("settingsModal");
+}
+
+function closeSettingsModal() {
+    closeModal("settingsModal");
+}
+
 function toggleAudioSetting() {
     let audioEnabled = document.getElementById("audioToggle").checked;
     localStorage.setItem("audioNotification", audioEnabled);
@@ -164,23 +180,6 @@ function init() {
     updateDisplay();
     updateUI();
 }
-
-function openHelpModal() {
-    document.getElementById("helpModal").style.display = "block";
-}
-
-function closeHelpModal() {
-    document.getElementById("helpModal").style.display = "none";
-}
-
-function openSettingsModal() {
-    document.getElementById("settingsModal").style.display = "block";
-}
-
-function closeSettingsModal() {
-    document.getElementById("settingsModal").style.display = "none";
-}
-
 
 window.onload = init;
 
