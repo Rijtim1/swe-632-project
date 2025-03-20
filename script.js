@@ -1,8 +1,9 @@
-let focusTime = 25 * 60; // Default 25 minutes
-let breakTime = 5 * 60; // Default 5 minutes
+let focusTime = 25 * 60;
+let breakTime = 5 * 60;
 let timeLeft = focusTime;
 let timer;
 let running = false;
+let onBreak = false;
 
 function updateDisplay() {
     let minutes = Math.floor(timeLeft / 60);
@@ -10,63 +11,171 @@ function updateDisplay() {
     document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
 }
 
-function setCustomTime() {
-    const focusInput = document.getElementById("focusTime").value;
-    const breakInput = document.getElementById("breakTime").value;
+function updateTimeDisplay(type) {
+    const value = document.getElementById(type + 'Time').value;
+    document.getElementById(type + 'TimeDisplay').textContent = value;
 
-    if (!focusInput || !breakInput || isNaN(focusInput) || isNaN(breakInput)) {
-        alert("Please enter valid numbers for both focus and break time");
-        return;
+    if (!running) {
+        if (type === 'focus') {
+            focusTime = parseInt(value) * 60;
+            timeLeft = focusTime;
+        } else {
+            breakTime = parseInt(value) * 60;
+        }
+        updateDisplay();
     }
-
-    const newFocusTime = parseInt(focusInput);
-    const newBreakTime = parseInt(breakInput);
-
-    if (newFocusTime < 1 || newBreakTime < 1 || newFocusTime > 120 || newBreakTime > 60) {
-        alert("Focus time should be between 1-120 minutes and break time between 1-60 minutes");
-        return;
-    }
-
-    focusTime = newFocusTime * 60;
-    breakTime = newBreakTime * 60;
-    resetTimer();
 }
 
-function startTimer() {
+function adjustTime(type, amount) {
+    let input = document.getElementById(type + 'Time');
+    let newValue = parseInt(input.value) + amount;
+    if (newValue >= parseInt(input.min) && newValue <= parseInt(input.max)) {
+        input.value = newValue;
+        updateTimeDisplay(type);
+    }
+}
+
+function setPreset(focus, breakT) {
+    if (!running) {
+        focusTime = focus * 60;
+        breakTime = breakT * 60;
+        timeLeft = focusTime;
+        onBreak = false;
+
+        document.getElementById('focusTime').value = focus;
+        document.getElementById('breakTime').value = breakT;
+        updateTimeDisplay('focus');
+        updateTimeDisplay('break');
+        updateDisplay();
+    }
+}
+
+function toggleTimer() {
+    const button = document.getElementById("startPauseButton");
+    const statusMessage = document.getElementById("statusMessage");
+    const timerDisplay = document.getElementById("timer");
+
     if (!running) {
         running = true;
+        button.textContent = "Pause";
+        button.classList.replace("w3-green", "w3-red");
+
+        if (!onBreak) {
+            statusMessage.textContent = "Focus Time! Stay Productive!";
+            statusMessage.classList.remove("break-mode");
+            statusMessage.classList.add("focus-mode");
+            timerDisplay.style.color = "green";
+        } else {
+            statusMessage.textContent = "Break Time! Relax!";
+            statusMessage.classList.remove("focus-mode");
+            statusMessage.classList.add("break-mode");
+            timerDisplay.style.color = "blue";
+        }
+
         timer = setInterval(() => {
             if (timeLeft > 0) {
                 timeLeft--;
                 updateDisplay();
             } else {
-                document.getElementById('alarm').play();
-                document.getElementById('notification').style.display = 'block';
-                if (Notification.permission === "granted") {
-                    new Notification("Pomodoro Timer", { body: "Time's Up! Take a break!" });
-                }
                 clearInterval(timer);
                 running = false;
+                handleTimerEnd();
             }
         }, 1000);
+    } else {
+        clearInterval(timer);
+        running = false;
+        button.textContent = "Start";
+        button.classList.replace("w3-red", "w3-green");
     }
 }
 
-function pauseTimer() {
-    clearInterval(timer);
-    running = false;
+function handleTimerEnd() {
+    const statusMessage = document.getElementById('statusMessage');
+    const timerDisplay = document.getElementById('timer');
+    const audio = document.getElementById('transitionSound');
+
+    // Check if audio notification is enabled before playing the sound
+    if (localStorage.getItem("audioNotification") === "true") {
+        audio.play().catch(error => console.error("Error playing sound:", error));
+    }
+
+    if (!onBreak) {
+        onBreak = true;
+        timeLeft = breakTime;
+        statusMessage.textContent = "Break Time! Relax!";
+        statusMessage.classList.remove("focus-mode");
+        statusMessage.classList.add("break-mode");
+        timerDisplay.style.color = "blue";
+    } else {
+        onBreak = false;
+        timeLeft = focusTime;
+        statusMessage.textContent = "Focus Time! Stay Productive!";
+        statusMessage.classList.remove("break-mode");
+        statusMessage.classList.add("focus-mode");
+        timerDisplay.style.color = "green";
+    }
+
+    toggleTimer(); // Automatically restart the timer
 }
 
 function resetTimer() {
     clearInterval(timer);
     running = false;
+    onBreak = false;
+
+    focusTime = 25 * 60;
+    breakTime = 5 * 60;
     timeLeft = focusTime;
+
+    document.getElementById('focusTime').value = 25;
+    document.getElementById('breakTime').value = 5;
+    updateTimeDisplay('focus');
+    updateTimeDisplay('break');
     updateDisplay();
-    document.getElementById('notification').style.display = 'none';
+
+    document.getElementById('statusMessage').textContent = "Focus Time! Stay Productive!";
+    document.getElementById('statusMessage').classList.remove("break-mode");
+    document.getElementById('statusMessage').classList.add("focus-mode");
+
+    document.getElementById('timer').style.color = "green";
+
+    const button = document.getElementById("startPauseButton");
+    button.textContent = "Start";
+    button.classList.replace("w3-red", "w3-green");
 }
 
-if ("Notification" in window) {
-    Notification.requestPermission();
+// Open and Close Modals
+function openHelpModal() {
+    document.getElementById("helpModal").style.display = "block";
 }
 
-updateDisplay();
+function closeHelpModal() {
+    document.getElementById("helpModal").style.display = "none";
+}
+
+function openSettingsModal() {
+    document.getElementById("settingsModal").style.display = "block";
+}
+
+function closeSettingsModal() {
+    document.getElementById("settingsModal").style.display = "none";
+}
+
+// Toggle audio setting and save to localStorage
+function toggleAudioSetting() {
+    let audioEnabled = document.getElementById("audioToggle").checked;
+    localStorage.setItem("audioNotification", audioEnabled);
+}
+
+// Load settings on page load
+function loadSettings() {
+    let audioEnabled = localStorage.getItem("audioNotification") === "true";
+    document.getElementById("audioToggle").checked = audioEnabled;
+}
+
+// Run settings load on window load
+window.onload = function () {
+    loadSettings();
+    updateDisplay();
+};
