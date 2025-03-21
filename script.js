@@ -1,18 +1,20 @@
-let focusTime = 25 * 60;
-let breakTime = 5 * 60;
-let timeLeft = focusTime;
-let timer;
-let running = false;
-let onBreak = false;
-let cycleCount = 0;
-let focusCount = 0;
-let breakCount = 0;
+// Timer settings and state variables
+let focusTime = 25 * 60; // Default focus time in seconds
+let breakTime = 5 * 60; // Default break time in seconds
+let timeLeft = focusTime; // Remaining time for the current session
+let timer; // Reference to the interval timer
+let running = false; // Indicates if the timer is running
+let onBreak = false; // Indicates if the current session is a break
+let cycleCount = 0; // Number of completed focus-break cycles
+let focusCount = 0; // Number of completed focus sessions
+let breakCount = 0; // Number of completed break sessions
 
+// Progress ring visualization setup
 const progressRing = document.querySelector('.progress-ring__circle');
-const radius = progressRing.r.baseVal.value;
-const circumference = 2 * Math.PI * radius;
-progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
-progressRing.style.strokeDashoffset = circumference;
+const radius = progressRing.r.baseVal.value; // Radius of the progress ring
+const circumference = 2 * Math.PI * radius; // Circumference of the progress ring
+progressRing.style.strokeDasharray = `${circumference} ${circumference}`; // Set dash array for the ring
+progressRing.style.strokeDashoffset = circumference; // Initialize offset to full circumference
 
 // Helper function to format time as MM:SS
 function formatTime(seconds) {
