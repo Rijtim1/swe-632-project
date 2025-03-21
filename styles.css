@@ -88,13 +88,13 @@ button:focus {
 }
 
 .focus-mode {
-  color: green;
-  background: rgba(46, 139, 87, 0.2);
+  color: #28a745; /* Calming green */
+  background: rgba(40, 167, 69, 0.2); /* Light green background */
 }
 
 .break-mode {
-  color: blue;
-  background: rgba(30, 144, 255, 0.2);
+  color: #3498db; /* Relaxing blue */
+  background: rgba(52, 152, 219, 0.2); /* Light blue background */
 }
 
 /* Notification when time is up */
@@ -192,6 +192,14 @@ input:checked + .slider:before {
   transition: stroke-dashoffset 0.5s linear;
   transform-origin: center;
   transform-origin: 50% 50%;
+}
+
+.progress-ring__circle.focus-mode {
+  stroke: #28a745; /* Green for focus */
+}
+
+.progress-ring__circle.break-mode {
+  stroke: #3498db; /* Blue for break */
 }
 
 #timer {
