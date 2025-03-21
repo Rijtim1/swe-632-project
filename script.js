@@ -215,7 +215,15 @@ function updateTimeDisplay(type) {
         updateDisplay();
     }
 }
-
+/**
+ * Synchronizes the slider value with the number input field and ensures the input is valid.
+ *
+ * Validates that the input is a number and falls within the defined range of the slider.
+ * Displays notifications if the input is invalid or out of range. Updates both slider and
+ * input field with the valid value and refreshes the time display.
+ *
+ * @param {string} type - The timer type to update ("focus" or "break").
+*/
 function syncSliderWithInput(type) {
     const input = document.getElementById(type + 'TimeInput');
     const slider = document.getElementById(type + 'Time');
