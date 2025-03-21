@@ -19,7 +19,7 @@ function updateDisplay() {
 }
 
 function updateProgressRing() {
-    const progress = (timeLeft / (onBreak ? breakTime : focusTime)) * circumference;
+    const progress = circumference - (timeLeft / (onBreak ? breakTime : focusTime)) * circumference;
     progressRing.style.strokeDashoffset = progress;
 }
 
