@@ -17,12 +17,10 @@
       >
         <i class="w3-margin-right">ℹ️</i>How it Works?
       </button>
-      <div id="helpModal" class="w3-modal">
+      <div id="helpModal" class="w3-modal" role="dialog" aria-labelledby="helpModalTitle" aria-hidden="true">
         <div class="w3-modal-content w3-padding">
-          <span onclick="closeHelpModal()" class="w3-button w3-display-topright"
-            >&times;</span
-          >
-          <h2>How to Use the Pomodoro Timer</h2>
+          <span onclick="closeHelpModal()" class="w3-button w3-display-topright" aria-label="Close Help Modal">&times;</span>
+          <h2 id="helpModalTitle">How to Use the Pomodoro Timer</h2>
           <p><strong>Focus Time:</strong> Work without distractions.</p>
           <p>
             <strong>Break Time:</strong> Take a short rest before resuming work.
@@ -31,7 +29,14 @@
             Use the sliders to adjust focus and break durations. The timer will
             transition automatically.
           </p>
-          <p>Press "Start" to begin your session. Stay productive!</p>
+          <p>
+            Alternatively, use the presets to quickly set focus and break
+            durations.
+          </p>
+          <p>
+            Press <strong>"Start"</strong> to begin your session. Stay
+            productive!
+          </p>
         </div>
       </div>
 
@@ -45,17 +50,17 @@
       </button>
 
       <!-- Settings Modal -->
-      <div id="settingsModal" class="w3-modal">
+      <div id="settingsModal" class="w3-modal" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
         <div class="w3-modal-content w3-padding">
           <span
             onclick="closeSettingsModal()"
-            class="w3-button w3-display-topright"
+            class="w3-button w3-display-topright" aria-label="Close Settings Modal"
             >&times;</span
           >
-          <h2>Settings</h2>
+          <h2 id="settingsModalTitle">Settings</h2>
           <label class="w3-text-black">
             Enable Audio Notification:
-            <label class="switch">
+            <label class="switch" aria-label="Enable or disable audio notifications">
               <input
                 type="checkbox"
                 id="audioToggle"
@@ -68,18 +73,27 @@
 
           <h3>Timer Settings</h3>
           <div class="w3-section">
-            <label class="w3-text-black">
-              Focus Time (1-120 minutes):
-              <span id="focusTimeDisplay">25</span> min
-            </label>
+            <label class="w3-text-black">Focus Time (1–120 minutes):</label>
             <div class="slider-container">
               <button
                 class="w3-button w3-small w3-gray"
                 onclick="adjustTime('focus', -5)"
-                title="Decrease focus time by 5 minutes"
               >
                 -
               </button>
+
+              <input
+                type="number"
+                id="focusTimeInput"
+                min="1"
+                max="120"
+                value="25"
+                class="w3-input w3-border"
+                style="width: 70px"
+                oninput="syncSliderWithInput('focus')"
+                title="Manually enter focus time"
+              />
+
               <input
                 type="range"
                 id="focusTime"
@@ -89,10 +103,10 @@
                 value="25"
                 oninput="updateTimeDisplay('focus')"
               />
+
               <button
                 class="w3-button w3-small w3-gray"
                 onclick="adjustTime('focus', 5)"
-                title="Increase focus time by 5 minutes"
               >
                 +
               </button>
@@ -100,18 +114,27 @@
           </div>
 
           <div class="w3-section">
-            <label class="w3-text-black">
-              Break Time (1-60 minutes):
-              <span id="breakTimeDisplay">5</span> min
-            </label>
+            <label class="w3-text-black">Break Time (1–60 minutes):</label>
             <div class="slider-container">
               <button
                 class="w3-button w3-small w3-gray"
                 onclick="adjustTime('break', -1)"
-                title="Decrease break time by 1 minute"
               >
                 -
               </button>
+
+              <input
+                type="number"
+                id="breakTimeInput"
+                min="1"
+                max="60"
+                value="5"
+                class="w3-input w3-border"
+                style="width: 70px"
+                oninput="syncSliderWithInput('break')"
+                title="Manually enter break time"
+              />
+
               <input
                 type="range"
                 id="breakTime"
@@ -121,15 +144,20 @@
                 value="5"
                 oninput="updateTimeDisplay('break')"
               />
+
               <button
                 class="w3-button w3-small w3-gray"
                 onclick="adjustTime('break', 1)"
-                title="Increase break time by 1 minute"
               >
                 +
               </button>
             </div>
           </div>
+
+          <div
+            id="notificationSettings"
+            style="color: red; font-size: 14px; margin-top: 10px"
+          ></div>
 
           <h3>Presets (Focus/Break)</h3>
           <div class="w3-margin-top">
@@ -197,6 +225,7 @@
             onclick="toggleTimer()"
             class="w3-button w3-green w3-margin"
             title="Start the Pomodoro timer to begin a focus session or pause it to take a break"
+            aria-live="polite"
           >
             Start
           </button>
