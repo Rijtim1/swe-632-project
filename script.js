@@ -4,6 +4,9 @@ let timeLeft = focusTime;
 let timer;
 let running = false;
 let onBreak = false;
+let cycleCount = 0;
+let focusCount = 0;
+let breakCount = 0;
 
 const progressRing = document.querySelector('.progress-ring__circle');
 const radius = progressRing.r.baseVal.value;
@@ -115,9 +118,8 @@ function toggleTimer() {
 /**
  * Handles the timer's transition when the current period ends.
  *
- * If audio notifications are enabled, the function plays a transition sound (logging any playback errors).
- * It then toggles the break state, resets the remaining time to the appropriate duration (focus or break),
- * updates the user interface, and toggles the timer's running state.
+ * Tracks completed focus and break sessions, increments the cycle count
+ * after a full focus and break session, and updates the UI accordingly.
  */
 function handleTimerEnd() {
     const audio = document.getElementById('transitionSound');
@@ -127,19 +129,25 @@ function handleTimerEnd() {
             alert("Unable to play notification sound. Please check your audio settings.");
         });
     }
+
+    if (onBreak) {
+        breakCount++;
+        if (focusCount > 0) {
+            cycleCount++;
+        }
+    } else {
+        focusCount++;
+    }
+
     onBreak = !onBreak;
     timeLeft = onBreak ? breakTime : focusTime;
     updateUI();
+    updateCycleTracking();
     toggleTimer();
 }
 
 /**
- * Resets the timer to its default state.
- *
- * This function stops any active timer interval and resets all timer-related state variables, including
- * the focus time (25 minutes), break time (5 minutes), and the remaining time. It updates the UI by setting
- * the focus and break input fields to their default values, restoring the progress ring's stroke dash offset,
- * and resetting the start/pause button's label and style.
+ * Resets the timer and cycle tracking to their default states.
  */
 function resetTimer() {
     clearInterval(timer);
@@ -148,21 +156,32 @@ function resetTimer() {
     focusTime = 25 * 60;
     breakTime = 5 * 60;
     timeLeft = focusTime;
+    cycleCount = 0;
+    focusCount = 0;
+    breakCount = 0;
     document.getElementById('focusTime').value = 25;
     document.getElementById('breakTime').value = 5;
-    // reset the number input fields
     document.getElementById('focusTimeInput').value = 25;
     document.getElementById('breakTimeInput').value = 5;
-    // clear any notifications
     const notificationSettings = document.getElementById('notificationSettings');
     notificationSettings.textContent = "";
     updateUI();
     updateDisplay();
+    updateCycleTracking();
     progressRing.style.strokeDashoffset = circumference;
 
     const button = document.getElementById("startPauseButton");
     button.textContent = "Start";
     button.classList.replace("w3-red", "w3-green");
+}
+
+/**
+ * Updates the cycle tracking display with the latest counts.
+ */
+function updateCycleTracking() {
+    document.getElementById("cycleCount").textContent = cycleCount;
+    document.getElementById("focusCount").textContent = focusCount;
+    document.getElementById("breakCount").textContent = breakCount;
 }
 
 /**

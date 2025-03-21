@@ -206,6 +206,26 @@ input:checked + .slider:before {
   font-family: "Courier New", Courier, monospace;
 }
 
+/* Cycle Tracking Section */
+#cycleTracking {
+  margin-top: 20px;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+#cycleTracking h3 {
+  margin-bottom: 10px;
+  color: #333;
+}
+
+#cycleTracking p {
+  margin: 5px 0;
+  font-size: 18px;
+  color: #555;
+}
+
 /* Media query for screens with a maximum width of 600px */
 /* Adjusts styles for better usability on smaller screens */
 @media (max-width: 600px) {
