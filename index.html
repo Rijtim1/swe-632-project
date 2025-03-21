@@ -17,9 +17,20 @@
       >
         <i class="w3-margin-right">ℹ️</i>How it Works?
       </button>
-      <div id="helpModal" class="w3-modal" role="dialog" aria-labelledby="helpModalTitle" aria-hidden="true">
+      <div
+        id="helpModal"
+        class="w3-modal"
+        role="dialog"
+        aria-labelledby="helpModalTitle"
+        aria-hidden="true"
+      >
         <div class="w3-modal-content w3-padding">
-          <span onclick="closeHelpModal()" class="w3-button w3-display-topright" aria-label="Close Help Modal">&times;</span>
+          <span
+            onclick="closeHelpModal()"
+            class="w3-button w3-display-topright"
+            aria-label="Close Help Modal"
+            >&times;</span
+          >
           <h2 id="helpModalTitle">How to Use the Pomodoro Timer</h2>
           <p><strong>Focus Time:</strong> Work without distractions.</p>
           <p>
@@ -50,17 +61,27 @@
       </button>
 
       <!-- Settings Modal -->
-      <div id="settingsModal" class="w3-modal" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
+      <div
+        id="settingsModal"
+        class="w3-modal"
+        role="dialog"
+        aria-labelledby="settingsModalTitle"
+        aria-hidden="true"
+      >
         <div class="w3-modal-content w3-padding">
           <span
             onclick="closeSettingsModal()"
-            class="w3-button w3-display-topright" aria-label="Close Settings Modal"
+            class="w3-button w3-display-topright"
+            aria-label="Close Settings Modal"
             >&times;</span
           >
           <h2 id="settingsModalTitle">Settings</h2>
           <label class="w3-text-black">
             Audio Notification:
-            <label class="switch" aria-label="Enable or disable audio notifications">
+            <label
+              class="switch"
+              aria-label="Enable or disable audio notifications"
+            >
               <input
                 type="checkbox"
                 id="audioToggle"
@@ -70,7 +91,11 @@
               <span class="slider round"></span>
             </label>
           </label>
-          <div id="audioStatus" class="w3-text-gray w3-small" aria-live="polite">
+          <div
+            id="audioStatus"
+            class="w3-text-gray w3-small"
+            aria-live="polite"
+          >
             Audio notifications are disabled.
           </div>
 
@@ -157,10 +182,7 @@
             </div>
           </div>
 
-          <div
-            id="notificationSettings"
-            class="notification-settings"
-          ></div>
+          <div id="notificationSettings" class="notification-settings"></div>
 
           <h3>Presets (Focus/Break)</h3>
           <div class="w3-margin-top">
