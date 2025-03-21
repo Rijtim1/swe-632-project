@@ -51,7 +51,7 @@ function updateProgressRing() {
 function updateUI() {
     const statusMessage = document.getElementById("statusMessage");
     const timerDisplay = document.getElementById("timer");
-    
+
     if (!running) {
         statusMessage.textContent = "Press Start to Begin";
         timerDisplay.style.color = "gray";
@@ -182,8 +182,14 @@ function adjustTime(type, amount) {
  * @param {string} type - The timer type to update ("focus" or "break").
  */
 function updateTimeDisplay(type) {
-    const value = document.getElementById(type + 'Time').value;
-    document.getElementById(type + 'TimeDisplay').textContent = value;
+    const slider = document.getElementById(type + 'Time');
+    const input = document.getElementById(type + 'TimeInput');
+    const value = slider.value;
+
+    if (input) input.value = value;
+
+    const display = document.getElementById(type + 'TimeDisplay');
+    if (display) display.textContent = value;
 
     if (!running) {
         if (type === 'focus') {
@@ -195,6 +201,24 @@ function updateTimeDisplay(type) {
         updateDisplay();
     }
 }
+
+
+function syncSliderWithInput(type) {
+    const input = document.getElementById(type + 'TimeInput');
+    const slider = document.getElementById(type + 'Time');
+    let value = parseInt(input.value);
+
+    if (isNaN(value)) return;
+
+    const min = parseInt(slider.min);
+    const max = parseInt(slider.max);
+    value = Math.min(Math.max(value, min), max);
+
+    slider.value = value;
+    input.value = value;
+    updateTimeDisplay(type);
+}
+
 
 /**
  * Sets custom preset durations for focus and break periods when the timer is not running.

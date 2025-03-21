@@ -190,3 +190,9 @@ input:checked + .slider:before {
   color: #333;
   font-family: "Courier New", Courier, monospace;
 }
+
+input[type="number"] {
+  border-radius: 8px;
+  padding: 4px 8px;
+  text-align: center;
+}

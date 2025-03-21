@@ -35,7 +35,10 @@
             Alternatively, use the presets to quickly set focus and break
             durations.
           </p>
-          <p>Press <strong>"Start"</strong> to begin your session. Stay productive!</p>
+          <p>
+            Press <strong>"Start"</strong> to begin your session. Stay
+            productive!
+          </p>
         </div>
       </div>
 
@@ -72,18 +75,27 @@
 
           <h3>Timer Settings</h3>
           <div class="w3-section">
-            <label class="w3-text-black">
-              Focus Time (1-120 minutes):
-              <span id="focusTimeDisplay">25</span> min
-            </label>
+            <label class="w3-text-black">Focus Time (1–120 minutes):</label>
             <div class="slider-container">
               <button
                 class="w3-button w3-small w3-gray"
                 onclick="adjustTime('focus', -5)"
-                title="Decrease focus time by 5 minutes"
               >
                 -
               </button>
+
+              <input
+                type="number"
+                id="focusTimeInput"
+                min="1"
+                max="120"
+                value="25"
+                class="w3-input w3-border"
+                style="width: 70px"
+                oninput="syncSliderWithInput('focus')"
+                title="Manually enter focus time"
+              />
+
               <input
                 type="range"
                 id="focusTime"
@@ -93,10 +105,10 @@
                 value="25"
                 oninput="updateTimeDisplay('focus')"
               />
+
               <button
                 class="w3-button w3-small w3-gray"
                 onclick="adjustTime('focus', 5)"
-                title="Increase focus time by 5 minutes"
               >
                 +
               </button>
@@ -104,18 +116,27 @@
           </div>
 
           <div class="w3-section">
-            <label class="w3-text-black">
-              Break Time (1-60 minutes):
-              <span id="breakTimeDisplay">5</span> min
-            </label>
+            <label class="w3-text-black">Break Time (1–60 minutes):</label>
             <div class="slider-container">
               <button
                 class="w3-button w3-small w3-gray"
                 onclick="adjustTime('break', -1)"
-                title="Decrease break time by 1 minute"
               >
                 -
               </button>
+
+              <input
+                type="number"
+                id="breakTimeInput"
+                min="1"
+                max="60"
+                value="5"
+                class="w3-input w3-border"
+                style="width: 70px"
+                oninput="syncSliderWithInput('break')"
+                title="Manually enter break time"
+              />
+
               <input
                 type="range"
                 id="breakTime"
@@ -125,10 +146,10 @@
                 value="5"
                 oninput="updateTimeDisplay('break')"
               />
+
               <button
                 class="w3-button w3-small w3-gray"
                 onclick="adjustTime('break', 1)"
-                title="Increase break time by 1 minute"
               >
                 +
               </button>
