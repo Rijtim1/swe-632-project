@@ -11,6 +11,13 @@ const circumference = 2 * Math.PI * radius;
 progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
 progressRing.style.strokeDashoffset = circumference;
 
+// Helper function to format time as MM:SS
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+}
+
 /**
  * Updates the timer display and progress ring visualization.
  *
@@ -18,9 +25,7 @@ progressRing.style.strokeDashoffset = circumference;
  * with id "timer", and refreshes the progress ring by calling updateProgressRing().
  */
 function updateDisplay() {
-    let minutes = Math.floor(timeLeft / 60);
-    let seconds = timeLeft % 60;
-    document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    document.getElementById('timer').textContent = formatTime(timeLeft);
     updateProgressRing();
 }
 
@@ -117,7 +122,10 @@ function toggleTimer() {
 function handleTimerEnd() {
     const audio = document.getElementById('transitionSound');
     if (localStorage.getItem("audioNotification") === "true") {
-        audio.play().catch(error => console.error("Error playing sound:", error));
+        audio.play().catch(error => {
+            console.error("Error playing sound:", error);
+            alert("Unable to play notification sound. Please check your audio settings.");
+        });
     }
     onBreak = !onBreak;
     timeLeft = onBreak ? breakTime : focusTime;
@@ -221,12 +229,12 @@ function syncSliderWithInput(type) {
         return;
     }
 
-    // Clear the notification if the value is valid
+    // Clear the notification and update slider/input only once
     notificationSettings.textContent = "";
-
     value = Math.min(Math.max(value, min), max);
-    slider.value = value;
-    input.value = value;
+    if (slider.value !== value.toString()) slider.value = value;
+    if (input.value !== value.toString()) input.value = value;
+
     updateTimeDisplay(type);
 }
 
