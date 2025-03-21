@@ -225,7 +225,8 @@ input[type="number"] {
   text-align: center;
 }
 .notification-settings {
-  color: #b22222;
+  color: #b22222; /* Red color for error messages */
   font-size: 14px;
   margin-top: 10px;
+  text-align: center;
 }

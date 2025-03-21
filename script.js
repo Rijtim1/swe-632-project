@@ -275,6 +275,9 @@ function setPreset(focus, breakT) {
         updateTimeDisplay('focus');
         updateTimeDisplay('break');
         updateDisplay();
+    } else {
+        const notificationSettings = document.getElementById('notificationSettings');
+        notificationSettings.textContent = "Cannot change presets while the timer is running. Please pause or reset the timer.";
     }
 }
 
