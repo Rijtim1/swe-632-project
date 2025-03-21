@@ -24,6 +24,7 @@ body {
 body {
   font-family: Arial, sans-serif;
   text-align: center;
+  background: #ff9a9e; /* Fallback for older browsers */
   background: linear-gradient(to right, #ff9a9e, #fad0c4);
 }
 
@@ -43,7 +44,11 @@ button {
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  transition: 0.3s;
+  transition: background-color 0.3s, transform 0.2s; /* Smooth hover effect */
+}
+
+button:hover {
+  transform: scale(1.05); /* Slight zoom effect on hover */
 }
 
 button:focus {
@@ -138,6 +143,11 @@ button:focus {
   background-color: #ccc;
   transition: 0.4s;
   border-radius: 20px;
+}
+
+.slider:focus {
+  outline: 2px solid #2196f3; /* Adds focus outline for accessibility */
+  outline-offset: 2px;
 }
 
 .slider:before {
