@@ -11,6 +11,13 @@ const circumference = 2 * Math.PI * radius;
 progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
 progressRing.style.strokeDashoffset = circumference;
 
+// Helper function to format time as MM:SS
+function formatTime(seconds) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+}
+
 /**
  * Updates the timer display and progress ring visualization.
  *
@@ -18,9 +25,7 @@ progressRing.style.strokeDashoffset = circumference;
  * with id "timer", and refreshes the progress ring by calling updateProgressRing().
  */
 function updateDisplay() {
-    let minutes = Math.floor(timeLeft / 60);
-    let seconds = timeLeft % 60;
-    document.getElementById('timer').textContent = `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+    document.getElementById('timer').textContent = formatTime(timeLeft);
     updateProgressRing();
 }
 
@@ -51,7 +56,7 @@ function updateProgressRing() {
 function updateUI() {
     const statusMessage = document.getElementById("statusMessage");
     const timerDisplay = document.getElementById("timer");
-    
+
     if (!running) {
         statusMessage.textContent = "Press Start to Begin";
         timerDisplay.style.color = "gray";
@@ -117,7 +122,10 @@ function toggleTimer() {
 function handleTimerEnd() {
     const audio = document.getElementById('transitionSound');
     if (localStorage.getItem("audioNotification") === "true") {
-        audio.play().catch(error => console.error("Error playing sound:", error));
+        audio.play().catch(error => {
+            console.error("Error playing sound:", error);
+            alert("Unable to play notification sound. Please check your audio settings.");
+        });
     }
     onBreak = !onBreak;
     timeLeft = onBreak ? breakTime : focusTime;
@@ -142,6 +150,12 @@ function resetTimer() {
     timeLeft = focusTime;
     document.getElementById('focusTime').value = 25;
     document.getElementById('breakTime').value = 5;
+    // reset the number input fields
+    document.getElementById('focusTimeInput').value = 25;
+    document.getElementById('breakTimeInput').value = 5;
+    // clear any notifications
+    const notificationSettings = document.getElementById('notificationSettings');
+    notificationSettings.textContent = "";
     updateUI();
     updateDisplay();
     progressRing.style.strokeDashoffset = circumference;
@@ -182,8 +196,14 @@ function adjustTime(type, amount) {
  * @param {string} type - The timer type to update ("focus" or "break").
  */
 function updateTimeDisplay(type) {
-    const value = document.getElementById(type + 'Time').value;
-    document.getElementById(type + 'TimeDisplay').textContent = value;
+    const slider = document.getElementById(type + 'Time');
+    const input = document.getElementById(type + 'TimeInput');
+    const value = slider.value;
+
+    if (input) input.value = value;
+
+    const display = document.getElementById(type + 'TimeDisplay');
+    if (display) display.textContent = value;
 
     if (!running) {
         if (type === 'focus') {
@@ -194,6 +214,42 @@ function updateTimeDisplay(type) {
         }
         updateDisplay();
     }
+}
+/**
+ * Synchronizes the slider value with the number input field and ensures the input is valid.
+ *
+ * Validates that the input is a number and falls within the defined range of the slider.
+ * Displays notifications if the input is invalid or out of range. Updates both slider and
+ * input field with the valid value and refreshes the time display.
+ *
+ * @param {string} type - The timer type to update ("focus" or "break").
+*/
+function syncSliderWithInput(type) {
+    const input = document.getElementById(type + 'TimeInput');
+    const slider = document.getElementById(type + 'Time');
+    const notificationSettings = document.getElementById('notificationSettings'); // Assuming this is the ID of the notification section
+    let value = parseInt(input.value);
+
+    if (isNaN(value)) {
+        notificationSettings.textContent = "Please enter a valid number.";
+        return;
+    }
+
+    const min = parseInt(slider.min);
+    const max = parseInt(slider.max);
+
+    if (value < min || value > max) {
+        notificationSettings.textContent = `The value must be between ${min} and ${max}. Please adjust your input.`;
+        return;
+    }
+
+    // Clear the notification and update slider/input only once
+    notificationSettings.textContent = "";
+    value = Math.min(Math.max(value, min), max);
+    if (slider.value !== value.toString()) slider.value = value;
+    if (input.value !== value.toString()) input.value = value;
+
+    updateTimeDisplay(type);
 }
 
 /**
@@ -213,9 +269,15 @@ function setPreset(focus, breakT) {
         onBreak = false;
         document.getElementById('focusTime').value = focus;
         document.getElementById('breakTime').value = breakT;
+        // update the number input fields
+        document.getElementById('focusTimeInput').value = focus;
+        document.getElementById('breakTimeInput').value = breakT;
         updateTimeDisplay('focus');
         updateTimeDisplay('break');
         updateDisplay();
+    } else {
+        const notificationSettings = document.getElementById('notificationSettings');
+        notificationSettings.textContent = "Cannot change presets while the timer is running. Please pause or reset the timer.";
     }
 }
 
@@ -290,6 +352,7 @@ function closeSettingsModal() {
 function toggleAudioSetting() {
     let audioEnabled = document.getElementById("audioToggle").checked;
     localStorage.setItem("audioNotification", audioEnabled);
+    updateAudioStatus(audioEnabled);
 }
 
 /**
@@ -301,6 +364,19 @@ function toggleAudioSetting() {
 function loadSettings() {
     let audioEnabled = localStorage.getItem("audioNotification") === "true";
     document.getElementById("audioToggle").checked = audioEnabled;
+    updateAudioStatus(audioEnabled);
+}
+
+/**
+ * Updates the audio status message based on the current setting.
+ *
+ * @param {boolean} isEnabled - Whether audio notifications are enabled.
+ */
+function updateAudioStatus(isEnabled) {
+    const audioStatus = document.getElementById("audioStatus");
+    audioStatus.textContent = isEnabled
+        ? "Audio notifications are enabled."
+        : "Audio notifications are disabled.";
 }
 
 /**
