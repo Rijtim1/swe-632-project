@@ -36,6 +36,31 @@ body {
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
+button {
+  font-size: 18px;
+  padding: 12px 24px;
+  margin: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+button:focus {
+  outline: 2px solid #2196f3; /* Adds focus outline for accessibility */
+  outline-offset: 2px;
+}
+
+.w3-green:hover {
+  background: #2e8b57;
+}
+.w3-red:hover {
+  background: #b22222;
+}
+.w3-blue:hover {
+  background: #1e90ff;
+}
+
 /* Timer Display */
 #timer {
   font-size: 64px;
@@ -65,26 +90,6 @@ body {
 .break-mode {
   color: blue;
   background: rgba(30, 144, 255, 0.2);
-}
-
-button {
-  font-size: 18px;
-  padding: 12px 24px;
-  margin: 10px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  transition: 0.3s;
-}
-
-.w3-green:hover {
-  background: #2e8b57;
-}
-.w3-red:hover {
-  background: #b22222;
-}
-.w3-blue:hover {
-  background: #1e90ff;
 }
 
 /* Notification when time is up */
@@ -189,6 +194,17 @@ input:checked + .slider:before {
   font-weight: bold;
   color: #333;
   font-family: "Courier New", Courier, monospace;
+}
+
+@media (max-width: 600px) {
+  #timer {
+    font-size: 48px; /* Adjust font size for smaller screens */
+  }
+
+  .w3-card {
+    max-width: 90%; /* Ensure the card fits smaller screens */
+    padding: 15px;
+  }
 }
 
 input[type="number"] {
