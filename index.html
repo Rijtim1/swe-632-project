@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Metadata and external stylesheets -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pomodoro Timer</title>
@@ -9,7 +10,10 @@
   </head>
   <body>
     <div class="w3-container">
+      <!-- Main heading -->
       <h1 class="w3-center w3-text-white">Pomodoro Timer</h1>
+
+      <!-- Help Modal Button -->
       <button
         class="w3-button w3-blue w3-margin"
         onclick="openHelpModal()"
@@ -17,6 +21,8 @@
       >
         <i class="w3-margin-right">ℹ️</i>How it Works?
       </button>
+
+      <!-- Help Modal -->
       <div
         id="helpModal"
         class="w3-modal"
@@ -25,12 +31,14 @@
         aria-hidden="true"
       >
         <div class="w3-modal-content w3-padding">
+          <!-- Close button for Help Modal -->
           <span
             onclick="closeHelpModal()"
             class="w3-button w3-display-topright"
             aria-label="Close Help Modal"
             >&times;</span
           >
+          <!-- Help Modal Content -->
           <h2 id="helpModalTitle">How to Use the Pomodoro Timer</h2>
           <p><strong>Focus Time:</strong> Work without distractions.</p>
           <p>
@@ -79,13 +87,16 @@
         aria-hidden="true"
       >
         <div class="w3-modal-content w3-padding">
+          <!-- Close button for Settings Modal -->
           <span
             onclick="closeSettingsModal()"
             class="w3-button w3-display-topright"
             aria-label="Close Settings Modal"
             >&times;</span
           >
+          <!-- Settings Modal Content -->
           <h2 id="settingsModalTitle">Settings</h2>
+          <!-- Audio Notification Toggle -->
           <label class="w3-text-black">
             Audio Notification:
             <label
@@ -196,6 +207,7 @@
 
           <h3>Presets (Focus/Break)</h3>
           <div class="w3-margin-top">
+            <!-- Preset Buttons -->
             <button
               class="w3-button w3-light-gray"
               onclick="setPreset(5, 1)"
@@ -237,11 +249,14 @@
         </div>
       </div>
 
+      <!-- Timer Section -->
       <div class="w3-card w3-padding w3-center">
         <div class="w3-section w3-center">
+          <!-- Status Message -->
           <div id="statusMessage" class="status-message">
             Press Start to begin your session.
           </div>
+          <!-- Timer Display -->
           <div class="timer-container">
             <svg class="progress-ring" width="300" height="300">
               <circle
@@ -254,7 +269,7 @@
             </svg>
             <div id="timer">25:00</div>
           </div>
-
+          <!-- Timer Controls -->
           <button
             id="startPauseButton"
             onclick="toggleTimer()"
@@ -273,6 +288,7 @@
           </button>
         </div>
 
+        <!-- Cycle Tracking Section -->
         <div id="cycleTracking" class="w3-section">
           <h3>Cycle Tracking</h3>
           <p>Completed Cycles: <span id="cycleCount">0</span></p>
@@ -280,6 +296,7 @@
           <p>Break Sessions: <span id="breakCount">0</span></p>
         </div>
 
+        <!-- External Link -->
         <p>
           <a
             href="https://en.wikipedia.org/wiki/Pomodoro_Technique"
@@ -293,9 +310,11 @@
       </div>
     </div>
 
+    <!-- Audio Notification -->
     <audio id="transitionSound" preload="auto">
       <source src="ding.mp3" type="audio/mpeg" />
     </audio>
+    <!-- External JavaScript -->
     <script src="script.js" defer></script>
   </body>
 </html>
