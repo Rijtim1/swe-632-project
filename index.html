@@ -19,7 +19,7 @@
       <!-- Help Modal Button -->
       <button
         class="w3-button w3-blue w3-margin"
-        onclick="openHelpModal()"
+        onclick="toggleModal('helpModal', true)"
         title="Open the help modal to learn how to use the Pomodoro Timer effectively"
         aria-controls="helpModal"
       >
@@ -37,7 +37,7 @@
         <div class="w3-modal-content w3-padding">
           <!-- Close button for Help Modal -->
           <span
-            onclick="closeHelpModal()"
+            onclick="toggleModal('helpModal', false)"
             class="w3-button w3-display-topright"
             aria-label="Close Help Modal"
             >&times;</span
@@ -76,7 +76,7 @@
       <!-- Settings Button -->
       <button
         class="w3-button w3-blue w3-margin"
-        onclick="openSettingsModal()"
+        onclick="toggleModal('settingsModal', true)"
         title="Open the settings modal to configure timer preferences, notifications, and presets"
         aria-controls="settingsModal"
       >
@@ -94,7 +94,7 @@
         <div class="w3-modal-content w3-padding">
           <!-- Close button for Settings Modal -->
           <span
-            onclick="closeSettingsModal()"
+            onclick="toggleModal('settingsModal', false)"
             class="w3-button w3-display-topright"
             aria-label="Close Settings Modal"
             >&times;</span
@@ -155,7 +155,7 @@
                 min="1"
                 max="120"
                 value="25"
-                oninput="updateTimeDisplay('focus')"
+                oninput="updateTime('focus', this.value)"
               />
 
               <button
@@ -196,7 +196,7 @@
                 min="1"
                 max="60"
                 value="5"
-                oninput="updateTimeDisplay('break')"
+                oninput="updateTime('break', this.value)"
               />
 
               <button
@@ -246,7 +246,7 @@
           <div class="w3-section w3-center">
             <button
               class="w3-button w3-red w3-margin-top"
-              onclick="closeSettingsModal()"
+              onclick="toggleModal('settingsModal', false)"
             >
               Close
             </button>
