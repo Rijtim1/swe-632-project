@@ -150,6 +150,12 @@ function resetTimer() {
     timeLeft = focusTime;
     document.getElementById('focusTime').value = 25;
     document.getElementById('breakTime').value = 5;
+    // reset the number input fields
+    document.getElementById('focusTimeInput').value = 25;
+    document.getElementById('breakTimeInput').value = 5;
+    // clear any notifications
+    const notificationSettings = document.getElementById('notificationSettings');
+    notificationSettings.textContent = "";
     updateUI();
     updateDisplay();
     progressRing.style.strokeDashoffset = circumference;
@@ -255,6 +261,9 @@ function setPreset(focus, breakT) {
         onBreak = false;
         document.getElementById('focusTime').value = focus;
         document.getElementById('breakTime').value = breakT;
+        // update the number input fields
+        document.getElementById('focusTimeInput').value = focus;
+        document.getElementById('breakTimeInput').value = breakT;
         updateTimeDisplay('focus');
         updateTimeDisplay('break');
         updateDisplay();
