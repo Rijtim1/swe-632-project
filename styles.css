@@ -7,7 +7,6 @@ body {
   margin: 0;
   padding: 0;
   /* Prevents scrolling */
-  /* overflow: hidden; */
   height: 100vh; /* Ensures full height usage */
   display: flex;
   justify-content: center;
@@ -25,7 +24,7 @@ body {
   font-family: Arial, sans-serif;
   text-align: center;
   background: #ff9a9e; /* Fallback for older browsers */
-  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  background: #ff9a9e; /* Fallback background color for browsers that do not support CSS gradients */
 }
 
 .w3-card {
@@ -44,7 +43,7 @@ button {
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  transition: background-color 0.3s, transform 0.2s; /* Smooth hover effect */
+  transition: transform 0.2s; /* Smooth hover effect for transform only */
 }
 
 button:hover {
@@ -79,12 +78,13 @@ button:focus {
 #statusMessage {
   font-size: 22px;
   font-weight: bold;
-  margin: 10px 0;
+  margin: 10px auto;
   text-align: center;
   padding: 10px;
   border-radius: 5px;
   display: inline-block;
-  width: 100%;
+  max-width: 90%; /* Ensures it adapts to smaller screens */
+  box-sizing: border-box; /* Includes padding in width calculation */
 }
 
 .focus-mode {
@@ -190,7 +190,7 @@ input:checked + .slider:before {
   fill: transparent;
   stroke-linecap: round;
   transition: stroke-dashoffset 0.5s linear;
-  transform: rotate(-90deg);
+  transform-origin: center;
   transform-origin: 50% 50%;
 }
 
@@ -206,14 +206,16 @@ input:checked + .slider:before {
   font-family: "Courier New", Courier, monospace;
 }
 
+/* Media query for screens with a maximum width of 600px */
+/* Adjusts styles for better usability on smaller screens */
 @media (max-width: 600px) {
   #timer {
-    font-size: 48px; /* Adjust font size for smaller screens */
+    font-size: 48px; /* Reduces font size of the timer for smaller screens */
   }
 
   .w3-card {
-    max-width: 90%; /* Ensure the card fits smaller screens */
-    padding: 15px;
+    max-width: 90%; /* Ensures the card fits within smaller screen widths */
+    padding: 15px; /* Reduces padding for better spacing on smaller screens */
   }
 }
 
@@ -222,9 +224,8 @@ input[type="number"] {
   padding: 4px 8px;
   text-align: center;
 }
-
 .notification-settings {
-  color: red;
+  color: #b22222;
   font-size: 14px;
   margin-top: 10px;
 }
