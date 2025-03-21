@@ -50,35 +50,32 @@ function updateProgressRing() {
 /**
  * Updates the timer UI to reflect its current state.
  *
- * This function adjusts the displayed status message, timer text color, and the progress ring's stroke color
- * based on the timer's status:
- * - When the timer is not running, it shows a prompt ("Press Start to Begin") and applies a gray color scheme.
- * - If the timer is on break, it displays "Break Time! Relax!", updates the CSS classes for break mode,
- *   and uses blue coloring.
- * - Otherwise, during focus time, it shows "Focus Time! Stay Productive!", applies focus mode classes,
- *   and uses green styling.
+ * Adjusts the displayed status message, timer text color, and the progress ring's stroke color
+ * based on the timer's status (running, on break, or focus time).
  */
 function updateUI() {
     const statusMessage = document.getElementById("statusMessage");
     const timerDisplay = document.getElementById("timer");
+    const isBreak = onBreak && running;
+    const isFocus = !onBreak && running;
 
-    if (!running) {
-        statusMessage.textContent = "Press Start to Begin";
-        timerDisplay.style.color = "gray";
-        progressRing.style.stroke = "gray";
-    } else if (onBreak) {
-        statusMessage.textContent = "Break Time! Relax!";
-        statusMessage.classList.remove("focus-mode");
-        statusMessage.classList.add("break-mode");
-        timerDisplay.style.color = "#3498db"; // Relaxing blue
-        progressRing.style.stroke = "#3498db"; // Blue for break
-    } else {
-        statusMessage.textContent = "Focus Time! Stay Productive!";
-        statusMessage.classList.remove("break-mode");
-        statusMessage.classList.add("focus-mode");
-        timerDisplay.style.color = "#28a745"; // Calming green
-        progressRing.style.stroke = "#28a745"; // Green for focus
-    }
+    statusMessage.textContent = !running
+        ? "Press Start to Begin"
+        : isBreak
+        ? "Break Time! Relax!"
+        : "Focus Time! Stay Productive!";
+
+    statusMessage.classList.toggle("focus-mode", isFocus);
+    statusMessage.classList.toggle("break-mode", isBreak);
+
+    const color = !running
+        ? "gray"
+        : isBreak
+        ? "#3498db" // Blue for break
+        : "#28a745"; // Green for focus
+
+    timerDisplay.style.color = color;
+    progressRing.style.stroke = color;
 }
 
 /**
@@ -217,25 +214,19 @@ function updateTime(type, value) {
     const input = document.getElementById(type + 'TimeInput');
     const notificationSettings = document.getElementById('notificationSettings');
 
-    const min = parseInt(slider.min);
-    const max = parseInt(slider.max);
-
-    if (value < min || value > max) {
-        notificationSettings.textContent = `The value must be between ${min} and ${max}.`;
+    if (value < slider.min || value > slider.max) {
+        notificationSettings.textContent = `The value must be between ${slider.min} and ${slider.max}.`;
         return;
     }
 
     notificationSettings.textContent = "";
-    slider.value = value;
-    input.value = value;
+    slider.value = input.value = value;
 
     if (!running) {
-        if (type === 'focus') {
-            focusTime = value * 60;
-            timeLeft = focusTime;
-        } else {
-            breakTime = value * 60;
-        }
+        if (type === 'focus') focusTime = value * 60;
+        else breakTime = value * 60;
+
+        if (type === 'focus') timeLeft = focusTime;
         updateDisplay();
     }
 }
@@ -243,30 +234,29 @@ function updateTime(type, value) {
 /**
  * Sets custom preset durations for focus and break periods when the timer is not running.
  *
- * This function converts the provided focus and break durations from minutes to seconds, updates the global timer settings,
- * resets the timer to focus mode, and refreshes the UI elements. No changes are made if the timer is currently active.
- *
  * @param {number} focus - The focus duration in minutes.
  * @param {number} breakT - The break duration in minutes.
  */
 function setPreset(focus, breakT) {
-    if (!running) {
-        focusTime = focus * 60;
-        breakTime = breakT * 60;
-        timeLeft = focusTime;
-        onBreak = false;
-        document.getElementById('focusTime').value = focus;
-        document.getElementById('breakTime').value = breakT;
-        // update the number input fields
-        document.getElementById('focusTimeInput').value = focus;
-        document.getElementById('breakTimeInput').value = breakT;
-        updateTime('focus', focus);
-        updateTime('break', breakT);
-        updateDisplay();
-    } else {
-        const notificationSettings = document.getElementById('notificationSettings');
-        notificationSettings.textContent = "Cannot change presets while the timer is running. Please pause or reset the timer.";
+    if (running) {
+        document.getElementById('notificationSettings').textContent =
+            "Cannot change presets while the timer is running. Please pause or reset the timer.";
+        return;
     }
+
+    focusTime = focus * 60;
+    breakTime = breakT * 60;
+    timeLeft = focusTime;
+    onBreak = false;
+
+    ['focus', 'break'].forEach(type => {
+        const value = type === 'focus' ? focus : breakT;
+        document.getElementById(`${type}Time`).value = value;
+        document.getElementById(`${type}TimeInput`).value = value;
+        updateTime(type, value);
+    });
+
+    updateDisplay();
 }
 
 /**
