@@ -222,3 +222,9 @@ input[type="number"] {
   padding: 4px 8px;
   text-align: center;
 }
+
+.notification-settings {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
+}
