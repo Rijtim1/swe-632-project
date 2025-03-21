@@ -309,3 +309,35 @@ function init() {
 
 window.onload = init;
 
+/**
+ * Synchronizes the slider value with the input field for time settings.
+ *
+ * @param {string} type - The timer type to update ("focus" or "break").
+ */
+function syncSliderWithInput(type) {
+    const input = document.getElementById(`${type}TimeInput`);
+    const slider = document.getElementById(`${type}Time`);
+    const value = parseInt(input.value);
+
+    if (value >= parseInt(slider.min) && value <= parseInt(slider.max)) {
+        slider.value = value;
+        updateTime(type, value);
+    } else {
+        input.value = slider.value; // Reset input to slider's value if out of bounds
+    }
+}
+
+/**
+ * Synchronizes the input field value with the slider for time settings.
+ *
+ * @param {string} type - The timer type to update ("focus" or "break").
+ */
+function syncInputWithSlider(type) {
+    const slider = document.getElementById(`${type}Time`);
+    const input = document.getElementById(`${type}TimeInput`);
+    const value = parseInt(slider.value);
+
+    input.value = value;
+    updateTime(type, value);
+}
+
