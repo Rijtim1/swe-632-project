@@ -1,6 +1,9 @@
 /* Import W3.CSS for additional styling utilities */
 @import url("https://www.w3schools.com/w3css/4/w3.css");
 
+/* Import Black Ops One font from Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap");
+
 /* Prevent scrolling and center the content */
 html,
 body {
@@ -77,7 +80,7 @@ button:focus {
   font-weight: bold; /* Bold text for emphasis */
   color: #333; /* Neutral text color */
   margin: 20px 0; /* Adds spacing around the timer */
-  font-family: "Courier New", Courier, monospace; /* Monospace font for a digital look */
+  font-family: "Black Ops One", "Courier New", Courier, monospace; /* Use Black Ops One font for the clock face */
 }
 
 /* Status message styling for focus/break transitions */
@@ -231,7 +234,7 @@ input:checked + .slider:before {
   margin: 0; /* Removes default margin */
   font-weight: bold; /* Bold text */
   color: #333; /* Neutral text color */
-  font-family: "Courier New", Courier, monospace; /* Monospace font */
+  font-family: "Black Ops One", "Courier New", Courier, monospace; /* Monospace font */
 }
 
 /* Cycle tracking section styling */
