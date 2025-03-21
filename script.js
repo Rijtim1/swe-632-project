@@ -68,14 +68,14 @@ function updateUI() {
         statusMessage.textContent = "Break Time! Relax!";
         statusMessage.classList.remove("focus-mode");
         statusMessage.classList.add("break-mode");
-        timerDisplay.style.color = "blue";
-        progressRing.style.stroke = "#2196F3"; // Blue for break
+        timerDisplay.style.color = "#3498db"; // Relaxing blue
+        progressRing.style.stroke = "#3498db"; // Blue for break
     } else {
         statusMessage.textContent = "Focus Time! Stay Productive!";
         statusMessage.classList.remove("break-mode");
         statusMessage.classList.add("focus-mode");
-        timerDisplay.style.color = "green";
-        progressRing.style.stroke = "#4CAF50"; // Green for focus
+        timerDisplay.style.color = "#28a745"; // Calming green
+        progressRing.style.stroke = "#28a745"; // Green for focus
     }
 }
 
