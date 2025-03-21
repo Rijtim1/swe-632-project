@@ -349,6 +349,7 @@ function closeSettingsModal() {
 function toggleAudioSetting() {
     let audioEnabled = document.getElementById("audioToggle").checked;
     localStorage.setItem("audioNotification", audioEnabled);
+    updateAudioStatus(audioEnabled);
 }
 
 /**
@@ -360,6 +361,19 @@ function toggleAudioSetting() {
 function loadSettings() {
     let audioEnabled = localStorage.getItem("audioNotification") === "true";
     document.getElementById("audioToggle").checked = audioEnabled;
+    updateAudioStatus(audioEnabled);
+}
+
+/**
+ * Updates the audio status message based on the current setting.
+ *
+ * @param {boolean} isEnabled - Whether audio notifications are enabled.
+ */
+function updateAudioStatus(isEnabled) {
+    const audioStatus = document.getElementById("audioStatus");
+    audioStatus.textContent = isEnabled
+        ? "Audio notifications are enabled."
+        : "Audio notifications are disabled.";
 }
 
 /**
