@@ -202,23 +202,33 @@ function updateTimeDisplay(type) {
     }
 }
 
-
 function syncSliderWithInput(type) {
     const input = document.getElementById(type + 'TimeInput');
     const slider = document.getElementById(type + 'Time');
+    const notificationSettings = document.getElementById('notificationSettings'); // Assuming this is the ID of the notification section
     let value = parseInt(input.value);
 
-    if (isNaN(value)) return;
+    if (isNaN(value)) {
+        notificationSettings.textContent = "Please enter a valid number.";
+        return;
+    }
 
     const min = parseInt(slider.min);
     const max = parseInt(slider.max);
-    value = Math.min(Math.max(value, min), max);
 
+    if (value < min || value > max) {
+        notificationSettings.textContent = `The value must be between ${min} and ${max}. Please adjust your input.`;
+        return;
+    }
+
+    // Clear the notification if the value is valid
+    notificationSettings.textContent = "";
+
+    value = Math.min(Math.max(value, min), max);
     slider.value = value;
     input.value = value;
     updateTimeDisplay(type);
 }
-
 
 /**
  * Sets custom preset durations for focus and break periods when the timer is not running.
