@@ -17,12 +17,10 @@
       >
         <i class="w3-margin-right">ℹ️</i>How it Works?
       </button>
-      <div id="helpModal" class="w3-modal">
+      <div id="helpModal" class="w3-modal" role="dialog" aria-labelledby="helpModalTitle" aria-hidden="true">
         <div class="w3-modal-content w3-padding">
-          <span onclick="closeHelpModal()" class="w3-button w3-display-topright"
-            >&times;</span
-          >
-          <h2>How to Use the Pomodoro Timer</h2>
+          <span onclick="closeHelpModal()" class="w3-button w3-display-topright" aria-label="Close Help Modal">&times;</span>
+          <h2 id="helpModalTitle">How to Use the Pomodoro Timer</h2>
           <p><strong>Focus Time:</strong> Work without distractions.</p>
           <p>
             <strong>Break Time:</strong> Take a short rest before resuming work.
@@ -52,17 +50,17 @@
       </button>
 
       <!-- Settings Modal -->
-      <div id="settingsModal" class="w3-modal">
+      <div id="settingsModal" class="w3-modal" role="dialog" aria-labelledby="settingsModalTitle" aria-hidden="true">
         <div class="w3-modal-content w3-padding">
           <span
             onclick="closeSettingsModal()"
-            class="w3-button w3-display-topright"
+            class="w3-button w3-display-topright" aria-label="Close Settings Modal"
             >&times;</span
           >
-          <h2>Settings</h2>
+          <h2 id="settingsModalTitle">Settings</h2>
           <label class="w3-text-black">
             Enable Audio Notification:
-            <label class="switch">
+            <label class="switch" aria-label="Enable or disable audio notifications">
               <input
                 type="checkbox"
                 id="audioToggle"
@@ -227,6 +225,7 @@
             onclick="toggleTimer()"
             class="w3-button w3-green w3-margin"
             title="Start the Pomodoro timer to begin a focus session or pause it to take a break"
+            aria-live="polite"
           >
             Start
           </button>
