@@ -6,7 +6,7 @@ The **Pomodoro Timer** is a web-based productivity tool designed to help users m
 
 ## Features
 
-- **Customizable Timer Durations**: Adjust focus and break times to suit your needs.
+- **Customizable Timer Durations**: Adjust focus and break times using sliders or input fields.
 - **Progress Visualization**: A circular progress ring visually represents the remaining time.
 - **Audio Notifications**: Optional sound alerts to signal the end of a session.
 - **Presets**: Quickly set predefined focus/break durations (e.g., 25/5, 50/10).
@@ -19,6 +19,11 @@ The **Pomodoro Timer** is a web-based productivity tool designed to help users m
 2. **Break Time**: Take a short break to recharge.
 3. **Automatic Transitions**: The timer automatically switches between focus and break sessions.
 4. **Customization**: Use sliders or presets to adjust durations.
+
+## Updated Functions
+
+- **toggleModal**: A single function to open or close modals.
+- **updateTime**: Synchronizes slider and input field values for focus and break durations.
 
 ## Getting Started
 

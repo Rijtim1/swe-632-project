@@ -1,22 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Metadata and external stylesheets -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Pomodoro Timer to boost productivity with focus and break sessions." />
     <title>Pomodoro Timer</title>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <div class="w3-container">
-      <h1 class="w3-center w3-text-white">Pomodoro Timer</h1>
+      <!-- Main heading -->
+      <header>
+        <h1 class="w3-center w3-text-white">Pomodoro Timer</h1>
+      </header>
+
+      <!-- Help Modal Button -->
       <button
         class="w3-button w3-blue w3-margin"
-        onclick="openHelpModal()"
+        onclick="toggleModal('helpModal', true)"
         title="Open the help modal to learn how to use the Pomodoro Timer effectively"
+        aria-controls="helpModal"
       >
-        <i class="w3-margin-right">ℹ️</i>How it Works?
+        <i class="w3-margin-right" aria-hidden="true">ℹ️</i>How it Works?
       </button>
+
+      <!-- Help Modal -->
       <div
         id="helpModal"
         class="w3-modal"
@@ -25,12 +35,14 @@
         aria-hidden="true"
       >
         <div class="w3-modal-content w3-padding">
+          <!-- Close button for Help Modal -->
           <span
-            onclick="closeHelpModal()"
+            onclick="toggleModal('helpModal', false)"
             class="w3-button w3-display-topright"
             aria-label="Close Help Modal"
             >&times;</span
           >
+          <!-- Help Modal Content -->
           <h2 id="helpModalTitle">How to Use the Pomodoro Timer</h2>
           <p><strong>Focus Time:</strong> Work without distractions.</p>
           <p>
@@ -48,16 +60,27 @@
             Press <strong>"Start"</strong> to begin your session. Stay
             productive!
           </p>
+          <h3>What is a Cycle?</h3>
+          <p>
+            A <strong>cycle</strong> consists of one completed focus session followed by one completed break session.
+            For example, if you set a focus time of 25 minutes and a break time of 5 minutes, completing both will count as one cycle.
+          </p>
+          <h3>How Cycle Tracking Works</h3>
+          <p>
+            The timer tracks the number of completed cycles, focus sessions, and break sessions. These counts are displayed in the
+            <strong>Cycle Tracking</strong> section below the timer. Use this feature to monitor your productivity and ensure you're taking regular breaks.
+          </p>
         </div>
       </div>
 
       <!-- Settings Button -->
       <button
         class="w3-button w3-blue w3-margin"
-        onclick="openSettingsModal()"
+        onclick="toggleModal('settingsModal', true)"
         title="Open the settings modal to configure timer preferences, notifications, and presets"
+        aria-controls="settingsModal"
       >
-        <i class="w3-margin-right">⚙️</i>Settings
+        <i class="w3-margin-right" aria-hidden="true">⚙️</i>Settings
       </button>
 
       <!-- Settings Modal -->
@@ -69,13 +92,16 @@
         aria-hidden="true"
       >
         <div class="w3-modal-content w3-padding">
+          <!-- Close button for Settings Modal -->
           <span
-            onclick="closeSettingsModal()"
+            onclick="toggleModal('settingsModal', false)"
             class="w3-button w3-display-topright"
             aria-label="Close Settings Modal"
             >&times;</span
           >
+          <!-- Settings Modal Content -->
           <h2 id="settingsModalTitle">Settings</h2>
+          <!-- Audio Notification Toggle -->
           <label class="w3-text-black">
             Audio Notification:
             <label
@@ -129,7 +155,7 @@
                 min="1"
                 max="120"
                 value="25"
-                oninput="updateTimeDisplay('focus')"
+                oninput="syncInputWithSlider('focus')"
               />
 
               <button
@@ -170,7 +196,7 @@
                 min="1"
                 max="60"
                 value="5"
-                oninput="updateTimeDisplay('break')"
+                oninput="syncInputWithSlider('break')"
               />
 
               <button
@@ -186,6 +212,7 @@
 
           <h3>Presets (Focus/Break)</h3>
           <div class="w3-margin-top">
+            <!-- Preset Buttons -->
             <button
               class="w3-button w3-light-gray"
               onclick="setPreset(5, 1)"
@@ -219,7 +246,7 @@
           <div class="w3-section w3-center">
             <button
               class="w3-button w3-red w3-margin-top"
-              onclick="closeSettingsModal()"
+              onclick="toggleModal('settingsModal', false)"
             >
               Close
             </button>
@@ -227,13 +254,16 @@
         </div>
       </div>
 
-      <div class="w3-card w3-padding w3-center">
-        <div class="w3-section w3-center">
-          <div id="statusMessage" class="status-message">
+      <!-- Timer Section -->
+      <main class="w3-card w3-padding w3-center">
+        <section>
+          <!-- Status Message -->
+          <div id="statusMessage" class="status-message" aria-live="polite">
             Press Start to begin your session.
           </div>
-          <div class="timer-container">
-            <svg class="progress-ring" width="300" height="300">
+          <!-- Timer Display -->
+          <div class="timer-container w3-animate-zoom" role="timer" aria-live="polite">
+            <svg class="progress-ring" width="300" height="300" aria-hidden="true">
               <circle
                 class="progress-ring__background"
                 cx="150"
@@ -244,13 +274,12 @@
             </svg>
             <div id="timer">25:00</div>
           </div>
-
+          <!-- Timer Controls -->
           <button
             id="startPauseButton"
             onclick="toggleTimer()"
             class="w3-button w3-green w3-margin"
             title="Start the Pomodoro timer to begin a focus session or pause it to take a break"
-            aria-live="polite"
           >
             Start
           </button>
@@ -261,24 +290,54 @@
           >
             Reset
           </button>
-        </div>
+        </section>
 
-        <p>
-          <a
-            href="https://en.wikipedia.org/wiki/Pomodoro_Technique"
-            target="_blank"
-            rel="noopener noreferrer"
-            title="Learn more about the Pomodoro Technique"
-          >
-            Learn more about the Pomodoro Technique
-          </a>
-        </p>
-      </div>
+        <!-- Cycle Tracking Section -->
+        <section id="cycleTracking" class="w3-section" aria-labelledby="cycleTrackingTitle">
+          <h3 id="cycleTrackingTitle" class="w3-center w3-text-blue">Cycle Tracking</h3>
+          <div class="w3-row-padding">
+            <div class="w3-third w3-padding-small">
+              <div class="w3-card w3-padding w3-center w3-light-gray w3-round">
+                <h4 class="w3-medium">Completed Cycles</h4>
+                <p class="w3-xxlarge w3-text-green"><span id="cycleCount">0</span></p>
+              </div>
+            </div>
+            <div class="w3-third w3-padding-small">
+              <div class="w3-card w3-padding w3-center w3-light-gray w3-round">
+                <h4 class="w3-medium">Focus Sessions</h4>
+                <p class="w3-xxlarge w3-text-blue"><span id="focusCount">0</span></p>
+              </div>
+            </div>
+            <div class="w3-third w3-padding-small">
+              <div class="w3-card w3-padding w3-center w3-light-gray w3-round">
+                <h4 class="w3-medium">Break Sessions</h4>
+                <p class="w3-xxlarge w3-text-orange"><span id="breakCount">0</span></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- External Link -->
+        <footer>
+          <p>
+            <a
+              href="https://en.wikipedia.org/wiki/Pomodoro_Technique"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="Learn more about the Pomodoro Technique"
+            >
+              Learn more about the Pomodoro Technique
+            </a>
+          </p>
+        </footer>
+      </main>
     </div>
 
-    <audio id="transitionSound" preload="auto">
+    <!-- Audio Notification -->
+    <audio id="transitionSound" preload="auto" aria-hidden="true">
       <source src="ding.mp3" type="audio/mpeg" />
     </audio>
+    <!-- External JavaScript -->
     <script src="script.js" defer></script>
   </body>
 </html>
