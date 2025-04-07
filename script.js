@@ -1,15 +1,20 @@
-let focusTime = 25 * 60;
-let breakTime = 5 * 60;
-let timeLeft = focusTime;
-let timer;
-let running = false;
-let onBreak = false;
+// Timer settings and state variables
+let focusTime = 25 * 60; // Default focus time in seconds
+let breakTime = 5 * 60; // Default break time in seconds
+let timeLeft = focusTime; // Remaining time for the current session
+let timer; // Reference to the interval timer
+let running = false; // Indicates if the timer is running
+let onBreak = false; // Indicates if the current session is a break
+let cycleCount = 0; // Number of completed focus-break cycles
+let focusCount = 0; // Number of completed focus sessions
+let breakCount = 0; // Number of completed break sessions
 
+// Progress ring visualization setup
 const progressRing = document.querySelector('.progress-ring__circle');
-const radius = progressRing.r.baseVal.value;
-const circumference = 2 * Math.PI * radius;
-progressRing.style.strokeDasharray = `${circumference} ${circumference}`;
-progressRing.style.strokeDashoffset = circumference;
+const radius = progressRing.r.baseVal.value; // Radius of the progress ring
+const circumference = 2 * Math.PI * radius; // Circumference of the progress ring
+progressRing.style.strokeDasharray = `${circumference} ${circumference}`; // Set dash array for the ring
+progressRing.style.strokeDashoffset = circumference; // Initialize offset to full circumference
 
 // Helper function to format time as MM:SS
 function formatTime(seconds) {
@@ -45,35 +50,32 @@ function updateProgressRing() {
 /**
  * Updates the timer UI to reflect its current state.
  *
- * This function adjusts the displayed status message, timer text color, and the progress ring's stroke color
- * based on the timer's status:
- * - When the timer is not running, it shows a prompt ("Press Start to Begin") and applies a gray color scheme.
- * - If the timer is on break, it displays "Break Time! Relax!", updates the CSS classes for break mode,
- *   and uses blue coloring.
- * - Otherwise, during focus time, it shows "Focus Time! Stay Productive!", applies focus mode classes,
- *   and uses green styling.
+ * Adjusts the displayed status message, timer text color, and the progress ring's stroke color
+ * based on the timer's status (running, on break, or focus time).
  */
 function updateUI() {
     const statusMessage = document.getElementById("statusMessage");
     const timerDisplay = document.getElementById("timer");
+    const isBreak = onBreak && running;
+    const isFocus = !onBreak && running;
 
-    if (!running) {
-        statusMessage.textContent = "Press Start to Begin";
-        timerDisplay.style.color = "gray";
-        progressRing.style.stroke = "gray";
-    } else if (onBreak) {
-        statusMessage.textContent = "Break Time! Relax!";
-        statusMessage.classList.remove("focus-mode");
-        statusMessage.classList.add("break-mode");
-        timerDisplay.style.color = "blue";
-        progressRing.style.stroke = "#2196F3"; // Blue for break
-    } else {
-        statusMessage.textContent = "Focus Time! Stay Productive!";
-        statusMessage.classList.remove("break-mode");
-        statusMessage.classList.add("focus-mode");
-        timerDisplay.style.color = "green";
-        progressRing.style.stroke = "#4CAF50"; // Green for focus
-    }
+    statusMessage.textContent = !running
+        ? "Press Start to Begin"
+        : isBreak
+        ? "Break Time! Relax!"
+        : "Focus Time! Stay Productive!";
+
+    statusMessage.classList.toggle("focus-mode", isFocus);
+    statusMessage.classList.toggle("break-mode", isBreak);
+
+    const color = !running
+        ? "gray"
+        : isBreak
+        ? "#3498db" // Blue for break
+        : "#28a745"; // Green for focus
+
+    timerDisplay.style.color = color;
+    progressRing.style.stroke = color;
 }
 
 /**
@@ -115,9 +117,8 @@ function toggleTimer() {
 /**
  * Handles the timer's transition when the current period ends.
  *
- * If audio notifications are enabled, the function plays a transition sound (logging any playback errors).
- * It then toggles the break state, resets the remaining time to the appropriate duration (focus or break),
- * updates the user interface, and toggles the timer's running state.
+ * Tracks completed focus and break sessions, increments the cycle count
+ * after a full focus and break session, and updates the UI accordingly.
  */
 function handleTimerEnd() {
     const audio = document.getElementById('transitionSound');
@@ -127,19 +128,25 @@ function handleTimerEnd() {
             alert("Unable to play notification sound. Please check your audio settings.");
         });
     }
+
+    if (onBreak) {
+        breakCount++;
+        if (focusCount > 0) {
+            cycleCount++;
+        }
+    } else {
+        focusCount++;
+    }
+
     onBreak = !onBreak;
     timeLeft = onBreak ? breakTime : focusTime;
     updateUI();
+    updateCycleTracking();
     toggleTimer();
 }
 
 /**
- * Resets the timer to its default state.
- *
- * This function stops any active timer interval and resets all timer-related state variables, including
- * the focus time (25 minutes), break time (5 minutes), and the remaining time. It updates the UI by setting
- * the focus and break input fields to their default values, restoring the progress ring's stroke dash offset,
- * and resetting the start/pause button's label and style.
+ * Resets the timer and cycle tracking to their default states.
  */
 function resetTimer() {
     clearInterval(timer);
@@ -148,21 +155,32 @@ function resetTimer() {
     focusTime = 25 * 60;
     breakTime = 5 * 60;
     timeLeft = focusTime;
+    cycleCount = 0;
+    focusCount = 0;
+    breakCount = 0;
     document.getElementById('focusTime').value = 25;
     document.getElementById('breakTime').value = 5;
-    // reset the number input fields
     document.getElementById('focusTimeInput').value = 25;
     document.getElementById('breakTimeInput').value = 5;
-    // clear any notifications
     const notificationSettings = document.getElementById('notificationSettings');
     notificationSettings.textContent = "";
     updateUI();
     updateDisplay();
+    updateCycleTracking();
     progressRing.style.strokeDashoffset = circumference;
 
     const button = document.getElementById("startPauseButton");
     button.textContent = "Start";
     button.classList.replace("w3-red", "w3-green");
+}
+
+/**
+ * Updates the cycle tracking display with the latest counts.
+ */
+function updateCycleTracking() {
+    document.getElementById("cycleCount").textContent = cycleCount;
+    document.getElementById("focusCount").textContent = focusCount;
+    document.getElementById("breakCount").textContent = breakCount;
 }
 
 /**
@@ -181,178 +199,85 @@ function adjustTime(type, amount) {
     let newValue = parseInt(input.value) + amount;
     if (newValue >= parseInt(input.min) && newValue <= parseInt(input.max)) {
         input.value = newValue;
-        updateTimeDisplay(type);
+        updateTime(type, newValue);
     }
 }
 
 /**
- * Updates the time display for the specified timer type and resets related timer values when the timer is paused.
- *
- * Retrieves the value from an input element with an ID based on the given type (e.g., "focusTime" or "breakTime")
- * and updates the associated display element ("focusTimeDisplay" or "breakTimeDisplay"). If the timer is not running,
- * the function sets the corresponding timer duration (in seconds) based on the input value—resetting both the focus
- * period and the countdown if the type is "focus", or updating the break period if otherwise—and then refreshes the UI.
+ * Synchronizes the slider and input field for time settings.
  *
  * @param {string} type - The timer type to update ("focus" or "break").
+ * @param {number} value - The new value to set.
  */
-function updateTimeDisplay(type) {
+function updateTime(type, value) {
     const slider = document.getElementById(type + 'Time');
     const input = document.getElementById(type + 'TimeInput');
-    const value = slider.value;
+    const notificationSettings = document.getElementById('notificationSettings');
 
-    if (input) input.value = value;
+    if (value < Number(slider.min) || value > Number(slider.max)) {
+        notificationSettings.textContent = `The value must be between ${Number(slider.min)} and ${Number(slider.max)}.`;
+        return;
+    }
 
-    const display = document.getElementById(type + 'TimeDisplay');
-    if (display) display.textContent = value;
+    notificationSettings.textContent = "";
+    slider.value = input.value = value;
 
     if (!running) {
-        if (type === 'focus') {
-            focusTime = parseInt(value) * 60;
-            timeLeft = focusTime;
-        } else {
-            breakTime = parseInt(value) * 60;
-        }
+        if (type === 'focus') focusTime = value * 60;
+        else breakTime = value * 60;
+
+        if (type === 'focus') timeLeft = focusTime;
         updateDisplay();
     }
-}
-/**
- * Synchronizes the slider value with the number input field and ensures the input is valid.
- *
- * Validates that the input is a number and falls within the defined range of the slider.
- * Displays notifications if the input is invalid or out of range. Updates both slider and
- * input field with the valid value and refreshes the time display.
- *
- * @param {string} type - The timer type to update ("focus" or "break").
-*/
-function syncSliderWithInput(type) {
-    const input = document.getElementById(type + 'TimeInput');
-    const slider = document.getElementById(type + 'Time');
-    const notificationSettings = document.getElementById('notificationSettings'); // Assuming this is the ID of the notification section
-    let value = parseInt(input.value);
-
-    if (isNaN(value)) {
-        notificationSettings.textContent = "Please enter a valid number.";
-        return;
-    }
-
-    const min = parseInt(slider.min);
-    const max = parseInt(slider.max);
-
-    if (value < min || value > max) {
-        notificationSettings.textContent = `The value must be between ${min} and ${max}. Please adjust your input.`;
-        return;
-    }
-
-    // Clear the notification and update slider/input only once
-    notificationSettings.textContent = "";
-    value = Math.min(Math.max(value, min), max);
-    if (slider.value !== value.toString()) slider.value = value;
-    if (input.value !== value.toString()) input.value = value;
-
-    updateTimeDisplay(type);
 }
 
 /**
  * Sets custom preset durations for focus and break periods when the timer is not running.
  *
- * This function converts the provided focus and break durations from minutes to seconds, updates the global timer settings,
- * resets the timer to focus mode, and refreshes the UI elements. No changes are made if the timer is currently active.
- *
  * @param {number} focus - The focus duration in minutes.
  * @param {number} breakT - The break duration in minutes.
  */
 function setPreset(focus, breakT) {
-    if (!running) {
-        focusTime = focus * 60;
-        breakTime = breakT * 60;
-        timeLeft = focusTime;
-        onBreak = false;
-        document.getElementById('focusTime').value = focus;
-        document.getElementById('breakTime').value = breakT;
-        // update the number input fields
-        document.getElementById('focusTimeInput').value = focus;
-        document.getElementById('breakTimeInput').value = breakT;
-        updateTimeDisplay('focus');
-        updateTimeDisplay('break');
-        updateDisplay();
-    } else {
-        const notificationSettings = document.getElementById('notificationSettings');
-        notificationSettings.textContent = "Cannot change presets while the timer is running. Please pause or reset the timer.";
+    if (running) {
+        document.getElementById('notificationSettings').textContent =
+            "Cannot change presets while the timer is running. Please pause or reset the timer.";
+        return;
     }
+
+    focusTime = focus * 60;
+    breakTime = breakT * 60;
+    timeLeft = focusTime;
+    onBreak = false;
+
+    ['focus', 'break'].forEach(type => {
+        const value = type === 'focus' ? focus : breakT;
+        document.getElementById(`${type}Time`).value = value;
+        document.getElementById(`${type}TimeInput`).value = value;
+        updateTime(type, value);
+    });
+
+    updateDisplay();
 }
 
 /**
- * Opens the modal dialog with the given identifier.
- *
- * Retrieves the DOM element corresponding to the provided id and sets its display style
- * to "block", making the modal visible.
+ * Toggles the visibility of a modal dialog.
  *
  * @param {string} id - The unique identifier of the modal element.
+ * @param {boolean} isOpen - Whether to open (true) or close (false) the modal.
  */
-function openModal(id) {
-    document.getElementById(id).style.display = "block";
+function toggleModal(id, isOpen) {
+    document.getElementById(id).style.display = isOpen ? "block" : "none";
 }
 
 /**
- * Closes the modal dialog by hiding the element with the specified id.
- *
- * @param {string} id - The unique identifier of the modal element to close.
- */
-function closeModal(id) {
-    document.getElementById(id).style.display = "none";
-}
-
-/**
- * Opens the help modal dialog.
- *
- * Invokes the generic modal opening function with the "helpModal" identifier to display
- * the help section to the user.
- *
- * @see openModal
- */
-function openHelpModal() {
-    openModal("helpModal");
-}
-
-/**
- * Closes the help modal dialog.
- *
- * Delegates the modal closing action to the generic closeModal function using
- * the "helpModal" identifier.
- */
-function closeHelpModal() {
-    closeModal("helpModal");
-}
-
-/**
- * Opens the settings modal dialog.
- *
- * Invokes the generic modal opening function with the identifier for the settings modal, displaying the settings interface.
- */
-function openSettingsModal() {
-    openModal("settingsModal");
-}
-
-/**
- * Closes the settings modal dialog.
- *
- * This function closes the settings modal by invoking the generic `closeModal`
- * function with the identifier "settingsModal".
- */
-function closeSettingsModal() {
-    closeModal("settingsModal");
-}
-
-/**
- * Updates the audio notification setting in local storage.
- *
- * Retrieves the "audioToggle" checkbox state and saves it under the "audioNotification" key,
- * ensuring the user's preference for audio notifications is persisted.
+ * Updates the audio notification setting in local storage and UI.
  */
 function toggleAudioSetting() {
     let audioEnabled = document.getElementById("audioToggle").checked;
     localStorage.setItem("audioNotification", audioEnabled);
-    updateAudioStatus(audioEnabled);
+    document.getElementById("audioStatus").textContent = audioEnabled
+        ? "Audio notifications are enabled."
+        : "Audio notifications are disabled.";
 }
 
 /**
@@ -364,17 +289,7 @@ function toggleAudioSetting() {
 function loadSettings() {
     let audioEnabled = localStorage.getItem("audioNotification") === "true";
     document.getElementById("audioToggle").checked = audioEnabled;
-    updateAudioStatus(audioEnabled);
-}
-
-/**
- * Updates the audio status message based on the current setting.
- *
- * @param {boolean} isEnabled - Whether audio notifications are enabled.
- */
-function updateAudioStatus(isEnabled) {
-    const audioStatus = document.getElementById("audioStatus");
-    audioStatus.textContent = isEnabled
+    document.getElementById("audioStatus").textContent = audioEnabled
         ? "Audio notifications are enabled."
         : "Audio notifications are disabled.";
 }
@@ -393,4 +308,36 @@ function init() {
 }
 
 window.onload = init;
+
+/**
+ * Synchronizes the slider value with the input field for time settings.
+ *
+ * @param {string} type - The timer type to update ("focus" or "break").
+ */
+function syncSliderWithInput(type) {
+    const input = document.getElementById(`${type}TimeInput`);
+    const slider = document.getElementById(`${type}Time`);
+    const value = parseInt(input.value);
+
+    if (value >= parseInt(slider.min) && value <= parseInt(slider.max)) {
+        slider.value = value;
+        updateTime(type, value);
+    } else {
+        input.value = slider.value; // Reset input to slider's value if out of bounds
+    }
+}
+
+/**
+ * Synchronizes the input field value with the slider for time settings.
+ *
+ * @param {string} type - The timer type to update ("focus" or "break").
+ */
+function syncInputWithSlider(type) {
+    const slider = document.getElementById(`${type}Time`);
+    const input = document.getElementById(`${type}TimeInput`);
+    const value = parseInt(slider.value);
+
+    input.value = value;
+    updateTime(type, value);
+}
 
