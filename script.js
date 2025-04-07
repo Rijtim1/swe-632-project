@@ -349,3 +349,12 @@ function syncInputWithSlider(type) {
     updateTime(type, value);
 }
 
+/**
+ * Shows a confirmation dialog before resetting the timer.
+ */
+function confirmReset() {
+    if (confirm("Are you sure you want to reset the timer? This will erase all progress.")) {
+        resetTimer();
+    }
+}
+
