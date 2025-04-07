@@ -88,11 +88,16 @@ function updateUI() {
  */
 function toggleTimer() {
     const button = document.getElementById("startPauseButton");
+    const pauseIndicator = document.getElementById("pauseIndicator");
+    const timerContainer = document.querySelector(".timer-container");
 
     if (!running) {
         running = true;
         button.textContent = "Pause";
         button.classList.replace("w3-green", "w3-red");
+        pauseIndicator.style.display = "none";
+        timerContainer.classList.remove("paused");
+        progressRing.classList.remove("paused");
         updateUI();
 
         timer = setInterval(() => {
@@ -110,6 +115,9 @@ function toggleTimer() {
         running = false;
         button.textContent = "Start";
         button.classList.replace("w3-red", "w3-green");
+        pauseIndicator.style.display = "block";
+        timerContainer.classList.add("paused");
+        progressRing.classList.add("paused");
         updateUI();
     }
 }
