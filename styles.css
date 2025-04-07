@@ -306,6 +306,14 @@ input:checked+.slider:before {
   /* Blue for break */
 }
 
+/* Paused state color for progress ring */
+.progress-ring__circle.paused {
+  stroke: #ffcc00;
+  /* Yellow for paused state */
+  stroke-dasharray: 4;
+  /* Dashed stroke for visual distinction */
+}
+
 /* Timer positioning inside the progress circle */
 #timer {
   position: absolute;
@@ -325,6 +333,21 @@ input:checked+.slider:before {
   /* Neutral text color */
   font-family: "Black Ops One", "Courier New", Courier, monospace;
   /* Monospace font */
+}
+
+/* Timer dimming for paused state */
+.timer-container.paused #timer {
+  opacity: 0.5;
+  /* Dim the timer display */
+}
+
+/* Pause indicator styling */
+#pauseIndicator {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  display: none;
+  /* Hidden by default */
 }
 
 /* Cycle tracking section styling */
