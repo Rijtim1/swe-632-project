@@ -10,138 +10,193 @@ body {
   margin: 0;
   padding: 0;
   /* Prevents scrolling */
-  height: 100vh; /* Ensures full height usage */
-  display: flex; /* Centers content horizontally and vertically */
+  height: 100vh;
+  /* Ensures full height usage */
+  display: flex;
+  /* Centers content horizontally and vertically */
   justify-content: center;
   align-items: center;
 }
 
 /* Ensure the container doesn't overflow */
 .w3-container {
-  max-width: 100vw; /* Prevents horizontal overflow */
+  max-width: 100vw;
+  /* Prevents horizontal overflow */
   text-align: center;
-  padding: 20px; /* Adds spacing inside the container */
+  padding: 20px;
+  /* Adds spacing inside the container */
 }
 
 body {
-  font-family: Arial, sans-serif; /* Sets a clean, readable font */
+  font-family: Arial, sans-serif;
+  /* Sets a clean, readable font */
   text-align: center;
-  background: #ff9a9e; /* Fallback for older browsers */
   /* Gradient background for modern browsers */
   background: #ff9a9e;
 }
 
 /* Card styling for a clean, centered layout */
 .w3-card {
-  max-width: 400px; /* Restricts card width */
-  margin: auto; /* Centers the card */
-  padding: 20px; /* Adds spacing inside the card */
-  background: white; /* Sets a white background */
-  border-radius: 10px; /* Rounds the corners */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Adds a subtle shadow */
+  max-width: 400px;
+  /* Restricts card width */
+  margin: auto;
+  /* Centers the card */
+  padding: 20px;
+  /* Adds spacing inside the card */
+  background: white;
+  /* Sets a white background */
+  border-radius: 10px;
+  /* Rounds the corners */
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  /* Adds a subtle shadow */
 }
 
 /* Button styling for consistent appearance */
 button {
-  font-size: 18px; /* Sets button text size */
-  padding: 12px 24px; /* Adds padding for better clickability */
-  margin: 10px; /* Adds spacing between buttons */
-  cursor: pointer; /* Changes cursor to pointer on hover */
-  border: none; /* Removes default border */
-  border-radius: 5px; /* Rounds button corners */
-  transition: transform 0.2s; /* Smooth hover effect for transform only */
+  font-size: 18px;
+  /* Sets button text size */
+  padding: 12px 24px;
+  /* Adds padding for better clickability */
+  margin: 10px;
+  /* Adds spacing between buttons */
+  cursor: pointer;
+  /* Changes cursor to pointer on hover */
+  border: none;
+  /* Removes default border */
+  border-radius: 5px;
+  /* Rounds button corners */
+  transition: transform 0.2s;
+  /* Smooth hover effect for transform only */
 }
 
 /* Hover effect for buttons */
 button:hover {
-  transform: scale(1.05); /* Slight zoom effect on hover */
+  transform: scale(1.05);
+  /* Slight zoom effect on hover */
 }
 
 /* Focus outline for accessibility */
 button:focus {
-  outline: 2px solid #2196f3; /* Adds focus outline */
+  outline: 2px solid #2196f3;
+  /* Adds focus outline */
   outline-offset: 2px;
 }
 
 /* Hover effects for specific button colors */
 .w3-green:hover {
-  background: #2e8b57; /* Darker green on hover */
+  background: #2e8b57;
+  /* Darker green on hover */
 }
+
 .w3-red:hover {
-  background: #b22222; /* Darker red on hover */
+  background: #b22222;
+  /* Darker red on hover */
 }
+
 .w3-blue:hover {
-  background: #1e90ff; /* Darker blue on hover */
+  background: #1e90ff;
+  /* Darker blue on hover */
 }
 
 /* Timer display styling */
 #timer {
-  font-size: 64px; /* Large font size for visibility */
-  font-weight: bold; /* Bold text for emphasis */
-  color: #333; /* Neutral text color */
-  margin: 20px 0; /* Adds spacing around the timer */
-  font-family: "Black Ops One", "Courier New", Courier, monospace; /* Use Black Ops One font for the clock face */
+  font-size: 64px;
+  /* Large font size for visibility */
+  font-weight: bold;
+  /* Bold text for emphasis */
+  color: #333;
+  /* Neutral text color */
+  margin: 20px 0;
+  /* Adds spacing around the timer */
+  font-family: "Black Ops One", "Courier New", Courier, monospace;
+  /* Use Black Ops One font for the clock face */
 }
 
 /* Status message styling for focus/break transitions */
 #statusMessage {
-  font-size: 22px; /* Medium font size */
-  font-weight: bold; /* Bold text for emphasis */
-  margin: 10px auto; /* Centers the message */
+  font-size: 22px;
+  /* Medium font size */
+  font-weight: bold;
+  /* Bold text for emphasis */
+  margin: 10px auto;
+  /* Centers the message */
   text-align: center;
-  padding: 10px; /* Adds spacing inside the message box */
-  border-radius: 5px; /* Rounds the corners */
-  display: inline-block; /* Ensures proper alignment */
-  max-width: 90%; /* Adapts to smaller screens */
-  box-sizing: border-box; /* Includes padding in width calculation */
+  padding: 10px;
+  /* Adds spacing inside the message box */
+  border-radius: 5px;
+  /* Rounds the corners */
+  display: inline-block;
+  /* Ensures proper alignment */
+  max-width: 90%;
+  /* Adapts to smaller screens */
+  box-sizing: border-box;
+  /* Includes padding in width calculation */
 }
 
 /* Focus mode styling */
 .focus-mode {
-  color: #28a745; /* Calming green text */
-  background: rgba(40, 167, 69, 0.2); /* Light green background */
+  color: #28a745;
+  /* Calming green text */
+  background: rgba(40, 167, 69, 0.2);
+  /* Light green background */
 }
 
 /* Break mode styling */
 .break-mode {
-  color: #3498db; /* Relaxing blue text */
-  background: rgba(52, 152, 219, 0.2); /* Light blue background */
+  color: #3498db;
+  /* Relaxing blue text */
+  background: rgba(52, 152, 219, 0.2);
+  /* Light blue background */
 }
 
 /* Notification styling for time-up alerts */
 #notification {
-  margin-top: 20px; /* Adds spacing above the notification */
-  font-size: 20px; /* Medium font size */
-  color: white; /* White text for contrast */
-  background: red; /* Red background for urgency */
-  padding: 10px; /* Adds spacing inside the notification */
-  border-radius: 5px; /* Rounds the corners */
-  display: none; /* Hidden by default */
+  margin-top: 20px;
+  /* Adds spacing above the notification */
+  font-size: 20px;
+  /* Medium font size */
+  color: white;
+  /* White text for contrast */
+  background: red;
+  /* Red background for urgency */
+  padding: 10px;
+  /* Adds spacing inside the notification */
+  border-radius: 5px;
+  /* Rounds the corners */
+  display: none;
+  /* Hidden by default */
 }
 
 /* Slider container styling */
 .slider-container {
-  display: flex; /* Aligns items horizontally */
-  align-items: center; /* Centers items vertically */
-  gap: 10px; /* Adds spacing between buttons and slider */
+  display: flex;
+  /* Aligns items horizontally */
+  align-items: center;
+  /* Centers items vertically */
+  gap: 10px;
+  /* Adds spacing between buttons and slider */
 }
 
 /* Slider input styling */
 .slider-container input {
-  flex-grow: 1; /* Expands slider to fit available space */
+  flex-grow: 1;
+  /* Expands slider to fit available space */
 }
 
 /* Toggle switch styling */
 .switch {
   position: relative;
   display: inline-block;
-  width: 34px; /* Width of the switch */
-  height: 20px; /* Height of the switch */
+  width: 34px;
+  /* Width of the switch */
+  height: 20px;
+  /* Height of the switch */
 }
 
 /* Hide default HTML checkbox */
 .switch input {
-  opacity: 0; /* Makes the checkbox invisible */
+  opacity: 0;
+  /* Makes the checkbox invisible */
   width: 0;
   height: 0;
 }
@@ -149,19 +204,24 @@ button:focus {
 /* The slider */
 .slider {
   position: absolute;
-  cursor: pointer; /* Changes cursor to pointer on hover */
+  cursor: pointer;
+  /* Changes cursor to pointer on hover */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc; /* Default background color */
-  transition: 0.4s; /* Smooth transition for background color */
-  border-radius: 20px; /* Rounds the slider */
+  background-color: #ccc;
+  /* Default background color */
+  transition: 0.4s;
+  /* Smooth transition for background color */
+  border-radius: 20px;
+  /* Rounds the slider */
 }
 
 /* Focus outline for slider */
 .slider:focus {
-  outline: 2px solid #2196f3; /* Adds focus outline */
+  outline: 2px solid #2196f3;
+  /* Adds focus outline */
   outline-offset: 2px;
 }
 
@@ -169,119 +229,169 @@ button:focus {
 .slider:before {
   position: absolute;
   content: "";
-  height: 14px; /* Height of the knob */
-  width: 14px; /* Width of the knob */
-  left: 3px; /* Position from the left */
-  bottom: 3px; /* Position from the bottom */
-  background-color: white; /* White knob */
-  transition: 0.4s; /* Smooth transition for position */
-  border-radius: 50%; /* Rounds the knob */
+  height: 14px;
+  /* Height of the knob */
+  width: 14px;
+  /* Width of the knob */
+  left: 3px;
+  /* Position from the left */
+  bottom: 3px;
+  /* Position from the bottom */
+  background-color: white;
+  /* White knob */
+  transition: 0.4s;
+  /* Smooth transition for position */
+  border-radius: 50%;
+  /* Rounds the knob */
 }
 
 /* Checked state for slider */
-input:checked + .slider {
-  background-color: #2196f3; /* Blue background when checked */
+input:checked+.slider {
+  background-color: #2196f3;
+  /* Blue background when checked */
 }
 
 /* Knob position when checked */
-input:checked + .slider:before {
-  transform: translateX(14px); /* Moves knob to the right */
+input:checked+.slider:before {
+  transform: translateX(14px);
+  /* Moves knob to the right */
 }
 
 /* Progress circle container */
 .timer-container {
   position: relative;
-  margin: 20px auto; /* Centers the container */
-  width: 300px; /* Fixed width */
-  height: 300px; /* Fixed height */
+  margin: 20px auto;
+  /* Centers the container */
+  width: 300px;
+  /* Fixed width */
+  height: 300px;
+  /* Fixed height */
 }
 
 /* Background circle for progress ring */
 .progress-ring__background {
-  stroke: #f0f0f0; /* Light gray stroke */
-  stroke-width: 6; /* Thickness of the stroke */
-  fill: transparent; /* No fill color */
+  stroke: #f0f0f0;
+  /* Light gray stroke */
+  stroke-width: 6;
+  /* Thickness of the stroke */
+  fill: transparent;
+  /* No fill color */
 }
 
 /* Foreground circle for progress ring */
 .progress-ring__circle {
-  stroke: #4caf50; /* Green stroke */
-  stroke-width: 6; /* Thickness of the stroke */
-  fill: transparent; /* No fill color */
-  stroke-linecap: round; /* Rounded ends for the stroke */
-  transition: stroke-dashoffset 0.5s linear; /* Smooth transition for progress */
-  transform-origin: center; /* Sets the origin for transformations */
-  transform-origin: 50% 50%; /* Ensures proper alignment */
+  stroke: #4caf50;
+  /* Green stroke */
+  stroke-width: 6;
+  /* Thickness of the stroke */
+  fill: transparent;
+  /* No fill color */
+  stroke-linecap: round;
+  /* Rounded ends for the stroke */
+  transition: stroke-dashoffset 0.5s linear;
+  /* Smooth transition for progress */
+  transform-origin: center;
+  /* Sets the origin for transformations */
 }
 
 /* Focus mode color for progress ring */
 .progress-ring__circle.focus-mode {
-  stroke: #28a745; /* Green for focus */
+  stroke: #28a745;
+  /* Green for focus */
 }
 
 /* Break mode color for progress ring */
 .progress-ring__circle.break-mode {
-  stroke: #3498db; /* Blue for break */
+  stroke: #3498db;
+  /* Blue for break */
 }
 
 /* Timer positioning inside the progress circle */
 #timer {
   position: absolute;
-  top: 50%; /* Centers vertically */
-  left: 50%; /* Centers horizontally */
-  transform: translate(-50%, -50%); /* Adjusts for exact centering */
-  font-size: 64px; /* Large font size */
-  margin: 0; /* Removes default margin */
-  font-weight: bold; /* Bold text */
-  color: #333; /* Neutral text color */
-  font-family: "Black Ops One", "Courier New", Courier, monospace; /* Monospace font */
+  top: 50%;
+  /* Centers vertically */
+  left: 50%;
+  /* Centers horizontally */
+  transform: translate(-50%, -50%);
+  /* Adjusts for exact centering */
+  font-size: 64px;
+  /* Large font size */
+  margin: 0;
+  /* Removes default margin */
+  font-weight: bold;
+  /* Bold text */
+  color: #333;
+  /* Neutral text color */
+  font-family: "Black Ops One", "Courier New", Courier, monospace;
+  /* Monospace font */
 }
 
 /* Cycle tracking section styling */
 #cycleTracking {
-  margin-top: 20px; /* Adds spacing above the section */
-  padding: 10px; /* Adds spacing inside the section */
-  background: #f9f9f9; /* Light gray background */
-  border-radius: 8px; /* Rounds the corners */
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-top: 20px;
+  /* Adds spacing above the section */
+  padding: 10px;
+  /* Adds spacing inside the section */
+  background: #f9f9f9;
+  /* Light gray background */
+  border-radius: 8px;
+  /* Rounds the corners */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow */
 }
 
 /* Cycle tracking header styling */
 #cycleTracking h3 {
-  margin-bottom: 10px; /* Adds spacing below the header */
-  color: #333; /* Neutral text color */
+  margin-bottom: 10px;
+  /* Adds spacing below the header */
+  color: #333;
+  /* Neutral text color */
 }
 
 /* Cycle tracking paragraph styling */
 #cycleTracking p {
-  margin: 5px 0; /* Adds spacing between paragraphs */
-  font-size: 18px; /* Medium font size */
-  color: #555; /* Subtle text color */
+  margin: 5px 0;
+  /* Adds spacing between paragraphs */
+  font-size: 18px;
+  /* Medium font size */
+  color: #555;
+  /* Subtle text color */
 }
 
 /* Media query for smaller screens */
 @media (max-width: 600px) {
   #timer {
-    font-size: 48px; /* Reduces font size for smaller screens */
+    font-size: 48px;
+    /* Reduces font size for smaller screens */
   }
 
   .w3-card {
-    max-width: 90%; /* Ensures the card fits within smaller screen widths */
-    padding: 15px; /* Reduces padding for better spacing */
+    max-width: 90%;
+    /* Ensures the card fits within smaller screen widths */
+    padding: 15px;
+    /* Reduces padding for better spacing */
   }
 }
 
 /* Input field styling for number inputs */
 input[type="number"] {
-  border-radius: 8px; /* Rounds the corners */
-  padding: 4px 8px; /* Adds spacing inside the input */
-  text-align: center; /* Centers the text */
+  border-radius: 8px;
+  /* Rounds the corners */
+  padding: 4px 8px;
+  /* Adds spacing inside the input */
+  text-align: center;
+  /* Centers the text */
 }
 
 /* Notification settings styling */
 .notification-settings {
-  color: #b22222; /* Red color for error messages */
-  font-size: 14px; /* Small font size */
-  margin-top: 10px; /* Adds spacing above the message */
-  text-align: center; /* Centers the text */
+  color: #b22222;
+  /* Red color for error messages */
+  font-size: 14px;
+  /* Small font size */
+  margin-top: 10px;
+  /* Adds spacing above the message */
+  text-align: center;
+  /* Centers the text */
 }
