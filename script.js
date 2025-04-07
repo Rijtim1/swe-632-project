@@ -62,8 +62,8 @@ function updateUI() {
     statusMessage.textContent = !running
         ? "Press Start to Begin"
         : isBreak
-        ? "Break Time! Relax!"
-        : "Focus Time! Stay Productive!";
+            ? "Break Time! Relax!"
+            : "Focus Time! Stay Productive!";
 
     statusMessage.classList.toggle("focus-mode", isFocus);
     statusMessage.classList.toggle("break-mode", isBreak);
@@ -71,8 +71,8 @@ function updateUI() {
     const color = !running
         ? "gray"
         : isBreak
-        ? "#3498db" // Blue for break
-        : "#28a745"; // Green for focus
+            ? "#3498db" // Blue for break
+            : "#28a745"; // Green for focus
 
     timerDisplay.style.color = color;
     progressRing.style.stroke = color;
