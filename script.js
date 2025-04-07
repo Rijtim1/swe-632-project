@@ -214,8 +214,8 @@ function updateTime(type, value) {
     const input = document.getElementById(type + 'TimeInput');
     const notificationSettings = document.getElementById('notificationSettings');
 
-    if (value < slider.min || value > slider.max) {
-        notificationSettings.textContent = `The value must be between ${slider.min} and ${slider.max}.`;
+    if (value < Number(slider.min) || value > Number(slider.max)) {
+        notificationSettings.textContent = `The value must be between ${Number(slider.min)} and ${Number(slider.max)}.`;
         return;
     }
 
