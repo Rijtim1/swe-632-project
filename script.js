@@ -179,7 +179,7 @@ function resetTimer() {
     progressRing.style.strokeDashoffset = circumference;
 
     const button = document.getElementById("startPauseButton");
-    button.textContent = "Start";
+    button.innerHTML = '<i class="fas fa-play"></i> Start'; // Update icon to play
     button.classList.replace("w3-red", "w3-green");
 }
 
