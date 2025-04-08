@@ -359,3 +359,34 @@ function confirmReset() {
     }
 }
 
+/**
+ * Skips the current phase and transitions to the next one.
+ *
+ * If the current phase is focus, it transitions to break, and vice versa.
+ * Updates the timer, UI, and cycle tracking accordingly.
+ */
+function skipPhase() {
+    clearInterval(timer);
+    running = false;
+
+    if (onBreak) {
+        breakCount++;
+        if (focusCount > 0) {
+            cycleCount++;
+        }
+    } else {
+        focusCount++;
+    }
+
+    onBreak = !onBreak;
+    timeLeft = onBreak ? breakTime : focusTime;
+
+    updateUI();
+    updateDisplay();
+    updateCycleTracking();
+
+    const button = document.getElementById("startPauseButton");
+    button.innerHTML = '<i class="fas fa-play"></i> Start'; // Reset button to start
+    button.classList.replace("w3-red", "w3-green");
+}
+

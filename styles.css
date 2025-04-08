@@ -98,6 +98,16 @@ button:focus {
   /* Darker blue on hover */
 }
 
+/* Skip Phase button styling */
+button.w3-orange {
+  background-color: #ffa500; /* Orange background */
+  color: white; /* White text */
+}
+
+button.w3-orange:hover {
+  background-color: #ff8c00; /* Darker orange on hover */
+}
+
 /* Timer display styling */
 #timer {
   font-size: 64px;
