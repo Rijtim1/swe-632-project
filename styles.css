@@ -430,3 +430,35 @@ input[type="number"] {
   text-align: center;
   /* Centers the text */
 }
+
+/* Tooltip styling */
+span[title] {
+  cursor: help;
+  text-decoration: underline dotted;
+}
+
+/* Tooltip container styling */
+.w3-tooltip {
+  position: relative;
+}
+
+.w3-tooltip-content {
+  position: absolute;
+  bottom: 100%;
+  /* Position above the button */
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  /* Hide by default */
+  padding: 5px;
+  background-color: #f1f1f1;
+  color: #000;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.w3-tooltip:hover .w3-tooltip-content {
+  display: block;
+  /* Show on hover */
+}
