@@ -9,6 +9,7 @@
   <title>Pomodoro Timer</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 
 <body>
@@ -48,18 +49,8 @@
           Press <strong>"Start"</strong> to begin your session. Stay
           productive!
         </p>
-        <h3>What is a Cycle?</h3>
         <p>
-          A <strong>cycle</strong> consists of one completed focus session followed by one completed break session.
-          For example, if you set a focus time of 25 minutes and a break time of 5 minutes, completing both will count
-          as one cycle.
-        </p>
-        <h3>How Cycle Tracking Works</h3>
-        <p>
-          The timer tracks the number of completed cycles, focus sessions, and break sessions. These counts are
-          displayed in the
-          <strong>Cycle Tracking</strong> section below the timer. Use this feature to monitor your productivity and
-          ensure you're taking regular breaks.
+          Use the <strong>"Skip Phase"</strong> button to jump directly to the next phase (focus or break) without waiting for the current phase to end.
         </p>
       </div>
     </div>
@@ -96,7 +87,8 @@
         <div class="w3-section">
           <label class="w3-text-black">Focus Time (1–120 minutes):</label>
           <div class="slider-container">
-            <button class="w3-button w3-small w3-gray" onclick="adjustTime('focus', -5)">
+            <button class="w3-button w3-small w3-gray" onclick="adjustTime('focus', -5)"
+              title="Decrease focus time by 5 minutes">
               -
             </button>
 
@@ -106,7 +98,8 @@
             <input type="range" id="focusTime" class="w3-input w3-border" min="1" max="120" value="25"
               oninput="syncInputWithSlider('focus')" />
 
-            <button class="w3-button w3-small w3-gray" onclick="adjustTime('focus', 5)">
+            <button class="w3-button w3-small w3-gray" onclick="adjustTime('focus', 5)"
+              title="Increase focus time by 5 minutes">
               +
             </button>
           </div>
@@ -115,7 +108,8 @@
         <div class="w3-section">
           <label class="w3-text-black">Break Time (1–60 minutes):</label>
           <div class="slider-container">
-            <button class="w3-button w3-small w3-gray" onclick="adjustTime('break', -1)">
+            <button class="w3-button w3-small w3-gray" onclick="adjustTime('break', -5)"
+              title="Decrease break time by 5 minutes">
               -
             </button>
 
@@ -125,7 +119,8 @@
             <input type="range" id="breakTime" class="w3-input w3-border" min="1" max="60" value="5"
               oninput="syncInputWithSlider('break')" />
 
-            <button class="w3-button w3-small w3-gray" onclick="adjustTime('break', 1)">
+            <button class="w3-button w3-small w3-gray" onclick="adjustTime('break', 5)"
+              title="Increase break time by 5 minutes">
               +
             </button>
           </div>
@@ -137,20 +132,20 @@
         <div class="w3-margin-top">
           <!-- Preset Buttons -->
           <button class="w3-button w3-light-gray" onclick="setPreset(5, 1)"
-            title="Set 5 minutes focus / 1 minute break">
-            5/1
+            title="Set focus time to 5 minutes and break time to 1 minute">
+            5m/1m
           </button>
           <button class="w3-button w3-light-gray" onclick="setPreset(25, 5)"
-            title="Set 25 minutes focus / 5 minutes break">
-            25/5
+            title="Set focus time to 25 minutes and break time to 5 minutes">
+            25m/5m
           </button>
           <button class="w3-button w3-light-gray" onclick="setPreset(50, 10)"
-            title="Set 50 minutes focus / 10 minutes break">
-            50/10
+            title="Set focus time to 50 minutes and break time to 10 minutes">
+            50m/10m
           </button>
           <button class="w3-button w3-light-gray" onclick="setPreset(90, 15)"
-            title="Set 90 minutes focus / 15 minutes break">
-            90/15
+            title="Set focus time to 90 minutes and break time to 15 minutes">
+            90m/15m
           </button>
         </div>
 
@@ -167,7 +162,7 @@
       <section>
         <!-- Status Message -->
         <div id="statusMessage" class="status-message" aria-live="polite">
-          Press Start to begin your session.
+          <i class="fas fa-info-circle"></i> Press Start to begin your session.
         </div>
         <!-- Timer Display -->
         <div class="timer-container w3-animate-zoom" role="timer" aria-live="polite">
@@ -177,41 +172,85 @@
           </svg>
           <div id="timer">25:00</div>
         </div>
+        <!-- Pause Indicator -->
+        <div id="pauseIndicator" class="w3-text-gray w3-large" style="display: none;">
+          Timer Paused
+        </div>
         <!-- Timer Controls -->
         <button id="startPauseButton" onclick="toggleTimer()" class="w3-button w3-green w3-margin"
           title="Start the Pomodoro timer to begin a focus session or pause it to take a break">
-          Start
+          <i class="fas fa-play"></i> Start
         </button>
-        <button onclick="resetTimer()" class="w3-button w3-gray w3-margin"
+        <button onclick="confirmReset()" class="w3-button w3-gray w3-margin"
           title="Reset the Pomodoro timer to its default focus and break duration settings">
-          Reset
+          <i class="fas fa-redo"></i> Reset
+        </button>
+        <button onclick="skipPhase()" class="w3-button w3-orange w3-margin"
+          title="Skip the current phase and jump to the next one">
+          <i class="fas fa-forward"></i> Skip Phase
         </button>
       </section>
 
       <!-- Cycle Tracking Section -->
       <section id="cycleTracking" class="w3-section" aria-labelledby="cycleTrackingTitle">
-        <h3 id="cycleTrackingTitle" class="w3-center w3-text-blue">Cycle Tracking</h3>
+        <h3 id="cycleTrackingTitle" class="w3-center w3-text-blue">
+          Cycle Tracking
+          <button class="w3-button w3-small w3-blue w3-margin-left w3-tooltip" onclick="toggleModal('cycleModal', true)" 
+            title="Learn more about cycles and how they are tracked" aria-controls="cycleModal">
+            <i class="fas fa-info-circle"></i> Learn More
+            <span class="w3-text w3-tag w3-light-gray w3-small w3-round w3-tooltip-content">
+              Click to learn about cycles and their importance in productivity tracking.
+            </span>
+          </button>
+        </h3>
         <div class="w3-row-padding">
           <div class="w3-third w3-padding-small">
             <div class="w3-card w3-padding w3-center w3-light-gray w3-round">
-              <h4 class="w3-medium">Completed Cycles</h4>
-              <p class="w3-xxlarge w3-text-green"><span id="cycleCount">0</span></p>
+              <h4 class="w3-medium">
+                Completed Cycles
+              </h4>
+              <p class="w3-xxlarge w3-text-green">
+                <span id="cycleCount">0</span>
+              </p>
             </div>
           </div>
           <div class="w3-third w3-padding-small">
             <div class="w3-card w3-padding w3-center w3-light-gray w3-round">
-              <h4 class="w3-medium">Focus Sessions</h4>
+              <h4 class="w3-medium">
+                Focus Sessions
+              </h4>
               <p class="w3-xxlarge w3-text-blue"><span id="focusCount">0</span></p>
             </div>
           </div>
           <div class="w3-third w3-padding-small">
             <div class="w3-card w3-padding w3-center w3-light-gray w3-round">
-              <h4 class="w3-medium">Break Sessions</h4>
+              <h4 class="w3-medium">
+                Break Sessions
+              </h4>
               <p class="w3-xxlarge w3-text-orange"><span id="breakCount">0</span></p>
             </div>
           </div>
         </div>
       </section>
+
+      <!-- Cycle Explanation Modal -->
+      <div id="cycleModal" class="w3-modal" role="dialog" aria-labelledby="cycleModalTitle" aria-hidden="true">
+        <div class="w3-modal-content w3-padding">
+          <!-- Close button for Cycle Modal -->
+          <span onclick="toggleModal('cycleModal', false)" class="w3-button w3-display-topright" 
+            aria-label="Close Cycle Modal">&times;</span>
+          <!-- Cycle Modal Content -->
+          <h2 id="cycleModalTitle">What is a Cycle?</h2>
+          <p>
+            A <strong>cycle</strong> consists of one completed focus session followed by one completed break session.
+          </p>
+          <h3>How Cycle Tracking Works</h3>
+          <p>
+            The timer tracks the number of completed cycles, focus sessions, and break sessions. These counts are displayed in the
+            <strong>Cycle Tracking</strong> section. Use this feature to monitor your productivity and ensure you're taking regular breaks.
+          </p>
+        </div>
+      </div>
 
       <!-- External Link -->
       <footer>
