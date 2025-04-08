@@ -59,11 +59,12 @@ function updateUI() {
     const isBreak = onBreak && running;
     const isFocus = !onBreak && running;
 
-    statusMessage.textContent = !running
-        ? "Press Start to Begin"
+    // Update status message with text and icons
+    statusMessage.innerHTML = !running
+        ? '<span><i class="fas fa-play-circle"></i> Press Start to Begin</span>'
         : isBreak
-            ? "Break Time! Relax!"
-            : "Focus Time! Stay Productive!";
+            ? '<span><i class="fas fa-coffee"></i> Break Time! Relax!</span>'
+            : '<span><i class="fas fa-briefcase"></i> Focus Time! Stay Productive!</span>';
 
     statusMessage.classList.toggle("focus-mode", isFocus);
     statusMessage.classList.toggle("break-mode", isBreak);
