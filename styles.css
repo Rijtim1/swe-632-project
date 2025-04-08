@@ -133,6 +133,18 @@ button:focus {
   /* Includes padding in width calculation */
 }
 
+/* Styles for icons and alignment with text */
+#statusMessage span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+}
+
+#statusMessage i {
+  font-size: 1.5rem;
+}
+
 /* Focus mode styling */
 .focus-mode {
   color: #28a745;

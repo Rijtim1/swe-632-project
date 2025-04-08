@@ -9,6 +9,7 @@
   <title>Pomodoro Timer</title>
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 
 <body>
@@ -171,7 +172,7 @@
       <section>
         <!-- Status Message -->
         <div id="statusMessage" class="status-message" aria-live="polite">
-          Press Start to begin your session.
+          <i class="fas fa-info-circle"></i> Press Start to begin your session.
         </div>
         <!-- Timer Display -->
         <div class="timer-container w3-animate-zoom" role="timer" aria-live="polite">
@@ -188,33 +189,41 @@
         <!-- Timer Controls -->
         <button id="startPauseButton" onclick="toggleTimer()" class="w3-button w3-green w3-margin"
           title="Start the Pomodoro timer to begin a focus session or pause it to take a break">
-          Start
+          <i class="fas fa-play"></i> Start
         </button>
         <button onclick="confirmReset()" class="w3-button w3-gray w3-margin"
           title="Reset the Pomodoro timer to its default focus and break duration settings">
-          Reset
+          <i class="fas fa-redo"></i> Reset
         </button>
       </section>
 
       <!-- Cycle Tracking Section -->
       <section id="cycleTracking" class="w3-section" aria-labelledby="cycleTrackingTitle">
-        <h3 id="cycleTrackingTitle" class="w3-center w3-text-blue">Cycle Tracking</h3>
+        <h3 id="cycleTrackingTitle" class="w3-center w3-text-blue">
+          Cycle Tracking
+        </h3>
         <div class="w3-row-padding">
           <div class="w3-third w3-padding-small">
             <div class="w3-card w3-padding w3-center w3-light-gray w3-round">
-              <h4 class="w3-medium">Completed Cycles</h4>
+              <h4 class="w3-medium">
+                Completed Cycles
+              </h4>
               <p class="w3-xxlarge w3-text-green"><span id="cycleCount">0</span></p>
             </div>
           </div>
           <div class="w3-third w3-padding-small">
             <div class="w3-card w3-padding w3-center w3-light-gray w3-round">
-              <h4 class="w3-medium">Focus Sessions</h4>
+              <h4 class="w3-medium">
+                 Focus Sessions
+              </h4>
               <p class="w3-xxlarge w3-text-blue"><span id="focusCount">0</span></p>
             </div>
           </div>
           <div class="w3-third w3-padding-small">
             <div class="w3-card w3-padding w3-center w3-light-gray w3-round">
-              <h4 class="w3-medium">Break Sessions</h4>
+              <h4 class="w3-medium">
+         Break Sessions
+              </h4>
               <p class="w3-xxlarge w3-text-orange"><span id="breakCount">0</span></p>
             </div>
           </div>
