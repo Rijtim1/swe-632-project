@@ -94,7 +94,7 @@ function toggleTimer() {
 
     if (!running) {
         running = true;
-        button.textContent = "Pause";
+        button.innerHTML = '<i class="fas fa-pause"></i> Pause'; // Update icon to pause
         button.classList.replace("w3-green", "w3-red");
         pauseIndicator.style.display = "none";
         timerContainer.classList.remove("paused");
@@ -114,7 +114,7 @@ function toggleTimer() {
     } else {
         clearInterval(timer);
         running = false;
-        button.textContent = "Start";
+        button.innerHTML = '<i class="fas fa-play"></i> Start'; // Update icon to play
         button.classList.replace("w3-red", "w3-green");
         pauseIndicator.style.display = "block";
         timerContainer.classList.add("paused");
