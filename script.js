@@ -385,6 +385,18 @@ function skipPhase() {
     updateDisplay();
     updateCycleTracking();
 
+    // Update pause indicator to reflect paused state
+    const pauseIndicator = document.getElementById("pauseIndicator");
+    pauseIndicator.style.display = "block"; // Show pause indicator
+
+    // Update timer container to reflect the new phase
+    const timerContainer = document.getElementById("timerContainer");
+    timerContainer.classList.toggle("break-phase", onBreak);
+
+    // Reset progress ring for the new phase
+    progressRing.style.strokeDashoffset = circumference;
+
+    // Update start/pause button to reflect paused state
     const button = document.getElementById("startPauseButton");
     button.innerHTML = '<i class="fas fa-play"></i> Start'; // Reset button to start
     button.classList.replace("w3-red", "w3-green");
