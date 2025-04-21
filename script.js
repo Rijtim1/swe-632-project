@@ -187,9 +187,30 @@ function resetTimer() {
  * Updates the cycle tracking display with the latest counts.
  */
 function updateCycleTracking() {
-    document.getElementById("cycleCount").textContent = cycleCount;
-    document.getElementById("focusCount").textContent = focusCount;
-    document.getElementById("breakCount").textContent = breakCount;
+  const dailyFocusGoal = parseInt(localStorage.getItem('dailyFocusGoal') || 4);
+  const dailyBreakGoal = parseInt(localStorage.getItem('dailyBreakGoal') || 4);
+  const dailyCycleGoal = parseInt(localStorage.getItem('dailyCycleGoal') || 2);
+
+  document.getElementById("cycleCount").textContent = cycleCount;
+  document.getElementById("focusCount").textContent = focusCount;
+  document.getElementById("breakCount").textContent = breakCount;
+
+  const focusBar = document.getElementById("focusBar");
+  const breakBar = document.getElementById("breakBar");
+  const cycleBar = document.getElementById("cycleBar");
+
+  focusBar.style.width = `${(focusCount / dailyFocusGoal) * 100}%`;
+  breakBar.style.width = `${(breakCount / dailyBreakGoal) * 100}%`;
+  cycleBar.style.width = `${(cycleCount / dailyCycleGoal) * 100}%`;
+
+  if (focusCount >= dailyFocusGoal) focusBar.classList.add("goal-met");
+  else focusBar.classList.remove("goal-met");
+
+  if (breakCount >= dailyBreakGoal) breakBar.classList.add("goal-met");
+  else breakBar.classList.remove("goal-met");
+
+  if (cycleCount >= dailyCycleGoal) cycleBar.classList.add("goal-met");
+  else cycleBar.classList.remove("goal-met");
 }
 
 /**
@@ -316,7 +337,12 @@ function init() {
     updateUI();
 }
 
-window.onload = init;
+window.onload = function() {
+  loadSettings();
+  loadGoalsFromLocalStorage();
+  updateDisplay();
+  updateUI();
+};
 
 /**
  * Synchronizes the slider value with the input field for time settings.
@@ -437,5 +463,31 @@ function updateBreakCount() {
     breakCount++;
     document.getElementById('breakCount').textContent = breakCount;
     flashUpdate(document.getElementById('breakCount'));
+}
+
+/**
+ * Saves daily goals to local storage.
+ */
+function saveGoalsToLocalStorage() {
+  const dailyFocusGoal = document.getElementById('dailyFocusGoal').value;
+  const dailyBreakGoal = document.getElementById('dailyBreakGoal').value;
+  const dailyCycleGoal = document.getElementById('dailyCycleGoal').value;
+
+  localStorage.setItem('dailyFocusGoal', dailyFocusGoal);
+  localStorage.setItem('dailyBreakGoal', dailyBreakGoal);
+  localStorage.setItem('dailyCycleGoal', dailyCycleGoal);
+}
+
+/**
+ * Loads daily goals from local storage.
+ */
+function loadGoalsFromLocalStorage() {
+  const dailyFocusGoal = localStorage.getItem('dailyFocusGoal') || 4;
+  const dailyBreakGoal = localStorage.getItem('dailyBreakGoal') || 4;
+  const dailyCycleGoal = localStorage.getItem('dailyCycleGoal') || 2;
+
+  document.getElementById('dailyFocusGoal').value = dailyFocusGoal;
+  document.getElementById('dailyBreakGoal').value = dailyBreakGoal;
+  document.getElementById('dailyCycleGoal').value = dailyCycleGoal;
 }
 

@@ -573,3 +573,54 @@ h1, h2, h3 {
 .stat-card.cycle {
   border-top: 4px solid #28a745;
 }
+
+/* Progress bar styling */
+.progress-bar {
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 5px;
+  height: 6px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.progress-fill.focus {
+  background-color: #2196f3;
+}
+
+.progress-fill.break {
+  background-color: #ffa500;
+}
+
+.progress-fill.cycle {
+  background-color: #28a745;
+}
+
+/* Style for the Daily Goals input section */
+.daily-goals {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Goal labels and inputs */
+.daily-goals label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.daily-goals input[type="number"] {
+  width: 200px;         /* fixed consistent width */
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
