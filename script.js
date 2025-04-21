@@ -139,12 +139,12 @@ function handleTimerEnd() {
     }
 
     if (onBreak) {
-        breakCount++;
+        updateBreakCount();
         if (focusCount > 0) {
-            cycleCount++;
+            updateCycleCount();
         }
     } else {
-        focusCount++;
+        updateFocusCount();
     }
 
     onBreak = !onBreak;
@@ -187,9 +187,30 @@ function resetTimer() {
  * Updates the cycle tracking display with the latest counts.
  */
 function updateCycleTracking() {
-    document.getElementById("cycleCount").textContent = cycleCount;
-    document.getElementById("focusCount").textContent = focusCount;
-    document.getElementById("breakCount").textContent = breakCount;
+  const dailyFocusGoal = parseInt(localStorage.getItem('dailyFocusGoal') || 4);
+  const dailyBreakGoal = parseInt(localStorage.getItem('dailyBreakGoal') || 4);
+  const dailyCycleGoal = parseInt(localStorage.getItem('dailyCycleGoal') || 2);
+
+  document.getElementById("cycleCount").textContent = cycleCount;
+  document.getElementById("focusCount").textContent = focusCount;
+  document.getElementById("breakCount").textContent = breakCount;
+
+  const focusBar = document.getElementById("focusBar");
+  const breakBar = document.getElementById("breakBar");
+  const cycleBar = document.getElementById("cycleBar");
+
+  focusBar.style.width = `${(focusCount / dailyFocusGoal) * 100}%`;
+  breakBar.style.width = `${(breakCount / dailyBreakGoal) * 100}%`;
+  cycleBar.style.width = `${(cycleCount / dailyCycleGoal) * 100}%`;
+
+  if (focusCount >= dailyFocusGoal) focusBar.classList.add("goal-met");
+  else focusBar.classList.remove("goal-met");
+
+  if (breakCount >= dailyBreakGoal) breakBar.classList.add("goal-met");
+  else breakBar.classList.remove("goal-met");
+
+  if (cycleCount >= dailyCycleGoal) cycleBar.classList.add("goal-met");
+  else cycleBar.classList.remove("goal-met");
 }
 
 /**
@@ -316,7 +337,12 @@ function init() {
     updateUI();
 }
 
-window.onload = init;
+window.onload = function() {
+  loadSettings();
+  loadGoalsFromLocalStorage();
+  updateDisplay();
+  updateUI();
+};
 
 /**
  * Synchronizes the slider value with the input field for time settings.
@@ -370,12 +396,12 @@ function skipPhase() {
     running = false;
 
     if (onBreak) {
-        breakCount++;
+        updateBreakCount();
         if (focusCount > 0) {
-            cycleCount++;
+            updateCycleCount();
         }
     } else {
-        focusCount++;
+        updateFocusCount();
     }
 
     onBreak = !onBreak;
@@ -400,5 +426,68 @@ function skipPhase() {
     const button = document.getElementById("startPauseButton");
     button.innerHTML = '<i class="fas fa-play"></i> Start'; // Reset button to start
     button.classList.replace("w3-red", "w3-green");
+}
+
+/**
+ * Adds a flash animation to an element when its value is updated.
+ *
+ * @param {HTMLElement} el - The element to animate.
+ */
+function flashUpdate(el) {
+    el.classList.add('updated');
+    setTimeout(() => el.classList.remove('updated'), 400);
+}
+
+/**
+ * Increments the cycle count and updates the display with an animation.
+ */
+function updateCycleCount() {
+    cycleCount++;
+    document.getElementById('cycleCount').textContent = cycleCount;
+    flashUpdate(document.getElementById('cycleCount'));
+}
+
+/**
+ * Increments the focus count and updates the display with an animation.
+ */
+function updateFocusCount() {
+    focusCount++;
+    document.getElementById('focusCount').textContent = focusCount;
+    flashUpdate(document.getElementById('focusCount'));
+}
+
+/**
+ * Increments the break count and updates the display with an animation.
+ */
+function updateBreakCount() {
+    breakCount++;
+    document.getElementById('breakCount').textContent = breakCount;
+    flashUpdate(document.getElementById('breakCount'));
+}
+
+/**
+ * Saves daily goals to local storage.
+ */
+function saveGoalsToLocalStorage() {
+  const dailyFocusGoal = document.getElementById('dailyFocusGoal').value;
+  const dailyBreakGoal = document.getElementById('dailyBreakGoal').value;
+  const dailyCycleGoal = document.getElementById('dailyCycleGoal').value;
+
+  localStorage.setItem('dailyFocusGoal', dailyFocusGoal);
+  localStorage.setItem('dailyBreakGoal', dailyBreakGoal);
+  localStorage.setItem('dailyCycleGoal', dailyCycleGoal);
+}
+
+/**
+ * Loads daily goals from local storage.
+ */
+function loadGoalsFromLocalStorage() {
+  const dailyFocusGoal = localStorage.getItem('dailyFocusGoal') || 4;
+  const dailyBreakGoal = localStorage.getItem('dailyBreakGoal') || 4;
+  const dailyCycleGoal = localStorage.getItem('dailyCycleGoal') || 2;
+
+  document.getElementById('dailyFocusGoal').value = dailyFocusGoal;
+  document.getElementById('dailyBreakGoal').value = dailyBreakGoal;
+  document.getElementById('dailyCycleGoal').value = dailyCycleGoal;
 }
 
