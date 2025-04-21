@@ -1,8 +1,8 @@
 /* Import W3.CSS for additional styling utilities */
 @import url("https://www.w3schools.com/w3css/4/w3.css");
 
-/* Import Black Ops One font from Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap");
+/* Import Google Fonts at the top of your HTML or CSS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Share+Tech+Mono&display=swap');
 
 /* Prevent scrolling and center the content */
 html,
@@ -519,4 +519,25 @@ span[title] {
 /* Increase font-weight on small buttons */
 button.w3-small {
   font-weight: 600;
+}
+
+/* 🔤 Set global font for the app UI */
+body, h1, h2, h3, h4, h5, h6, p, button, input, label {
+  font-family: 'Inter', sans-serif;
+  font-weight: 400;
+  color: #222;
+}
+
+/* 🧱 Headings and labels */
+h1, h2, h3 {
+  font-weight: 600;
+}
+
+/* ⏲️ Timer Display – Digital Clock Style */
+#timer {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 64px;
+  font-weight: normal;
+  color: #333;
+  letter-spacing: 1px; /* optional: spacing for a segmented feel */
 }
