@@ -25,6 +25,7 @@ body {
   text-align: center;
   padding: 20px;
   /* Adds spacing inside the container */
+  padding-top: 40px; /* Add more space above the container */
 }
 
 body {
