@@ -177,18 +177,22 @@
           Timer Paused
         </div>
         <!-- Timer Controls -->
-        <button id="startPauseButton" onclick="toggleTimer()" class="w3-button w3-green w3-margin"
-          title="Start the Pomodoro timer to begin a focus session or pause it to take a break">
-          <i class="fas fa-play"></i> Start
-        </button>
-        <button onclick="confirmReset()" class="w3-button w3-gray w3-margin"
-          title="Reset the Pomodoro timer to its default focus and break duration settings">
-          <i class="fas fa-redo"></i> Reset
-        </button>
-        <button onclick="skipPhase()" class="w3-button w3-orange w3-margin"
-          title="Skip the current phase and jump to the next one">
-          <i class="fas fa-forward"></i> Skip Phase
-        </button>
+        <div class="timer-controls">
+          <div class="primary-action">
+            <button id="startPauseButton" onclick="toggleTimer()" class="w3-button w3-green" title="Start or pause the timer">
+              <i class="fas fa-play"></i> Start
+            </button>
+          </div>
+          <hr class="divider" />
+          <div class="secondary-actions">
+            <button onclick="confirmReset()" class="w3-button w3-gray" title="Reset the timer">
+              <i class="fas fa-redo"></i> Reset
+            </button>
+            <button onclick="skipPhase()" class="w3-button w3-orange" title="Skip the current phase">
+              <i class="fas fa-forward"></i> Skip Phase
+            </button>
+          </div>
+        </div>
       </section>
 
       <!-- Cycle Tracking Section -->
