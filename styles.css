@@ -467,6 +467,16 @@ span[title] {
   z-index: 10;
 }
 
+.slider-container button {
+  min-width: 80px;            /* give enough space */
+  padding: 6px 12px;          /* nice internal spacing */
+  white-space: nowrap;        /* prevents line break */
+  font-size: 14px;            /* slightly smaller text */
+  font-weight: 600;           /* keep it bold if needed */
+  box-sizing: border-box;     /* ensures padding doesn't exceed width */
+}
+
+
 .w3-tooltip:hover .w3-tooltip-content {
   display: block;
   /* Show on hover */

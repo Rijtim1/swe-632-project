@@ -89,18 +89,18 @@
           <div class="slider-container">
             <button class="w3-button w3-small w3-gray" onclick="adjustTime('focus', -5)"
               title="Decrease focus time by 5 minutes">
-              -
+              - 5 min
             </button>
 
             <input type="number" id="focusTimeInput" min="1" max="120" value="25" class="w3-input w3-border"
-              style="width: 70px" oninput="syncSliderWithInput('focus')" title="Manually enter focus time" />
+              style="width: 70px" oninput="syncSliderWithInput('focus')" title="Manually enter focus time" /> min
 
             <input type="range" id="focusTime" class="w3-input w3-border" min="1" max="120" value="25"
               oninput="syncInputWithSlider('focus')" />
 
             <button class="w3-button w3-small w3-gray" onclick="adjustTime('focus', 5)"
               title="Increase focus time by 5 minutes">
-              +
+              + 5 min
             </button>
           </div>
         </div>
@@ -110,18 +110,18 @@
           <div class="slider-container">
             <button class="w3-button w3-small w3-gray" onclick="adjustTime('break', -5)"
               title="Decrease break time by 5 minutes">
-              -
+              - 5 min
             </button>
 
             <input type="number" id="breakTimeInput" min="1" max="60" value="5" class="w3-input w3-border"
-              style="width: 70px" oninput="syncSliderWithInput('break')" title="Manually enter break time" />
+              style="width: 70px" oninput="syncSliderWithInput('break')" title="Manually enter break time" /> min
 
             <input type="range" id="breakTime" class="w3-input w3-border" min="1" max="60" value="5"
               oninput="syncInputWithSlider('break')" />
 
             <button class="w3-button w3-small w3-gray" onclick="adjustTime('break', 5)"
               title="Increase break time by 5 minutes">
-              +
+              + 5 min
             </button>
           </div>
         </div>
