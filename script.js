@@ -59,11 +59,12 @@ function updateUI() {
     const isBreak = onBreak && running;
     const isFocus = !onBreak && running;
 
-    statusMessage.textContent = !running
-        ? "Press Start to Begin"
+    // Update status message with text and icons
+    statusMessage.innerHTML = !running
+        ? '<span><i class="fas fa-play-circle"></i> Press Start to Begin</span>'
         : isBreak
-            ? "Break Time! Relax!"
-            : "Focus Time! Stay Productive!";
+            ? '<span><i class="fas fa-coffee"></i> Break Time! Relax!</span>'
+            : '<span><i class="fas fa-briefcase"></i> Focus Time! Stay Productive!</span>';
 
     statusMessage.classList.toggle("focus-mode", isFocus);
     statusMessage.classList.toggle("break-mode", isBreak);
@@ -88,11 +89,16 @@ function updateUI() {
  */
 function toggleTimer() {
     const button = document.getElementById("startPauseButton");
+    const pauseIndicator = document.getElementById("pauseIndicator");
+    const timerContainer = document.querySelector(".timer-container");
 
     if (!running) {
         running = true;
-        button.textContent = "Pause";
+        button.innerHTML = '<i class="fas fa-pause"></i> Pause'; // Update icon to pause
         button.classList.replace("w3-green", "w3-red");
+        pauseIndicator.style.display = "none";
+        timerContainer.classList.remove("paused");
+        progressRing.classList.remove("paused");
         updateUI();
 
         timer = setInterval(() => {
@@ -108,8 +114,11 @@ function toggleTimer() {
     } else {
         clearInterval(timer);
         running = false;
-        button.textContent = "Start";
+        button.innerHTML = '<i class="fas fa-play"></i> Start'; // Update icon to play
         button.classList.replace("w3-red", "w3-green");
+        pauseIndicator.style.display = "block";
+        timerContainer.classList.add("paused");
+        progressRing.classList.add("paused");
         updateUI();
     }
 }
@@ -170,7 +179,7 @@ function resetTimer() {
     progressRing.style.strokeDashoffset = circumference;
 
     const button = document.getElementById("startPauseButton");
-    button.textContent = "Start";
+    button.innerHTML = '<i class="fas fa-play"></i> Start'; // Update icon to play
     button.classList.replace("w3-red", "w3-green");
 }
 
@@ -339,5 +348,57 @@ function syncInputWithSlider(type) {
 
     input.value = value;
     updateTime(type, value);
+}
+
+/**
+ * Shows a confirmation dialog before resetting the timer.
+ */
+function confirmReset() {
+    if (confirm("Are you sure you want to reset the timer? This will erase all progress.")) {
+        resetTimer();
+    }
+}
+
+/**
+ * Skips the current phase and transitions to the next one.
+ *
+ * If the current phase is focus, it transitions to break, and vice versa.
+ * Updates the timer, UI, and cycle tracking accordingly.
+ */
+function skipPhase() {
+    clearInterval(timer);
+    running = false;
+
+    if (onBreak) {
+        breakCount++;
+        if (focusCount > 0) {
+            cycleCount++;
+        }
+    } else {
+        focusCount++;
+    }
+
+    onBreak = !onBreak;
+    timeLeft = onBreak ? breakTime : focusTime;
+
+    updateUI();
+    updateDisplay();
+    updateCycleTracking();
+
+    // Update pause indicator to reflect paused state
+    const pauseIndicator = document.getElementById("pauseIndicator");
+    pauseIndicator.style.display = "block"; // Show pause indicator
+
+    // Update timer container to reflect the new phase
+    const timerContainer = document.getElementById("timerContainer");
+    timerContainer.classList.toggle("break-phase", onBreak);
+
+    // Reset progress ring for the new phase
+    progressRing.style.strokeDashoffset = circumference;
+
+    // Update start/pause button to reflect paused state
+    const button = document.getElementById("startPauseButton");
+    button.innerHTML = '<i class="fas fa-play"></i> Start'; // Reset button to start
+    button.classList.replace("w3-red", "w3-green");
 }
 

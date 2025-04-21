@@ -98,6 +98,16 @@ button:focus {
   /* Darker blue on hover */
 }
 
+/* Skip Phase button styling */
+button.w3-orange {
+  background-color: #ffa500; /* Orange background */
+  color: white; /* White text */
+}
+
+button.w3-orange:hover {
+  background-color: #ff8c00; /* Darker orange on hover */
+}
+
 /* Timer display styling */
 #timer {
   font-size: 64px;
@@ -131,6 +141,18 @@ button:focus {
   /* Adapts to smaller screens */
   box-sizing: border-box;
   /* Includes padding in width calculation */
+}
+
+/* Styles for icons and alignment with text */
+#statusMessage span {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.2rem;
+}
+
+#statusMessage i {
+  font-size: 1.5rem;
 }
 
 /* Focus mode styling */
@@ -306,6 +328,14 @@ input:checked+.slider:before {
   /* Blue for break */
 }
 
+/* Paused state color for progress ring */
+.progress-ring__circle.paused {
+  stroke: #ffcc00;
+  /* Yellow for paused state */
+  stroke-dasharray: 4;
+  /* Dashed stroke for visual distinction */
+}
+
 /* Timer positioning inside the progress circle */
 #timer {
   position: absolute;
@@ -325,6 +355,21 @@ input:checked+.slider:before {
   /* Neutral text color */
   font-family: "Black Ops One", "Courier New", Courier, monospace;
   /* Monospace font */
+}
+
+/* Timer dimming for paused state */
+.timer-container.paused #timer {
+  opacity: 0.5;
+  /* Dim the timer display */
+}
+
+/* Pause indicator styling */
+#pauseIndicator {
+  margin-top: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  display: none;
+  /* Hidden by default */
 }
 
 /* Cycle tracking section styling */
@@ -394,4 +439,36 @@ input[type="number"] {
   /* Adds spacing above the message */
   text-align: center;
   /* Centers the text */
+}
+
+/* Tooltip styling */
+span[title] {
+  cursor: help;
+  text-decoration: underline dotted;
+}
+
+/* Tooltip container styling */
+.w3-tooltip {
+  position: relative;
+}
+
+.w3-tooltip-content {
+  position: absolute;
+  bottom: 100%;
+  /* Position above the button */
+  left: 50%;
+  transform: translateX(-50%);
+  display: none;
+  /* Hide by default */
+  padding: 5px;
+  background-color: #f1f1f1;
+  color: #000;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.w3-tooltip:hover .w3-tooltip-content {
+  display: block;
+  /* Show on hover */
 }
