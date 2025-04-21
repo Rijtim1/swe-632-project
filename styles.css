@@ -9,11 +9,9 @@ html,
 body {
   margin: 0;
   padding: 0;
-  /* Prevents scrolling */
-  height: 100vh;
-  /* Ensures full height usage */
+  height: 100vh; /* Ensures full height usage */
+  /* overflow: hidden; Prevents scrolling */
   display: flex;
-  /* Centers content horizontally and vertically */
   justify-content: center;
   align-items: center;
 }
