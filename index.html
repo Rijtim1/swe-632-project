@@ -30,7 +30,7 @@
       <div class="w3-modal-content w3-padding">
         <!-- Close button for Help Modal -->
         <span onclick="toggleModal('helpModal', false)" class="w3-button w3-display-topright"
-          aria-label="Close Help Modal" title="Close the Help Modal">&times;</span>
+          aria-label="Close Help Modal" title="Close the Help Modal"><i class="fas fa-times" aria-hidden="true"></i></span>
         <!-- Help Modal Content -->
         <h2 id="helpModalTitle">How to Use the Pomodoro Timer</h2>
         <p><strong>Focus Time:</strong> Work without distractions.</p>
@@ -53,15 +53,7 @@
           Use the <strong>"Skip Phase"</strong> button to jump directly to the next phase (focus or break) without
           waiting for the current phase to end.
         </p>
-        <p>
-          Set your daily goals for focus sessions, break sessions, and cycles in the settings. These goals help you
-          track your productivity and ensure you maintain a healthy balance between work and rest.
-        </p>
-        <p>
-          The <strong>Cycle Tracking</strong> section displays your progress towards these goals, showing the number of
-          completed cycles, focus sessions, and break sessions. Use this feature to stay motivated and monitor your
-          achievements throughout the day.
-        </p>
+
       </div>
     </div>
 
@@ -77,7 +69,7 @@
       <div class="w3-modal-content w3-padding">
         <!-- Close button for Settings Modal -->
         <span onclick="toggleModal('settingsModal', false)" class="w3-button w3-display-topright"
-          aria-label="Close Settings Modal" title="Close the Settings Modal">&times;</span>
+          aria-label="Close Settings Modal" title="Close the Settings Modal"><i class="fas fa-times"></i></span>
         <!-- Settings Modal Content -->
         <h2 id="settingsModalTitle">Settings</h2>
         <!-- Audio Notification Toggle -->
@@ -276,7 +268,9 @@
         <div class="w3-modal-content w3-padding">
           <!-- Close button for Cycle Modal -->
           <span onclick="toggleModal('cycleModal', false)" class="w3-button w3-display-topright"
-            aria-label="Close Cycle Modal" title="Close the Cycle Modal">&times;</span>
+            aria-label="Close Cycle Modal" title="Close the Cycle Modal"><i class="fas fa-times"></i></span>
+
+
           <!-- Cycle Modal Content -->
           <h2 id="cycleModalTitle">What is a Cycle?</h2>
           <p>
@@ -288,6 +282,16 @@
             displayed in the
             <strong>Cycle Tracking</strong> section. Use this feature to monitor your productivity and ensure you're
             taking regular breaks.
+          </p>
+          <p>
+            Set your daily goals for focus sessions, break sessions, and cycles in the settings. These goals help you
+            track your productivity and ensure you maintain a healthy balance between work and rest.
+          </p>
+          <p>
+            The <strong>Cycle Tracking</strong> section displays your progress towards these goals, showing the number
+            of
+            completed cycles, focus sessions, and break sessions. Use this feature to stay motivated and monitor your
+            achievements throughout the day.
           </p>
         </div>
       </div>
