@@ -382,6 +382,15 @@ function syncInputWithSlider(type) {
 function confirmReset() {
     if (confirm("Are you sure you want to reset the timer? This will erase all progress.")) {
         resetTimer();
+
+        // Show reset confirmation message
+        const resetConfirmation = document.getElementById("resetConfirmation");
+        resetConfirmation.style.display = "block";
+
+        // Hide the message after 3 seconds
+        setTimeout(() => {
+            resetConfirmation.style.display = "none";
+        }, 3000);
     }
 }
 
