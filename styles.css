@@ -624,3 +624,33 @@ h1, h2, h3 {
   border: 1px solid #ccc;
   text-align: center;
 }
+
+/* Modal close button */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: #333;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  background-color: rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .modal-close {
+    top: 8px;
+    right: 8px;
+    font-size: 32px;
+    padding: 12px;
+  }
+}
