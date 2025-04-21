@@ -68,7 +68,7 @@ button {
   transition: transform 0.2s;
   /* Smooth hover effect for transform only */
   font-weight: 600;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  text-shadow: none !important;
 }
 
 /* Hover effect for buttons */
@@ -501,12 +501,22 @@ span[title] {
 
 /* Updated blue button for better contrast */
 .w3-blue {
-  background-color: #1669c1; /* Darker blue */
-  color: white;
+  background-color: #1669c1 !important;
+  color: #ffffff !important;
 }
 
 /* Updated green button for better contrast */
 .w3-green {
-  background-color: #146c2f; /* Darker green */
-  color: white;
+  background-color: #146c2f !important;
+  color: #ffffff !important;
+}
+
+/* Update Cycle Tracking section heading */
+#cycleTrackingTitle {
+  color: #0b3d91 !important;
+}
+
+/* Increase font-weight on small buttons */
+button.w3-small {
+  font-weight: 600;
 }
