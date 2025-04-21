@@ -551,3 +551,25 @@ h1, h2, h3 {
   color: #333;
   letter-spacing: 1px; /* optional: spacing for a segmented feel */
 }
+
+/* Updated CSS for better contrast */
+.w3-small.w3-text-gray {
+  color: #555 !important;
+}
+
+/* Add animation for stat card updates */
+.stat-card.updated {
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Add top border colors for stat cards */
+.stat-card.focus {
+  border-top: 4px solid #2196f3;
+}
+.stat-card.break {
+  border-top: 4px solid #ffa500;
+}
+.stat-card.cycle {
+  border-top: 4px solid #28a745;
+}

@@ -139,12 +139,12 @@ function handleTimerEnd() {
     }
 
     if (onBreak) {
-        breakCount++;
+        updateBreakCount();
         if (focusCount > 0) {
-            cycleCount++;
+            updateCycleCount();
         }
     } else {
-        focusCount++;
+        updateFocusCount();
     }
 
     onBreak = !onBreak;
@@ -370,12 +370,12 @@ function skipPhase() {
     running = false;
 
     if (onBreak) {
-        breakCount++;
+        updateBreakCount();
         if (focusCount > 0) {
-            cycleCount++;
+            updateCycleCount();
         }
     } else {
-        focusCount++;
+        updateFocusCount();
     }
 
     onBreak = !onBreak;
@@ -400,5 +400,42 @@ function skipPhase() {
     const button = document.getElementById("startPauseButton");
     button.innerHTML = '<i class="fas fa-play"></i> Start'; // Reset button to start
     button.classList.replace("w3-red", "w3-green");
+}
+
+/**
+ * Adds a flash animation to an element when its value is updated.
+ *
+ * @param {HTMLElement} el - The element to animate.
+ */
+function flashUpdate(el) {
+    el.classList.add('updated');
+    setTimeout(() => el.classList.remove('updated'), 400);
+}
+
+/**
+ * Increments the cycle count and updates the display with an animation.
+ */
+function updateCycleCount() {
+    cycleCount++;
+    document.getElementById('cycleCount').textContent = cycleCount;
+    flashUpdate(document.getElementById('cycleCount'));
+}
+
+/**
+ * Increments the focus count and updates the display with an animation.
+ */
+function updateFocusCount() {
+    focusCount++;
+    document.getElementById('focusCount').textContent = focusCount;
+    flashUpdate(document.getElementById('focusCount'));
+}
+
+/**
+ * Increments the break count and updates the display with an animation.
+ */
+function updateBreakCount() {
+    breakCount++;
+    document.getElementById('breakCount').textContent = breakCount;
+    flashUpdate(document.getElementById('breakCount'));
 }
 
