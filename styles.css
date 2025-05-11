@@ -1,21 +1,72 @@
 /* Import W3.CSS for additional styling utilities */
 @import url("https://www.w3schools.com/w3css/4/w3.css");
 
-/* Import Black Ops One font from Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap");
+/* Import Google Fonts at the top of your HTML or CSS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Share+Tech+Mono&display=swap');
 
-/* Prevent scrolling and center the content */
-html,
-body {
+/* ========================= */
+/* Variables and Global Styles */
+/* ========================= */
+:root {
+  --primary-color: #1669c1;
+  --secondary-color: #28a745;
+  --danger-color: #b22222;
+  --neutral-color: #333;
+  --background-color: #ff9a9e;
+  --font-family: 'Inter', sans-serif;
+  --font-family-mono: 'Share Tech Mono', monospace;
+  --font-size-large: 64px;
+  --font-size-medium: 18px;
+  --font-size-small: 14px;
+  --border-radius: 6px;
+  --box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  --transition-duration: 0.3s;
+}
+
+/* Reset and Global Styles */
+html, body {
   margin: 0;
   padding: 0;
-  /* Prevents scrolling */
   height: 100vh;
-  /* Ensures full height usage */
   display: flex;
-  /* Centers content horizontally and vertically */
   justify-content: center;
   align-items: center;
+  font-family: var(--font-family);
+  background: var(--background-color);
+  color: var(--neutral-color);
+}
+
+body {
+  text-align: center;
+}
+
+/* Utility Classes */
+.text-center {
+  text-align: center;
+}
+
+.rounded {
+  border-radius: var(--border-radius);
+}
+
+.shadow {
+  box-shadow: var(--box-shadow);
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.p-20 {
+  padding: 20px;
 }
 
 /* Ensure the container doesn't overflow */
@@ -25,14 +76,7 @@ body {
   text-align: center;
   padding: 20px;
   /* Adds spacing inside the container */
-}
-
-body {
-  font-family: Arial, sans-serif;
-  /* Sets a clean, readable font */
-  text-align: center;
-  /* Gradient background for modern browsers */
-  background: #ff9a9e;
+  padding-top: 40px; /* Add more space above the container */
 }
 
 /* Card styling for a clean, centered layout */
@@ -41,19 +85,19 @@ body {
   /* Restricts card width */
   margin: auto;
   /* Centers the card */
-  padding: 20px;
+  padding: var(--p-20);
   /* Adds spacing inside the card */
   background: white;
   /* Sets a white background */
-  border-radius: 10px;
+  border-radius: var(--border-radius);
   /* Rounds the corners */
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--box-shadow);
   /* Adds a subtle shadow */
 }
 
 /* Button styling for consistent appearance */
 button {
-  font-size: 18px;
+  font-size: var(--font-size-medium);
   /* Sets button text size */
   padding: 12px 24px;
   /* Adds padding for better clickability */
@@ -63,10 +107,12 @@ button {
   /* Changes cursor to pointer on hover */
   border: none;
   /* Removes default border */
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   /* Rounds button corners */
-  transition: transform 0.2s;
+  transition: transform var(--transition-duration);
   /* Smooth hover effect for transform only */
+  font-weight: 600;
+  text-shadow: none !important;
 }
 
 /* Hover effect for buttons */
@@ -77,8 +123,7 @@ button:hover {
 
 /* Focus outline for accessibility */
 button:focus {
-  outline: 2px solid #2196f3;
-  /* Adds focus outline */
+  outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
 
@@ -89,7 +134,7 @@ button:focus {
 }
 
 .w3-red:hover {
-  background: #b22222;
+  background: var(--danger-color);
   /* Darker red on hover */
 }
 
@@ -110,16 +155,12 @@ button.w3-orange:hover {
 
 /* Timer display styling */
 #timer {
-  font-size: 64px;
-  /* Large font size for visibility */
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-large);
   font-weight: bold;
-  /* Bold text for emphasis */
-  color: #333;
-  /* Neutral text color */
-  margin: 20px 0;
-  /* Adds spacing around the timer */
-  font-family: "Black Ops One", "Courier New", Courier, monospace;
-  /* Use Black Ops One font for the clock face */
+  color: var(--neutral-color);
+  margin: var(--mt-20);
+  letter-spacing: 1px; /* optional: spacing for a segmented feel */
 }
 
 /* Status message styling for focus/break transitions */
@@ -131,9 +172,9 @@ button.w3-orange:hover {
   margin: 10px auto;
   /* Centers the message */
   text-align: center;
-  padding: 10px;
+  padding: var(--p-10);
   /* Adds spacing inside the message box */
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   /* Rounds the corners */
   display: inline-block;
   /* Ensures proper alignment */
@@ -157,7 +198,7 @@ button.w3-orange:hover {
 
 /* Focus mode styling */
 .focus-mode {
-  color: #28a745;
+  color: var(--secondary-color);
   /* Calming green text */
   background: rgba(40, 167, 69, 0.2);
   /* Light green background */
@@ -173,7 +214,7 @@ button.w3-orange:hover {
 
 /* Notification styling for time-up alerts */
 #notification {
-  margin-top: 20px;
+  margin-top: var(--mt-20);
   /* Adds spacing above the notification */
   font-size: 20px;
   /* Medium font size */
@@ -181,9 +222,9 @@ button.w3-orange:hover {
   /* White text for contrast */
   background: red;
   /* Red background for urgency */
-  padding: 10px;
+  padding: var(--p-10);
   /* Adds spacing inside the notification */
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   /* Rounds the corners */
   display: none;
   /* Hidden by default */
@@ -234,7 +275,7 @@ button.w3-orange:hover {
   bottom: 0;
   background-color: #ccc;
   /* Default background color */
-  transition: 0.4s;
+  transition: var(--transition-duration);
   /* Smooth transition for background color */
   border-radius: 20px;
   /* Rounds the slider */
@@ -242,8 +283,7 @@ button.w3-orange:hover {
 
 /* Focus outline for slider */
 .slider:focus {
-  outline: 2px solid #2196f3;
-  /* Adds focus outline */
+  outline: 2px solid var(--primary-color);
   outline-offset: 2px;
 }
 
@@ -261,7 +301,7 @@ button.w3-orange:hover {
   /* Position from the bottom */
   background-color: white;
   /* White knob */
-  transition: 0.4s;
+  transition: var(--transition-duration);
   /* Smooth transition for position */
   border-radius: 50%;
   /* Rounds the knob */
@@ -345,15 +385,15 @@ input:checked+.slider:before {
   /* Centers horizontally */
   transform: translate(-50%, -50%);
   /* Adjusts for exact centering */
-  font-size: 64px;
+  font-size: var(--font-size-large);
   /* Large font size */
   margin: 0;
   /* Removes default margin */
   font-weight: bold;
   /* Bold text */
-  color: #333;
+  color: var(--neutral-color);
   /* Neutral text color */
-  font-family: "Black Ops One", "Courier New", Courier, monospace;
+  font-family: var(--font-family-mono);
   /* Monospace font */
 }
 
@@ -366,7 +406,7 @@ input:checked+.slider:before {
 /* Pause indicator styling */
 #pauseIndicator {
   margin-top: 10px;
-  font-size: 18px;
+  font-size: var(--font-size-medium);
   font-weight: bold;
   display: none;
   /* Hidden by default */
@@ -390,15 +430,14 @@ input:checked+.slider:before {
 #cycleTracking h3 {
   margin-bottom: 10px;
   /* Adds spacing below the header */
-  color: #333;
-  /* Neutral text color */
+  color: #0b3d91; /* Stronger blue */
 }
 
 /* Cycle tracking paragraph styling */
 #cycleTracking p {
   margin: 5px 0;
   /* Adds spacing between paragraphs */
-  font-size: 18px;
+  font-size: var(--font-size-medium);
   /* Medium font size */
   color: #555;
   /* Subtle text color */
@@ -431,9 +470,9 @@ input[type="number"] {
 
 /* Notification settings styling */
 .notification-settings {
-  color: #b22222;
+  color: var(--danger-color);
   /* Red color for error messages */
-  font-size: 14px;
+  font-size: var(--font-size-small);
   /* Small font size */
   margin-top: 10px;
   /* Adds spacing above the message */
@@ -468,7 +507,199 @@ span[title] {
   z-index: 10;
 }
 
+.slider-container button {
+  min-width: 80px;            /* give enough space */
+  padding: 6px 12px;          /* nice internal spacing */
+  white-space: nowrap;        /* prevents line break */
+  font-size: 14px;            /* slightly smaller text */
+  font-weight: 600;           /* keep it bold if needed */
+  box-sizing: border-box;     /* ensures padding doesn't exceed width */
+}
+
+
 .w3-tooltip:hover .w3-tooltip-content {
   display: block;
   /* Show on hover */
+}
+
+/* Timer controls styling */
+.timer-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.primary-action button {
+  font-size: 20px;
+  padding: 14px 28px;
+}
+
+.secondary-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.divider {
+  width: 100%;
+  max-width: 250px;
+  border: none;
+  border-top: 1px solid #ccc;
+  margin: 10px 0;
+}
+
+/* Updated blue button for better contrast */
+.w3-blue {
+  background-color: var(--primary-color) !important;
+  color: #ffffff !important;
+}
+
+/* Updated green button for better contrast */
+.w3-green {
+  background-color: #146c2f !important;
+  color: #ffffff !important;
+}
+
+/* Update Cycle Tracking section heading */
+#cycleTrackingTitle {
+  color: #0b3d91 !important;
+}
+
+/* Increase font-weight on small buttons */
+button.w3-small {
+  font-weight: 600;
+}
+
+/* 🔤 Set global font for the app UI */
+body, h1, h2, h3, h4, h5, h6, p, button, input, label {
+  font-family: var(--font-family);
+  font-weight: 400;
+  color: #222;
+}
+
+/* 🧱 Headings and labels */
+h1, h2, h3 {
+  font-weight: 600;
+}
+
+/* ⏲️ Timer Display – Digital Clock Style */
+#timer {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-large);
+  font-weight: normal;
+  color: var(--neutral-color);
+  letter-spacing: 1px; /* optional: spacing for a segmented feel */
+}
+
+/* Updated CSS for better contrast */
+.w3-small.w3-text-gray {
+  color: #555 !important;
+}
+
+/* Add animation for stat card updates */
+.stat-card.updated {
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Add top border colors for stat cards */
+.stat-card.focus {
+  border-top: 4px solid #2196f3;
+}
+.stat-card.break {
+  border-top: 4px solid #ffa500;
+}
+.stat-card.cycle {
+  border-top: 4px solid #28a745;
+}
+
+/* Progress bar styling */
+.progress-bar {
+  width: 100%;
+  background-color: #ddd;
+  border-radius: 5px;
+  height: 6px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  transition: width 0.3s ease-in-out;
+}
+
+.progress-fill.focus {
+  background-color: #2196f3;
+}
+
+.progress-fill.break {
+  background-color: #ffa500;
+}
+
+.progress-fill.cycle {
+  background-color: #28a745;
+}
+
+/* Style for the Daily Goals input section */
+.daily-goals {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-top: 20px;
+}
+
+/* Goal labels and inputs */
+.daily-goals label {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.daily-goals input[type="number"] {
+  width: 200px;         /* fixed consistent width */
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+/* Modal close button */
+.modal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 28px;
+  background: none;
+  border: none;
+  color: var(--neutral-color);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--border-radius);
+  transition: background-color var(--transition-duration);
+}
+
+.modal-close:hover,
+.modal-close:focus {
+  background-color: rgba(0, 0, 0, 0.1);
+  outline: none;
+}
+
+@media (max-width: 600px) {
+  .modal-close {
+    top: 8px;
+    right: 8px;
+    font-size: 32px;
+    padding: 12px;
+  }
+}
+
+header {
+  margin-top: 20px; /* Add space above the header */
+}
+
+h1 {
+  margin-top: 10px; /* Add space above the title */
+  padding-top: 10px; /* Optional: Add internal spacing */
 }

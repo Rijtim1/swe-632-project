@@ -20,8 +20,7 @@
     </header>
 
     <!-- Help Modal Button -->
-    <button class="w3-button w3-blue w3-margin" onclick="toggleModal('helpModal', true)"
-      title="Open the help modal to learn how to use the Pomodoro Timer effectively" aria-controls="helpModal">
+    <button class="w3-button w3-blue w3-margin" onclick="toggleModal('helpModal', true)" aria-controls="helpModal">
       <i class="w3-margin-right" aria-hidden="true">ℹ️</i>How it Works?
     </button>
 
@@ -30,7 +29,7 @@
       <div class="w3-modal-content w3-padding">
         <!-- Close button for Help Modal -->
         <span onclick="toggleModal('helpModal', false)" class="w3-button w3-display-topright"
-          aria-label="Close Help Modal">&times;</span>
+          aria-label="Close Help Modal"><i class="fas fa-times" aria-hidden="true"></i></span>
         <!-- Help Modal Content -->
         <h2 id="helpModalTitle">How to Use the Pomodoro Timer</h2>
         <p><strong>Focus Time:</strong> Work without distractions.</p>
@@ -50,15 +49,15 @@
           productive!
         </p>
         <p>
-          Use the <strong>"Skip Phase"</strong> button to jump directly to the next phase (focus or break) without waiting for the current phase to end.
+          Use the <strong>"Skip Phase"</strong> button to jump directly to the next phase (focus or break) without
+          waiting for the current phase to end.
         </p>
+
       </div>
     </div>
 
     <!-- Settings Button -->
-    <button class="w3-button w3-blue w3-margin" onclick="toggleModal('settingsModal', true)"
-      title="Open the settings modal to configure timer preferences, notifications, and presets"
-      aria-controls="settingsModal">
+    <button class="w3-button w3-blue w3-margin" onclick="toggleModal('settingsModal', true)" aria-controls="settingsModal">
       <i class="w3-margin-right" aria-hidden="true">⚙️</i>Settings
     </button>
 
@@ -67,7 +66,7 @@
       <div class="w3-modal-content w3-padding">
         <!-- Close button for Settings Modal -->
         <span onclick="toggleModal('settingsModal', false)" class="w3-button w3-display-topright"
-          aria-label="Close Settings Modal">&times;</span>
+          aria-label="Close Settings Modal"><i class="fas fa-times"></i></span>
         <!-- Settings Modal Content -->
         <h2 id="settingsModalTitle">Settings</h2>
         <!-- Audio Notification Toggle -->
@@ -75,7 +74,7 @@
           Audio Notification:
           <label class="switch" aria-label="Enable or disable audio notifications">
             <input type="checkbox" id="audioToggle" onchange="toggleAudioSetting()"
-              title="Toggle audio notification on or off" />
+              title="Toggle Audio Notification On or Off" />
             <span class="slider round"></span>
           </label>
         </label>
@@ -88,19 +87,19 @@
           <label class="w3-text-black">Focus Time (1–120 minutes):</label>
           <div class="slider-container">
             <button class="w3-button w3-small w3-gray" onclick="adjustTime('focus', -5)"
-              title="Decrease focus time by 5 minutes">
-              -
+              title="Decrease Focus Time by 5 Minutes">
+              - 5 min
             </button>
 
             <input type="number" id="focusTimeInput" min="1" max="120" value="25" class="w3-input w3-border"
-              style="width: 70px" oninput="syncSliderWithInput('focus')" title="Manually enter focus time" />
+              style="width: 70px" oninput="syncSliderWithInput('focus')" title="Manually Enter Focus Time" /> min
 
             <input type="range" id="focusTime" class="w3-input w3-border" min="1" max="120" value="25"
-              oninput="syncInputWithSlider('focus')" />
+              oninput="syncInputWithSlider('focus')" title="Adjust Focus Time Using Slider" />
 
             <button class="w3-button w3-small w3-gray" onclick="adjustTime('focus', 5)"
-              title="Increase focus time by 5 minutes">
-              +
+              title="Increase Focus Time by 5 Minutes">
+              + 5 min
             </button>
           </div>
         </div>
@@ -109,19 +108,19 @@
           <label class="w3-text-black">Break Time (1–60 minutes):</label>
           <div class="slider-container">
             <button class="w3-button w3-small w3-gray" onclick="adjustTime('break', -5)"
-              title="Decrease break time by 5 minutes">
-              -
+              title="Decrease Break Time by 5 Minutes">
+              - 5 min
             </button>
 
             <input type="number" id="breakTimeInput" min="1" max="60" value="5" class="w3-input w3-border"
-              style="width: 70px" oninput="syncSliderWithInput('break')" title="Manually enter break time" />
+              style="width: 70px" oninput="syncSliderWithInput('break')" title="Manually Enter Break Time" /> min
 
             <input type="range" id="breakTime" class="w3-input w3-border" min="1" max="60" value="5"
-              oninput="syncInputWithSlider('break')" />
+              oninput="syncInputWithSlider('break')" title="Adjust Break Time Using Slider" />
 
             <button class="w3-button w3-small w3-gray" onclick="adjustTime('break', 5)"
-              title="Increase break time by 5 minutes">
-              +
+              title="Increase Break Time by 5 Minutes">
+              + 5 min
             </button>
           </div>
         </div>
@@ -132,22 +131,34 @@
         <div class="w3-margin-top">
           <!-- Preset Buttons -->
           <button class="w3-button w3-light-gray" onclick="setPreset(5, 1)"
-            title="Set focus time to 5 minutes and break time to 1 minute">
+            title="Set Focus Time to 5 Minutes and Break Time to 1 Minute">
             5m/1m
           </button>
           <button class="w3-button w3-light-gray" onclick="setPreset(25, 5)"
-            title="Set focus time to 25 minutes and break time to 5 minutes">
+            title="Set Focus Time to 25 Minutes and Break Time to 5 Minutes">
             25m/5m
           </button>
           <button class="w3-button w3-light-gray" onclick="setPreset(50, 10)"
-            title="Set focus time to 50 minutes and break time to 10 minutes">
+            title="Set Focus Time to 50 Minutes and Break Time to 10 Minutes">
             50m/10m
           </button>
           <button class="w3-button w3-light-gray" onclick="setPreset(90, 15)"
-            title="Set focus time to 90 minutes and break time to 15 minutes">
+            title="Set Focus Time to 90 Minutes and Break Time to 15 Minutes">
             90m/15m
           </button>
         </div>
+
+        <div class="daily-goals">
+          <label for="focusGoal">Daily Focus Session Goal:</label>
+          <input type="number" id="focusGoal" min="1" value="4" title="Set your daily focus session goal" />
+
+          <label for="breakGoal">Daily Break Session Goal:</label>
+          <input type="number" id="breakGoal" min="1" value="4" title="Set your daily break session goal" />
+
+          <label for="cycleGoal">Daily Cycle Goal:</label>
+          <input type="number" id="cycleGoal" min="1" value="2" title="Set your daily cycle goal" />
+        </div>
+
 
         <div class="w3-section w3-center">
           <button class="w3-button w3-red w3-margin-top" onclick="toggleModal('settingsModal', false)">
@@ -177,57 +188,75 @@
           Timer Paused
         </div>
         <!-- Timer Controls -->
-        <button id="startPauseButton" onclick="toggleTimer()" class="w3-button w3-green w3-margin"
-          title="Start the Pomodoro timer to begin a focus session or pause it to take a break">
-          <i class="fas fa-play"></i> Start
-        </button>
-        <button onclick="confirmReset()" class="w3-button w3-gray w3-margin"
-          title="Reset the Pomodoro timer to its default focus and break duration settings">
-          <i class="fas fa-redo"></i> Reset
-        </button>
-        <button onclick="skipPhase()" class="w3-button w3-orange w3-margin"
-          title="Skip the current phase and jump to the next one">
-          <i class="fas fa-forward"></i> Skip Phase
-        </button>
+        <div class="timer-controls">
+          <div class="primary-action">
+            <button id="startPauseButton" onclick="toggleTimer()" class="w3-button w3-green">
+              <i class="fas fa-play"></i> Start
+            </button>
+          </div>
+          <hr class="divider" />
+          <div class="secondary-actions">
+            <button onclick="confirmReset()" class="w3-button w3-gray" title="Reset the Timer">
+              <i class="fas fa-redo"></i> Reset
+            </button>
+            <button onclick="skipPhase()" class="w3-button w3-orange" title="Skip the Current Phase">
+              <i class="fas fa-forward"></i> Skip Phase
+            </button>
+          </div>
+        </div>
+        <div id="resetConfirmation" class="w3-text-green w3-center w3-animate-opacity" style="display: none;">
+          <i class="fas fa-check-circle"></i> Timer has been reset successfully!
+        </div>
       </section>
 
       <!-- Cycle Tracking Section -->
       <section id="cycleTracking" class="w3-section" aria-labelledby="cycleTrackingTitle">
         <h3 id="cycleTrackingTitle" class="w3-center w3-text-blue">
           Cycle Tracking
-          <button class="w3-button w3-small w3-blue w3-margin-left w3-tooltip" onclick="toggleModal('cycleModal', true)" 
-            title="Learn more about cycles and how they are tracked" aria-controls="cycleModal">
+
+          <button class="w3-button w3-small w3-blue w3-margin-left w3-tooltip" onclick="toggleModal('cycleModal', true)"
+            title="Learn More About Cycles and How They Are Tracked" aria-controls="cycleModal">
             <i class="fas fa-info-circle"></i> Learn More
             <span class="w3-text w3-tag w3-light-gray w3-small w3-round w3-tooltip-content">
               Click to learn about cycles and their importance in productivity tracking.
             </span>
           </button>
         </h3>
+        <p class="w3-text-gray w3-small">Stats shown are for this session only</p>
         <div class="w3-row-padding">
           <div class="w3-third w3-padding-small">
-            <div class="w3-card w3-padding w3-center w3-light-gray w3-round">
+            <div class="w3-card w3-padding w3-center w3-light-gray w3-round stat-card cycle">
               <h4 class="w3-medium">
                 Completed Cycles
               </h4>
               <p class="w3-xxlarge w3-text-green">
                 <span id="cycleCount">0</span>
               </p>
+              <div class="progress-bar">
+                <div id="cycleBar" class="progress-fill cycle"></div>
+              </div>
             </div>
           </div>
           <div class="w3-third w3-padding-small">
-            <div class="w3-card w3-padding w3-center w3-light-gray w3-round">
+            <div class="w3-card w3-padding w3-center w3-light-gray w3-round stat-card focus">
               <h4 class="w3-medium">
                 Focus Sessions
               </h4>
               <p class="w3-xxlarge w3-text-blue"><span id="focusCount">0</span></p>
+              <div class="progress-bar">
+                <div id="focusBar" class="progress-fill focus"></div>
+              </div>
             </div>
           </div>
           <div class="w3-third w3-padding-small">
-            <div class="w3-card w3-padding w3-center w3-light-gray w3-round">
+            <div class="w3-card w3-padding w3-center w3-light-gray w3-round stat-card break">
               <h4 class="w3-medium">
                 Break Sessions
               </h4>
               <p class="w3-xxlarge w3-text-orange"><span id="breakCount">0</span></p>
+              <div class="progress-bar">
+                <div id="breakBar" class="progress-fill break"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -237,8 +266,10 @@
       <div id="cycleModal" class="w3-modal" role="dialog" aria-labelledby="cycleModalTitle" aria-hidden="true">
         <div class="w3-modal-content w3-padding">
           <!-- Close button for Cycle Modal -->
-          <span onclick="toggleModal('cycleModal', false)" class="w3-button w3-display-topright" 
-            aria-label="Close Cycle Modal">&times;</span>
+          <span onclick="toggleModal('cycleModal', false)" class="w3-button w3-display-topright"
+            aria-label="Close Cycle Modal" title="Close the Cycle Modal"><i class="fas fa-times"></i></span>
+
+
           <!-- Cycle Modal Content -->
           <h2 id="cycleModalTitle">What is a Cycle?</h2>
           <p>
@@ -246,8 +277,20 @@
           </p>
           <h3>How Cycle Tracking Works</h3>
           <p>
-            The timer tracks the number of completed cycles, focus sessions, and break sessions. These counts are displayed in the
-            <strong>Cycle Tracking</strong> section. Use this feature to monitor your productivity and ensure you're taking regular breaks.
+            The timer tracks the number of completed cycles, focus sessions, and break sessions. These counts are
+            displayed in the
+            <strong>Cycle Tracking</strong> section. Use this feature to monitor your productivity and ensure you're
+            taking regular breaks.
+          </p>
+          <p>
+            Set your daily goals for focus sessions, break sessions, and cycles in the settings. These goals help you
+            track your productivity and ensure you maintain a healthy balance between work and rest.
+          </p>
+          <p>
+            The <strong>Cycle Tracking</strong> section displays your progress towards these goals, showing the number
+            of
+            completed cycles, focus sessions, and break sessions. Use this feature to stay motivated and monitor your
+            achievements throughout the day.
           </p>
         </div>
       </div>
@@ -256,7 +299,7 @@
       <footer>
         <p>
           <a href="https://en.wikipedia.org/wiki/Pomodoro_Technique" target="_blank" rel="noopener noreferrer"
-            title="Learn more about the Pomodoro Technique">
+            title="Learn More About the Pomodoro Technique">
             Learn more about the Pomodoro Technique
           </a>
         </p>
